@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "export $(cat .env) && cd dist && jest -i",
+    "start": "export $(cat .env) && cd dist && jest -i --verbose",
     "build": "rimraf dist/ && babel ./src --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files"
   },
   "devDependencies": {
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
+    "expect-puppeteer": "^3.0.1",
     "jest": "^22.0.0",
     "jest-puppeteer": "^2.4.0",
     "mkdirp": "^0.5.1",

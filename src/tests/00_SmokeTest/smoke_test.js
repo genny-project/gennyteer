@@ -10,7 +10,7 @@ describe( 'Smoke Tests', () => {
       width: PAGE_WIDTH,
       height: PAGE_HEIGHT
     });
-    await page.goto( 'http://localhost:5000/' );
+    await page.goto( process.env.CHANNEL40_URL );
   });
 
   it( 'Should redirect to Keycloak', async () => {
