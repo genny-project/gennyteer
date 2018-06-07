@@ -272,13 +272,15 @@ describe( 'Load Posting', () => {
     // makes sure this throws error, because it shouldn't find the quote
     await expect( expect( B_truckDriver ).toMatch( /\$12\.00/, {timeout: 10000})).rejects.toThrow();
     await shot.shoot( B_truckDriver, 'TD_C_CHECK' );
+    await B_truckDriver.reload();
   });
 
-  it ( 'B driver should be able to see B quote', async () => {
+  it ( 'C driver should be able to see C quote', async () => {
     await expect( C_truckDriver ).toClick( 'h5', {text: JOB_ID, timeout: 10000});
     await expect( C_truckDriver ).toClick( 'span', {text: 'View Load Details', timeout: 10000});
     await expect( C_truckDriver ).toMatch( /\$12\.00/, {timeout: 10000});
     await shot.shoot( C_truckDriver, 'TD_B_CHECK' );
+    await C_truckDriver.reload();
   });
 
   it ( 'A Load Owner should accept quote no. 1', async () => {
@@ -288,20 +290,26 @@ describe( 'Load Posting', () => {
     await expect( A_loadOwner ).toClick( 'span', {text: 'ACCEPT', timeout: 10000});
     await expect( A_loadOwner ).toClick( 'i', {text: 'account_balance', timeout: 40000});
     await expect( A_loadOwner ).toClick( 'span', {text: 'NEXT', timeout: 20000});
-    try {
-  
-      await expect( A_loadOwner ).toClick( 'div.payment-method', {timeout: 10000});
-  
-      await expect( A_loadOwner ).toClick( 'span', {text: 'NEXT', timeout: 10000});
-      await expect( A_loadOwner ).toClick( 'div.confirm-btn', {timeout: 10000}); 
-      await shot.shoot( A_loadOwner, 'machineNOTbroke');      
-      await A_loadOwner.waitFor(10000);
-      await shot.shoot( A_loadOwner, 'machineNOTbroke');      
-    } catch(e) {
-      console.log(e)
-      await shot.shoot( A_loadOwner, 'machinebroke'); 
-    }
+
+    await expect( A_loadOwner ).toClick( 'div.payment-method', {timeout: 10000});
+    await expect( A_loadOwner ).toClick( 'span', {text: 'NEXT', timeout: 10000});
+
+    await expect( A_loadOwner ).toClick( 'div.confirm-btn', {timeout: 10000});
   });
 
+  it ( 'Truck Driver B should pick up the load', async () => {
+    await shot.shoot( B_truckDriver, 'PICK_UP_LOAD' );
+    const pickUpLoadBtn = await B_truckDriver.waitForXPath( `//h5[text()="${JOB_ID}"]/ancestor::div[4]/div[last()]/div/button` );
+    await pickUpLoadBtn.click();
+  });
+
+  // it ( 'Load Owner A should see the load is marked as picked up', async () => {
+  //   await B_truckDriver.waitForXPath( `//h5[text()="${JOB_ID}"]/ancestor::div[4]/div[last()]` );
+  // });
+
+  it ( 'Truck Driver B mark the load as delivered', async () => {
+    await shot.shoot( B_truckDriver, 'PICK_UP_LOAD' );
+    await B_truckDriver.waitForXPath( `//h5[text()="${JOB_ID}"]/ancestor::div[4]/div[last()]/div` );
+  });
 
   }, TEST_TIMEOUT );
