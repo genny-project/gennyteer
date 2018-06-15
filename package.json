@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "export $(cat .env) && cd dist && jest -i --verbose",
+    "start": "cd dist && jest -i --verbose",
+    "dev": "export $(cat .env) && cd dist && jest -i --verbose",
     "build": "rimraf dist/ && babel ./src --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files"
   },
   "devDependencies": {
