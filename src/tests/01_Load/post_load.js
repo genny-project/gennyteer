@@ -42,7 +42,7 @@ describe( 'Load Posting', () => {
     await A_loadOwner.goto( process.env.CHANNEL40_URL );
     await B_truckDriver.goto( process.env.CHANNEL40_URL );
     await C_truckDriver.goto( process.env.CHANNEL40_URL );
-    await C_truckDriver.waitFor(5000);
+    await C_truckDriver.waitFor(15000);
 
     await Promise.all( [
 
@@ -101,13 +101,17 @@ describe( 'Load Posting', () => {
       {page: C_truckDriver, name: 'truckdriverC'}
     ];
 
-    await A_loadOwner.waitFor( 10000 );
+    await A_loadOwner.waitFor( 30000 );
     console.log( `adding load ${JOB_ID}` );
     await A_loadOwner.type( '.QUE_LOAD_NAME input', JOB_ID );
     await A_loadOwner.type( '.QUE_LOAD_DESC textarea', 'THIS IS A TEST LOAD' );
     await shot.shoot( A_loadOwner, 'LO' );
+    await shot.shoot( A_loadOwner, 'LO' );
     await A_loadOwner.click( '#downshift-1-input' );
+    await A_loadOwner.type( '#downshift-1-input', 'a' );
+    await shot.shoot( A_loadOwner, 'LO' );
     await A_loadOwner.click( '#downshift-1-item-0' );
+    await shot.shoot( A_loadOwner, 'LO' );
 
 
     //measurements
