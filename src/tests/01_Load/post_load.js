@@ -108,8 +108,6 @@ describe( 'Load Posting', () => {
     await shot.shoot( A_loadOwner, 'LO' );
     await shot.shoot( A_loadOwner, 'LO' );
     await A_loadOwner.click( '#downshift-1-input' );
-    await A_loadOwner.type( '#downshift-1-input', 'a' );
-    await shot.shoot( A_loadOwner, 'LO' );
     await A_loadOwner.click( '#downshift-1-item-0' );
     await shot.shoot( A_loadOwner, 'LO' );
 
@@ -126,10 +124,9 @@ describe( 'Load Posting', () => {
     //pickup address
 
     await A_loadOwner.type( '.QUE_JOB_PICKUP_ADDRESS_FULL input', '121 cardigan st' );
-    await A_loadOwner.waitFor( 'div:nth-child(2) > div:nth-child(2) > div > div.grid > div > div:nth-child(1) > div > div > div:nth-child(1)' );
-    await A_loadOwner.click( 'div:nth-child(2) > div:nth-child(2) > div > div.grid > div > div:nth-child(1) > div > div > div:nth-child(1)' );
+    await A_loadOwner.waitFor( 'div:nth-child(4) > div > div.grid > div > div:nth-child(1) > div > div > div:nth-child(1)' );
+    await A_loadOwner.click( 'div:nth-child(4) > div > div.grid > div > div:nth-child(1) > div > div > div:nth-child(1)' );
     await shot.shoot( A_loadOwner, 'LO' );
-
 
     //pickup time
 
@@ -142,10 +139,9 @@ describe( 'Load Posting', () => {
 
     // delivery address input
 
-    await A_loadOwner.click( 'div:nth-child(2) > div > div > div > div > div:nth-child(2) > div:nth-child(4) > div > div.grid > div > div:nth-child(1) > div > input' );
-    await A_loadOwner.type( 'div:nth-child(2) > div > div > div > div > div:nth-child(2) > div:nth-child(4) > div > div.grid > div > div:nth-child(1) > div > input', '272 Lygon St, Carlton' );
-    await A_loadOwner.waitFor( 'div:nth-child(2) > div:nth-child(4) > div > div.grid > div > div:nth-child(1) > div > div > div:nth-child(1)' );
-    await A_loadOwner.click( 'div:nth-child(2) > div:nth-child(4) > div > div.grid > div > div:nth-child(1) > div > div > div:nth-child(1)' );
+    await A_loadOwner.type( '.QUE_JOB_DROPOFF_ADDRESS_FULL input', '121 cardigan st' );
+    await A_loadOwner.waitFor( 'div:nth-child(6) > div > div.grid > div > div:nth-child(1) > div > div > div:nth-child(1)' );
+    await A_loadOwner.click( 'div:nth-child(6) > div > div.grid > div > div:nth-child(1) > div > div > div:nth-child(1)' );
     await shot.shoot( A_loadOwner, 'LO' );
 
     //submission
@@ -309,6 +305,7 @@ describe( 'Load Posting', () => {
 
     await expect( A_loadOwner ).toClick( 'div.payment-method', {timeout: 10000});
     await expect( A_loadOwner ).toClick( 'span', {text: 'NEXT', timeout: 10000});
+    await A_loadOwner.waitFor( 10000 );
 
     await expect( A_loadOwner ).toClick( 'div.confirm-btn', {timeout: 10000});
   });
