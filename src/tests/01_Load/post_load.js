@@ -14,9 +14,9 @@ jest.setTimeout( 60000 );
 
 describe( 'Load Posting', () => {
   beforeAll( async () => {
-    A_LOBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: false});
-    B_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: false});
-    C_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: false});    
+    A_LOBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ]});
+    B_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ]});
+    C_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ]});    
 
     A_loadOwner = await A_LOBrowser.newPage();
     B_truckDriver = await B_TDBrowser.newPage();
@@ -146,8 +146,9 @@ describe( 'Load Posting', () => {
 
     //submission
 
-    await A_loadOwner.waitFor( 'div:nth-child(2) > div:nth-child(2) > div > div > div > div > div.grid > div > div:nth-child(2) > div > button:enabled' );
-    await A_loadOwner.click( 'div:nth-child(2) > div:nth-child(2) > div > div > div > div > div.grid > div > div:nth-child(2) > div > button:enabled' );
+    await A_loadOwner.waitFor( '.button.form-button.form-submit > button' );
+    await A_loadOwner.click( '.button.form-button.form-submit > button' );
+    
     const loadSubmitted = Date.now();
 
     const results = await Promise.all(
@@ -314,9 +315,9 @@ describe( 'Load Posting', () => {
     try {
       await shot.shoot( B_truckDriver, 'PICK_UP_LOAD_B' );
       await B_truckDriver.reload();
-      await B_truckDriver.waitFor(12000);
+      await B_truckDriver.waitFor(6000);
       await shot.shoot( B_truckDriver, 'PICK_UP_LOAD_B' );
-      const pickUpLoadBtn = await B_truckDriver.waitForXPath( `//h5[text()="${JOB_ID}"]/ancestor::div[4]/div[last()]/div/div/button` );
+      const pickUpLoadBtn = await B_truckDriver.waitForXPath( `//h5[text()="${JOB_ID}"]/ancestor::div[4]/div[last()]/div/button` );
       await pickUpLoadBtn.click();
       await shot.shoot( B_truckDriver, 'PICK_UP_LOAD_B' );
       console.log('truck driver b picked up load');
@@ -326,9 +327,9 @@ describe( 'Load Posting', () => {
       await shot.shoot( B_truckDriver, 'PICK_UP_LOAD_B_FAILED' );
       await shot.shoot( C_truckDriver, 'PICK_UP_LOAD_C' );
       await C_truckDriver.reload();
-      await C_truckDriver.waitFor(12000);
+      await C_truckDriver.waitFor(6000);
       await shot.shoot( C_truckDriver, 'PICK_UP_LOAD_C' );
-      const pickUpLoadBtn = await C_truckDriver.waitForXPath( `//h5[text()="${JOB_ID}"]/ancestor::div[4]/div[last()]/div/div/button` );
+      const pickUpLoadBtn = await C_truckDriver.waitForXPath( `//h5[text()="${JOB_ID}"]/ancestor::div[4]/div[last()]/div/button` );
       await pickUpLoadBtn.click();
       await shot.shoot( C_truckDriver, 'PICK_UP_LOAD_C' );
       console.log('truck driver c picked up load');
