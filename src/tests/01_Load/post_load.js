@@ -9,14 +9,14 @@ let B_truckDriver, B_TDBrowser;
 let C_truckDriver, C_TDBrowser;
 
 
-jest.setTimeout( 60000 );
+jest.setTimeout( 120000 );
 
 
 describe( 'Load Posting', () => {
   beforeAll( async () => {
-    A_LOBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ]});
-    B_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ]});
-    C_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ]});    
+    A_LOBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: !process.env.HEADLESS});
+    B_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: !process.env.HEADLESS});
+    C_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: !process.env.HEADLESS});    
 
     A_loadOwner = await A_LOBrowser.newPage();
     B_truckDriver = await B_TDBrowser.newPage();
