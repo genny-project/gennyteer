@@ -1,3 +1,3 @@
+#!/usr/bin/env bash
 
-
-docker build -t gennyproject/gennyteer .
+npm run build
