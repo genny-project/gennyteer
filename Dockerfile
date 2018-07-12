@@ -24,4 +24,4 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 
 ADD . .
 USER $user
-CMD xvfb-run --server-args="-screen 0 1920x1080x24" npm run start-xvfb
+CMD xvfb-run --server-args="-screen 0 2000x1080x24" npm run start-xvfb

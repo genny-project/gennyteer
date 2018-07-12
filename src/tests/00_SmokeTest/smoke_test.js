@@ -1,34 +1,65 @@
-import { PAGE_WIDTH, PAGE_HEIGHT, TEST_TIMEOUT} from 'constants';
+import { PAGE_WIDTH, PAGE_HEIGHT, TEST_TIMEOUT, JOB_ID } from 'constants';
 import { Screenshot } from 'utils';
+import puppeteer from  'puppeteer';
+
+const shot = new Screenshot( 'smoke_test' );
+
+let B_truckDriver, B_TDBrowser;
+
+jest.setTimeout( 120000 );
 
 
-jest.setTimeout( 60000 );
-
-describe( 'Smoke Tests', () => {
+describe( 'Load Posting', () => {
   beforeAll( async () => {
-    page.setViewport({
-      width: PAGE_WIDTH,
-      height: PAGE_HEIGHT
-    });
-    await page.goto( process.env.CHANNEL40_URL );
-  });
+    B_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: !process.env.HEADLESS});
+    B_truckDriver = await B_TDBrowser.newPage();
 
-  it( 'Should redirect to Keycloak', async () => {
-    expect( await page.url()).toContain( 'auth' );
-  });
-
-  it( 'Should log in to Genny', async () => {
-    await expect( page ).toFillForm( 'body', {
-      username: 'user1',
-      password: 'password1',
+    B_truckDriver.setViewport({
+      width: 3500,
+      height: PAGE_HEIGHT,
     });
 
-    await expect( page ).toClick( 'button', { text: 'Login' });
+
+    await B_truckDriver.goto( process.env.CHANNEL40_URL );
+    await B_truckDriver.waitFor(15000);
+
+    await Promise.all( [
+
+      expect( B_truckDriver ).toFillForm( 'body', {
+        username: process.env.TRUCKDRIVER_B_USERNAME,
+        password: process.env.TRUCKDRIVER_B_PASSWORD,
+      }),
+
+    ] );
+
+    await Promise.all( [
+      expect( B_truckDriver ).toClick( 'button', { text: 'Login' }),
+    ] );
+
+    await Promise.all( [
+      B_truckDriver.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)' ),
+    ] );
+
+    await B_truckDriver.waitFor( 10000 );
   });
 
-  it( 'Should show bucket view', async () => {
-    await page.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)', {timeout: 15000});
+  afterEach( async () => {
+    await shot.shoot( B_truckDriver, 'DR_B_AFTER' );
   });
 
-}, TEST_TIMEOUT );
-    
+  afterAll( async () => {
+    await B_TDBrowser.close();
+  });
+
+  it ( 'should submit load and time the roundtrip', async () => {
+
+    const pages = [
+      {page: B_truckDriver, name: 'truckdriverB'}
+    ];
+
+    await shot.shoot( B_truckDriver, 'TD_B' );
+  });
+
+
+
+  }, TEST_TIMEOUT );

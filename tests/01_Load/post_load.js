@@ -4,7 +4,7 @@ import puppeteer from  'puppeteer';
 
 const shot = new Screenshot( 'post_load' );
 
-let A_loadOwner, A_LOBrowser;
+let A_loadOwner,   A_LOBrowser;
 let B_truckDriver, B_TDBrowser;
 let C_truckDriver, C_TDBrowser;
 
