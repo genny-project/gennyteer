@@ -14,9 +14,14 @@ jest.setTimeout( 120000 );
 
 describe( 'Load Posting', () => {
   beforeAll( async () => {
-    A_LOBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: !process.env.HEADLESS});
-    B_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: !process.env.HEADLESS});
-    C_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: !process.env.HEADLESS});    
+    const args = [
+      '--no-sandbox',
+      `--window-size=${ PAGE_WIDTH },${ PAGE_HEIGHT }`
+    ]
+
+    A_LOBrowser = await puppeteer.launch({ args, headless: !process.env.HEADLESS});
+    B_TDBrowser = await puppeteer.launch({ args, headless: !process.env.HEADLESS});
+    C_TDBrowser = await puppeteer.launch({ args,  headless: !process.env.HEADLESS});
 
     A_loadOwner = await A_LOBrowser.newPage();
     B_truckDriver = await B_TDBrowser.newPage();
@@ -148,7 +153,7 @@ describe( 'Load Posting', () => {
 
     await A_loadOwner.waitFor( '.button.form-button.form-submit > button' );
     await A_loadOwner.click( '.button.form-button.form-submit > button' );
-    
+
     const loadSubmitted = Date.now();
 
     const results = await Promise.all(
@@ -238,7 +243,7 @@ describe( 'Load Posting', () => {
     await B_truckDriver.reload();
     B_truckDriver.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)' );
     C_truckDriver.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)' );
-    
+
     await expect( C_truckDriver ).toClick( 'h5', {text: JOB_ID, timeout: 10000});
     await expect( C_truckDriver ).toClick( 'span', {text: 'View Load Details', timeout: 10000});
 
@@ -289,7 +294,7 @@ describe( 'Load Posting', () => {
   });
 
   it ( 'A Load Owner should accept quote no. 1', async () => {
-    await shot.shoot( A_loadOwner, 'NEW_A' ); 
+    await shot.shoot( A_loadOwner, 'NEW_A' );
     await A_loadOwner.reload();
     await C_truckDriver.waitFor(2000);
 
@@ -298,7 +303,7 @@ describe( 'Load Posting', () => {
     try {
       await expect( A_loadOwner ).toClick( 'i', {text: 'account_balance', timeout: 40000});
     } catch(e) {
-      console.log('payments failed'); 
+      console.log('payments failed');
       await shot.shoot( A_loadOwner, 'PAYMENTS_FAILED' );
       throw e;
     }

@@ -8,10 +8,18 @@ let B_truckDriver, B_TDBrowser;
 
 jest.setTimeout( 120000 );
 
-
 describe( 'Load Posting', () => {
   beforeAll( async () => {
-    B_TDBrowser = await puppeteer.launch({ args: [ '--no-sandbox' ], headless: !process.env.HEADLESS});
+    const args = [
+      '--no-sandbox',
+      `--window-size=${ PAGE_WIDTH },${ PAGE_HEIGHT }`
+    ];
+
+    B_TDBrowser = await puppeteer.launch({
+      args,
+      headless: !process.env.HEADLESS
+    });
+
     B_truckDriver = await B_TDBrowser.newPage();
 
     B_truckDriver.setViewport({
@@ -23,22 +31,14 @@ describe( 'Load Posting', () => {
     await B_truckDriver.goto( process.env.CHANNEL40_URL );
     await B_truckDriver.waitFor(15000);
 
-    await Promise.all( [
+    await expect( B_truckDriver ).toFillForm( 'body', {
+      username: process.env.TRUCKDRIVER_B_USERNAME,
+      password: process.env.TRUCKDRIVER_B_PASSWORD,
+    }),
 
-      expect( B_truckDriver ).toFillForm( 'body', {
-        username: process.env.TRUCKDRIVER_B_USERNAME,
-        password: process.env.TRUCKDRIVER_B_PASSWORD,
-      }),
+    await expect( B_truckDriver ).toClick( 'button', { text: 'Login' }),
 
-    ] );
-
-    await Promise.all( [
-      expect( B_truckDriver ).toClick( 'button', { text: 'Login' }),
-    ] );
-
-    await Promise.all( [
-      B_truckDriver.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)' ),
-    ] );
+    await B_truckDriver.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)' ),
 
     await B_truckDriver.waitFor( 10000 );
   });
@@ -60,6 +60,4 @@ describe( 'Load Posting', () => {
     await shot.shoot( B_truckDriver, 'TD_B' );
   });
 
-
-
-  }, TEST_TIMEOUT );
+}, TEST_TIMEOUT );
