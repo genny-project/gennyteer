@@ -23,7 +23,7 @@ describe( 'Load Posting', () => {
     B_truckDriver = await B_TDBrowser.newPage();
 
     B_truckDriver.setViewport({
-      width: 3500,
+      width: PAGE_WIDTH,
       height: PAGE_HEIGHT,
     });
 
