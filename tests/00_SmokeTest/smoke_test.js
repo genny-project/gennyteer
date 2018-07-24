@@ -4,7 +4,7 @@ import puppeteer from  'puppeteer';
 
 const shot = new Screenshot( 'smoke_test' );
 
-let B_truckDriver, B_TDBrowser;
+let B_consumer, B_ConsumerBrowser;
 
 jest.setTimeout( 120000 );
 
@@ -15,49 +15,49 @@ describe( 'Load Posting', () => {
       `--window-size=${ PAGE_WIDTH },${ PAGE_HEIGHT }`
     ];
 
-    B_TDBrowser = await puppeteer.launch({
+    B_ConsumerBrowser = await puppeteer.launch({
       args,
       headless: !process.env.HEADLESS
     });
 
-    B_truckDriver = await B_TDBrowser.newPage();
+    B_consumer = await B_ConsumerBrowser.newPage();
 
-    B_truckDriver.setViewport({
+    B_consumer.setViewport({
       width: PAGE_WIDTH,
       height: PAGE_HEIGHT,
     });
 
 
-    await B_truckDriver.goto( process.env.CHANNEL40_URL );
-    await B_truckDriver.waitFor(15000);
+    await B_consumer.goto( process.env.GENNY_URL );
+    await B_consumer.waitFor(15000);
 
-    await expect( B_truckDriver ).toFillForm( 'body', {
-      username: process.env.TRUCKDRIVER_B_USERNAME,
-      password: process.env.TRUCKDRIVER_B_PASSWORD,
+    await expect( B_consumer ).toFillForm( 'body', {
+      username: process.env.CONSUMER_B_USERNAME,
+      password: process.env.CONSUMER_B_PASSWORD,
     }),
 
-    await expect( B_truckDriver ).toClick( 'button', { text: 'Login' }),
+    await expect( B_consumer ).toClick( 'button', { text: 'Login' }),
 
-    await B_truckDriver.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)' ),
+    await B_consumer.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)' ),
 
-    await B_truckDriver.waitFor( 10000 );
+    await B_consumer.waitFor( 10000 );
   });
 
   afterEach( async () => {
-    await shot.shoot( B_truckDriver, 'DR_B_AFTER' );
+    await shot.shoot( B_consumer, 'Consumer_B_AFTER' );
   });
 
   afterAll( async () => {
-    await B_TDBrowser.close();
+    await B_ConsumerBrowser.close();
   });
 
-  it ( 'should submit load and time the roundtrip', async () => {
+  it ( 'should post item and time the roundtrip', async () => {
 
     const pages = [
-      {page: B_truckDriver, name: 'truckdriverB'}
+      {page: B_consumer, name: 'consumerB'}
     ];
 
-    await shot.shoot( B_truckDriver, 'TD_B' );
+    await shot.shoot( B_consumer, 'Consumer_B' );
   });
 
 }, TEST_TIMEOUT );
