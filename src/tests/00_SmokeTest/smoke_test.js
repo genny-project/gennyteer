@@ -38,7 +38,7 @@ describe( 'Load Posting', () => {
 
     await expect( B_consumer ).toClick( 'button', { text: 'Login' }),
 
-    await B_consumer.waitFor( 'div > div > div.grid.sub-header > div > div > div > ul > li > span:nth-child(2)' ),
+    await B_consumer.waitFor( '#root > div > div > div > main > content > div > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div > div > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(2) > h2' ),
 
     await B_consumer.waitFor( 10000 );
   });
