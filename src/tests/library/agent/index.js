@@ -1,1 +1,0 @@
-export { default as AddInternshipAgent } from './add-internship'

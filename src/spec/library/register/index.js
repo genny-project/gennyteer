@@ -1,30 +1,28 @@
-import { PAGE_WIDTH, PAGE_HEIGHT, TEST_TIMEOUT, JOB_ID } from 'constants';
+import { SECONDS } from 'constants';
 
 class Register {
   run(page) {
     return new Promise(async (resolve, reject) => {
-      jest.setTimeout(150000);
+      console.log('register triggered');
+      jest.setTimeout(150 * SECONDS);
 
       try {
         console.log('running register');
 
-        
-
         await page.goto(process.env.GENNY_URL);
 
         console.log('went to the url');
-        await page.waitFor(2 * 1000);
+        await page.waitFor(2 * SECONDS);
 
         const buttons = await page.$$('[data-testid="button"]');
         const registerButton = buttons[1];
         await registerButton.click();
-        await page.waitFor(2 * 1000);
+        await page.waitFor(2 * SECONDS);
 
         await expect(page).toFill(
           'input[name="email"]',
           process.env.INTERN_A_USERNAME
         );
-        await page.waitFor(3 * 1000);
         console.log('typed in email');
 
         await expect(page).toFill(
@@ -42,15 +40,12 @@ class Register {
           process.env.INTERN_A_PASSWORD
         );
 
-        await page.waitFor(3 * 1000);
+        await page.waitFor(3 * SECONDS);
         console.log('just before submitting');
 
         await expect(page).toClick('[data-testid="form-generic-submit"]');
 
-        await expect(page).toClick('[data-testid="event-button"]', {
-          timeout: 30000
-        });
-        await page.waitFor(5 * 1000);
+        await page.waitFor(5 * SECONDS);
         resolve(true);
       } catch (error) {
         reject(error);

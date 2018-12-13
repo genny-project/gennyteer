@@ -1,13 +1,14 @@
-import { PAGE_WIDTH, PAGE_HEIGHT } from 'constants';
+import { SECONDS } from 'constants';
 
 class Login {
   run(page) {
     return new Promise(async (resolve, reject) => {
       try {
-
+        console.log("Login triggered");
+        
         await page.goto(process.env.GENNY_URL);
 
-        await page.waitFor(3000);
+        await page.waitFor(3 * SECONDS);
         await page.click('[data-testid="button"]');
 
         await expect(page).toFill(
@@ -23,8 +24,7 @@ class Login {
         await page.waitFor(10000);
         await expect(page).toClick('div[data-testid="event-button"]');
         resolve(true);
-      } 
-      catch (error) {
+      } catch (error) {
         reject(error);
       }
     });

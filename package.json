@@ -4,7 +4,7 @@
     "start-xvfb": "x11vnc -forever -usepw -create & npm run build && cd dist && jest -i --verbose",
     "dev": "npm run build && export $(cat .env) && cd dist && jest -i --verbose",
     "build": "rimraf dist/ && babel ./src --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files"
- },
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
