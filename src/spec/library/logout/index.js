@@ -1,5 +1,5 @@
 import { SECONDS } from 'constants';
-import { setDefaultOptions } from 'expect-puppeteer'
+import { setDefaultOptions } from 'expect-puppeteer';
 
 setDefaultOptions({ timeout: 25 * SECONDS })
 class Logout {
