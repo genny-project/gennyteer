@@ -4,22 +4,14 @@ class Logout {
   run(page) {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log('Logout triggered');
-        await expect(page).toClick('[data-testid="event-button"]', {
-          timeout: 30000
-        });
-        console.log('Click on the first role');
+        // login.run("Some Url");
+        console.log("Logout triggered");
         await page.waitFor(20 * SECONDS);
 
-        console.log('filling in mobile number');
-
-        await expect(page).toFill(
-          'input[data-testid~="QUE_MOBILE"]',
-          process.env.INTERN_A_MOBILE
-        );
-
-        console.log('filled in mobile number');
-        await page.waitFor(20 * SECONDS);
+        // dropdown testid  button-i3smb2jf
+        await page.click('[data-testid~="USER_DROPDOWN"]');
+        // logout button test id
+        await page.click('a[href="/logout"]');
         resolve(true);
       } catch (error) {
         reject(error);
