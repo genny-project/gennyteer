@@ -10,9 +10,10 @@ class Logout {
       try {
 
         // Click on user dropdown (usually top right corner)
-        await page.click('[data-testid~="USER_DROPDOWN"]');
+        await expect(page).toClick('[data-testid~="USER_DROPDOWN"]');
+        
         // Click on the logout button
-        await page.click( 'a[href="/logout"]' );
+        await expect(page).toClick( 'a[href="/logout"]' );
 
         resolve( true );
       } catch ( error ) {
