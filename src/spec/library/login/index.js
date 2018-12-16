@@ -9,7 +9,7 @@ class Login {
         await page.goto(process.env.GENNY_URL);
 
         await page.waitFor(3 * SECONDS);
-        await page.click('[data-testid="button"]');
+       // await page.click('[data-testid="button"]');
 
         await expect(page).toFill(
           'input[type="text"]',

@@ -6,7 +6,7 @@ class Logout {
       try {
         // login.run("Some Url");
         console.log("Logout triggered");
-        await page.waitFor(20 * SECONDS);
+        await page.waitFor(10 * SECONDS);
 
         // dropdown testid  button-i3smb2jf
         await page.click('[data-testid~="USER_DROPDOWN"]');
