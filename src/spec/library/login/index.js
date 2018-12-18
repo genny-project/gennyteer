@@ -22,7 +22,7 @@ class Login {
         );
         await expect( page ).toFill(
           'input[type="password"]',
-          process.env.AGENT_A_PASSWORD
+          process.env.WRONG_PASSWORD
         );
 
         // click the submit button
