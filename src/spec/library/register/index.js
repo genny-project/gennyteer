@@ -21,7 +21,6 @@ class Register {
           'input[name="email"]',
           process.env.INTERN_A_USERNAME
         );
-        console.log( 'typed in email' );
 
         await expect( page ).toFill(
           'input[name="firstname"]',
