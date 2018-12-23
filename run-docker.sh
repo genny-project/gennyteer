@@ -1,1 +1,1 @@
-docker run --env-file=.env -p 5900:5900  gennyproject/gennyteer
+docker run --env-file=.env -p 5910:5900  gennyproject/gennyteer

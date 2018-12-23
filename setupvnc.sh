@@ -23,4 +23,8 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 
 # Step 5: If no ARD services have been activated on the machine before, it is also necessary to run the following command
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
+
+
+#disable local screen sharing service
+#sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.screensharing.plist
 fi
