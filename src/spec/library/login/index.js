@@ -13,12 +13,12 @@ class Login {
         await page.goto( process.env.GENNY_URL );
 
         // Click the Log in button
-        //await expect( page ).toClick( '[data-testid="button"]' );
+        await expect( page ).toClick( '[data-testid="button"]' );
 
         // Fill in user email and password
         await expect( page ).toFill(
           'input[type="text"]',
-          process.env.WRONG_USERNAME
+          process.env.AGENT_A_USERNAME
         );
         await expect( page ).toFill(
           'input[type="password"]',
