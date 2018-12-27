@@ -1,0 +1,2 @@
+#!/bin/bash
+"/System/Library/CoreServices/Applications/Screen Sharing.app/Contents/Mac OS/Screen Sharing"  vnc://genny:genny@localhost:5900

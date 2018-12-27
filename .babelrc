@@ -6,7 +6,8 @@
       "alias": {
         "utils": "./src/utils",
         "constants": "./src/constants",
-        "globals": "./src/globals"
+        "globals": "./src/globals",
+        "library": "./src/tests/library"
       }
     }],
     "transform-object-rest-spread"
