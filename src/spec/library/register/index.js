@@ -49,4 +49,3 @@ class Register {
 }
 
 export default Register;
-` ``    s `;
