@@ -1,8 +1,42 @@
+import { PAGE_WIDTH, PAGE_HEIGHT, SECONDS } from 'constants';
+import { Login, Logout } from 'spec/library';
+import puppeteer from 'puppeteer';
+
+jest.setTimeout(100 * SECONDS);
+
 class GennyTest {
-  constructor( page ,SECONDS) {
+  constructor( initialUrl ,SECONDS) {
     this.SECONDS= SECONDS;
-    this.page = page;
+    this.initialUrl = initialUrl;
+    this.page = generatePage();
+    gotoUrl(this.initialUrl);    
   }
+
+ generatePage = async () => {
+  let browser;
+
+  const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
+
+  browser = await puppeteer.launch({
+    args,
+    headless: !process.env.HEADLESS
+  });
+
+  let page = await browser.newPage();
+
+  await page.setViewport({
+    width: PAGE_WIDTH,
+    height: PAGE_HEIGHT
+  });
+
+  return page;
+};
+
+ gotoUrl(url)
+{
+
+
+ }
 
   async typeInput( inputType, askId, text, options = {}) {
     const {
