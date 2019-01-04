@@ -1,0 +1,1 @@
+export {default as GennyTest} from './GennyTest';
