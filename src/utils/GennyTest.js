@@ -1,71 +1,52 @@
-class GennyTest {
-  constructor( page ) {
-    this.page = page;
-  }
+import { SECONDS } from 'constants';
 
-  async typeInput( inputType, askId, text, options = {}) {
-    const {
-      waitTime = 5,
-    } = options;
+class Register {
+  run(page) {
+    return new Promise(async (resolve, reject) => {
+      jest.setTimeout(150 * SECONDS);
 
-    await page.waitFor( waitTime * SECONDS );
+      try {
+        // Go to project URL
+        await page.goto(process.env.GENNY_URL);
+        await page.waitFor(2 * SECONDS);
 
-    // Type into an input field on the page
-    await expect( this.page ).toFill( `[data-testid="input-${inputType} ${askId}"]`, text );
-  }
+        // Grab all the buttons and click the second button (the register button)
+        const buttons = await page.$$('[data-testid="button"]');
+        const registerButton = buttons[1];
+        await registerButton.click();
+        await page.waitFor(2 * SECONDS);
 
-  async typeInputText( askId, text, options = {}) {
-    // Type into an text input on the page
-    await this.typeInput( 'text', askId, text, options );
-  }
+        // Fill in the details for registration (email, first name, last name, password)
+        await expect(page).toFill(
+          'input[name="email"]',
+          process.env.INTERN_A_USERNAME
+        );
+        await gennyTest.typeInputText( 'QUE_TRADING_NAME', process.env.HOST_COMPANY_TRADING_NAME );
 
-  async typeInputEmail( askId, text, options = {}) {
-    // Type into an email input on the page
-    await this.typeInput( 'email', askId, text, options );
-  }
+        await expect(page).toFill(
+          'input[name="firstname"]',
+          process.env.INTERN_A_FIRSTNAME
+        );
 
-  async typeInputAutocomplete( askId, text) {
-    // Type into the autocmplete input
-    await this.typeInput( askId, text );
+        await expect(page).toFill(
+          'input[name="lastname"]',
+          process.env.INTERN_A_LASTNAME
+        );
 
-    // Click on the first autocomplete result
-    await expect( this.page ).toClick( `[data-testid="input-autocomplete-item ${askId}"]` );
-  }
+        await expect(page).toFill(
+          'input[name="password"]',
+          process.env.INTERN_A_PASSWORD
+        );
 
-  async selectInput( askId, baseEntityCode ) {
-    // Find the dropdown input on the page and select the baseEntityCode from the items
-    await page.select( `select[data-testid="input-dropdown ${askId}"]`, baseEntityCode );
-  }
+        // Click the submit button
+        await expect(page).toClick('[data-testid="form-generic-submit"]');
 
-  async click( testId, options = {}) {
-    const {
-      waitTime = 3,
-      clickIndex = 0,
-    } = options;
-
-    await page.waitFor( waitTime * SECONDS );
-
-    // Find the button the page
-    const button = this.page.$$( `[data-testid="${testId}"]` );
-
-    // Click the element of index `clickIndex`
-    await button[clickIndex].click();
-  }
-
-  async clickButton( testId = '', options = {}) {
-    // Make a normal click but prefix it with `button`
-    await this.click( `button ${testId}` , options);
-  }
-
-  async clickDropdown( testId = '', options = {}) {
-    // Make a normal click but prefix it with `dropdown`
-    await this.click( `dropdown ${testId}` , options);
-  }
-
-  async clickDropdownItem( testId = '', options = {}) {
-    // Make a normal click but prefix it with `dropdown-item`
-    await this.click( `dropdown-item ${testId}` , options);
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }
 
-export default GennyTest;
+export default Register;
