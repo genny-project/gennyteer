@@ -1,6 +1,6 @@
 import { Screenshot } from './Screenshot';
 import { Actor } from "./Actor";
-import {GennyTest} from './GennyTest';
+import GennyTest from './GennyTest';
 
 export {
   Screenshot,

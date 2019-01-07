@@ -21,6 +21,7 @@ class Register {
           'input[name="email"]',
           process.env.INTERN_A_USERNAME
         );
+        await gennyTest.typeInputText( 'QUE_TRADING_NAME', process.env.HOST_COMPANY_TRADING_NAME );
 
         await expect(page).toFill(
           'input[name="firstname"]',

@@ -1,3 +1,4 @@
+import { SECONDS } from '../constants'
 class GennyTest {
   constructor( page ) {
     this.page = page;
