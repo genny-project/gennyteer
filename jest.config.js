@@ -1,5 +1,5 @@
 module.exports = {
   rootDir: 'dist',
-  testMatch: ['<rootDir>/**/tests/add-internship-as-agent.js'],
+  testMatch: ['<rootDir>/**/tests/**/*.js','**/?(*.)(spec|test).js'],
   preset: 'jest-puppeteer'
 };
