@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import dateFns from 'date-fns';
+import { Register, Login } from '../spec/library';
 
 const PAGE_WIDTH = 1000;
 const PAGE_HEIGHT = 1000;
@@ -12,9 +13,28 @@ class One {
     return this.page;
   }
 
-  beforeAll(func) {
-    func();
+  async beforeAllSignup() {
+    const page = await this.page;
+    try {
+      const register = new Register();
+      const result = await register.run(page);
+      expect(result).toBe(true); // eslint-disable-line
+    } catch (error) {
+      throw new Error(error);
+    }
   }
+
+  async beforeAllLogin() {
+    const page = await this.page;
+    const login = new Login();
+    try {
+      const result = await login.run(page);
+      expect(result).toBe(true); // eslint-disable-line
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
 
   afterAll(func) {
     func();
