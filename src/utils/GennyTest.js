@@ -16,7 +16,7 @@ class GennyTest {
       waitTime = 5,
     } = options;
 
-    await page.waitFor(waitTime * SECONDS);
+    await this.page.waitFor(waitTime * SECONDS);
 
     // Type into an input field on the page
     await expect(this.page).toFill(`[data-testid="input-${inputType} ${askId}"]`, text);
@@ -51,7 +51,7 @@ class GennyTest {
       clickIndex = 0,
     } = options;
 
-    await page.waitFor(waitTime * SECONDS);
+    await this.page.waitFor(waitTime * SECONDS);
 
     // Find the button the page
     const button = this.page.$$(`[data-testid="${testId}"]`);

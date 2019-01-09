@@ -2,52 +2,62 @@ import puppeteer from 'puppeteer';
 import dateFns from 'date-fns';
 
 
-const PAGE_WIDTH= 500;
-const PAGE_HEIGHT=500;
+const PAGE_WIDTH = 1000;
+const PAGE_HEIGHT = 1000;
 class One {
-  constructor( headless=false, PAGE_HEIGHT= 800,PAGE_WIDTH=800){
-  this.page =  this.generatePage();
+  constructor(headless = false, PAGE_HEIGHT = 800, PAGE_WIDTH = 800) {
+    this.page = this.generatePage();
   }
 
-  getGage(){
-    return this.page();
+  getPage() {
+    return this.page;
   }
 
-  describe(str){
+  beforeAll(func) {
+    func();
+  }
+
+  afterAll(func) {
+    func();
+  }
+
+  async closeBrowser() {
+    const browser = await this.page.browser();
+    browser.close();
+  }
+
+  describe(str) {
     const date = dateFns.format(new Date(), 'MM/DD/YYYY');
-    if(!str){
-      console.log("!! Warning. Describe Method Not provided but not necessary ");
-    }
-    else { 
+    if (!str) {
+      console.log('!! Warning. Describe Method Not provided but not necessary ');
+    } else {
       console.log(date, str);
     }
   }
 
 
- async generatePage () {
-  let browser;
-  const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
-  browser = await puppeteer.launch({
-    args,
-    headless: false
-  });
+  async generatePage() {
+    let browser;
+    const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
+    browser = await puppeteer.launch({
+      args,
+      headless: false,
+    });
 
-  let page = await browser.newPage();
+    const page = await browser.newPage();
 
-  await page.setViewport({
-    width: PAGE_WIDTH,
-    height: PAGE_HEIGHT
-  });
+    await page.setViewport({
+      width: PAGE_WIDTH,
+      height: PAGE_HEIGHT,
+    });
 
-  return page;
-};
+    return page;
+  }
 
-  async run(cb){
+  async run(cb) {
     const page = await this.page;
-    expect.hasAssertions();
-    cb();
+    cb(page);
   }
 }
-
 
 export default One;

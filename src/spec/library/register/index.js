@@ -19,26 +19,30 @@ class Register {
         // Fill in the details for registration (email, first name, last name, password)
         await expect(page).toFill(
           'input[name="email"]',
-          process.env.INTERN_A_USERNAME
+          process.env.INTERN_A_USERNAME,
         );
 
         await expect(page).toFill(
-          'input[name="firstname"]',
-          process.env.INTERN_A_FIRSTNAME
+          'input[name="firstName"]',
+          process.env.INTERN_A_FIRSTNAME,
         );
 
         await expect(page).toFill(
-          'input[name="lastname"]',
-          process.env.INTERN_A_LASTNAME
+          'input[name="lastName"]',
+          process.env.INTERN_A_LASTNAME,
         );
 
         await expect(page).toFill(
           'input[name="password"]',
-          process.env.INTERN_A_PASSWORD
+          process.env.INTERN_A_PASSWORD,
+        );
+        await expect(page).toFill(
+          'input[name="password-confirm"]',
+          process.env.INTERN_A_PASSWORD,
         );
 
         // Click the submit button
-        await expect(page).toClick('[data-testid="form-generic-submit"]');
+        await expect(page).toClick('button[type="submit"]');
 
         resolve(true);
       } catch (error) {
