@@ -36,25 +36,18 @@ class One {
   }
 
 
-  afterAll(func) {
-    func();
-  }
-
   async closeBrowser() {
     const browser = await this.page.browser();
     browser.close();
   }
 
-  describe(str) {
+  describe(str) { //eslint-disable-line
     const date = dateFns.format(new Date(), 'MM/DD/YYYY');
     if (!str) {
       console.log('!! Warning. Describe Method Not provided but not necessary ');
     } else {
       console.log(date, str);
     }
-  }
-
-  testCase(str) {
   }
 
 
@@ -64,7 +57,7 @@ class One {
   }
 
 
-  async generatePage() {
+  async generatePage() {  //eslint-disable-line
     let browser;
     const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
     browser = await puppeteer.launch({
