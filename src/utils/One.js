@@ -1,7 +1,6 @@
 import puppeteer from 'puppeteer';
 import dateFns from 'date-fns';
 
-
 const PAGE_WIDTH = 1000;
 const PAGE_HEIGHT = 1000;
 class One {
@@ -33,6 +32,15 @@ class One {
     } else {
       console.log(date, str);
     }
+  }
+
+  testCase(str) {
+  }
+
+
+  /* actions */
+  async click(args) {
+    await expect(this.page).toClick(args);
   }
 
 
