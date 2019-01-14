@@ -17,35 +17,35 @@ class One {
     const page = await this.page;
     try {
       const register = new Register();
-      const result = await register.run(page);
-      expect(result).toBe(true); // eslint-disable-line
-    } catch (error) {
-      throw new Error(error);
+      const result = await register.run( page );
+      expect( result ).toBe( true );
+    } catch ( error ) {
+      throw new Error( error );
     }
   }
 
-  async navigateTo(websiteURL) {
+  async navigateTo( websiteURL ) {
     const page = await this.page;
-    await page.goto(websiteURL);
+    await page.goto( websiteURL );
   }
 
   async login() {
     const page = await this.page;
     try {
-      const result = await Login.run(page);
-      expect(result).toBe(true); // eslint-disable-line
-    } catch (error) {
-      throw new Error(error);
+      const result = await Login.run( page );
+      expect( result ).toBe( true );
+    } catch ( error ) {
+      throw new Error( error );
     }
   }
 
   async logout() {
     const page = await this.page;
     try {
-      const result = await Logout.run(page);
-      expect(result).toBe(true); // eslint-disable-line
-    } catch (error) {
-      throw new Error(error);
+      const result = await Logout.run( page );
+      expect( result ).toBe( true ); 
+    } catch ( error ) {
+      throw new Error( error );
     }
   }
 
@@ -56,8 +56,8 @@ class One {
   }
 
   /* actions */
-  async click(args) {
-    await expect(this.page).toClick(args); // eslint-disable-line
+  async click( args ) {
+    await expect( this.page ).toClick( args ); 
   }
 
   static async generatePage() {
@@ -78,9 +78,9 @@ class One {
     return page;
   }
 
-  async run(cb) {
+  async run( cb ) {
     const page = await this.page;
-    cb(page);
+    cb( page );
   }
 }
 
