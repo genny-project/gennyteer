@@ -1,12 +1,12 @@
 import puppeteer from 'puppeteer';
-import dateFns from 'date-fns';
-import { Register, Login } from '../spec/library';
 
-const PAGE_WIDTH = 1000;
-const PAGE_HEIGHT = 1000;
+import { Register, Login, Logout } from '../spec/library';
+
+const PAGE_WIDTH = 1600;
+const PAGE_HEIGHT = 900;
 class One {
-  constructor(headless = false, PAGE_HEIGHT = 800, PAGE_WIDTH = 800) {
-    this.page = this.generatePage();
+  constructor() {
+    this.page = One.generatePage();
   }
 
   getPage() {
@@ -24,7 +24,12 @@ class One {
     }
   }
 
-  async beforeAllLogin() {
+  async navigateTo(websiteURL) {
+    const page = await this.page;
+    await page.goto(websiteURL);
+  }
+
+  async login() {
     const page = await this.page;
     const login = new Login();
     try {
@@ -35,30 +40,29 @@ class One {
     }
   }
 
+  async logout() {
+    const page = await this.page;
+    const logout = new Logout();
+    try {
+      const result = await logout.run(page);
+      expect(result).toBe(true); // eslint-disable-line
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 
   async closeBrowser() {
     const browser = await this.page.browser();
     browser.close();
   }
 
-  describe(str) { //eslint-disable-line
-    const date = dateFns.format(new Date(), 'MM/DD/YYYY');
-    if (!str) {
-      console.log('!! Warning. Describe Method Not provided but not necessary ');
-    } else {
-      console.log(date, str);
-    }
-  }
-
-
   /* actions */
   async click(args) {
-    await expect(this.page).toClick(args);
+    await expect(this.page).toClick(args); // eslint-disable-line
   }
 
-
-  async generatePage() {  //eslint-disable-line
-    let browser;
+  static async generatePage() {
+    let browser = null;
     const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
     browser = await puppeteer.launch({
       args,

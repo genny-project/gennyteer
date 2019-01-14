@@ -1,14 +1,12 @@
-import { PAGE_WIDTH, PAGE_HEIGHT, SECONDS } from 'constants';
-import { Login, Logout } from 'spec/library';
-import puppeteer from 'puppeteer';
+import { SECONDS } from 'constants';
 
+// jest and their methods are automatically defined
+// eslint-disable-next-line no-undef
 jest.setTimeout(100 * SECONDS);
 
 class GennyTest {
   constructor(page) {
     this.page = page;
-    console.log(' log page in genny test ****************************');
-    console.log(this.page);
   }
 
   async typeInput(inputType, askId, text, options = {}) {
@@ -19,6 +17,7 @@ class GennyTest {
     await this.page.waitFor(waitTime * SECONDS);
 
     // Type into an input field on the page
+    // eslint-disable-next-line no-undef
     await expect(this.page).toFill(`[data-testid="input-${inputType} ${askId}"]`, text);
   }
 
@@ -37,12 +36,13 @@ class GennyTest {
     await this.typeInput(askId, text);
 
     // Click on the first autocomplete result
+    // eslint-disable-next-line no-undef
     await expect(this.page).toClick(`[data-testid="input-autocomplete-item ${askId}"]`);
   }
 
   async selectInput(askId, baseEntityCode) {
     // Find the dropdown input on the page and select the baseEntityCode from the items
-    await page.select(`select[data-testid="input-dropdown ${askId}"]`, baseEntityCode);
+    await this.page.select(`select[data-testid="input-dropdown ${askId}"]`, baseEntityCode);
   }
 
   async click(testId, options = {}) {
@@ -67,9 +67,6 @@ class GennyTest {
 
   async clickDropdown(testId = '', options = {}) {
     // Make a normal click but prefix it with `dropdown`
-    console.log('this click executtion');
-    console.log(this.click);
-
     await this.click(`dropdown ${testId}`, options);
   }
 
