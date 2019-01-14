@@ -5,15 +5,14 @@ import { setDefaultOptions } from 'expect-puppeteer';
 setDefaultOptions({ timeout: 300 * SECONDS });
 
 class Logout {
-  run( page ) {
+  static run( page ) {
     return new Promise( async ( resolve, reject ) => {
       try {
-
         // Click on user dropdown (usually top right corner)
-        await expect(page).toClick('[data-testid~="USER_DROPDOWN"]');
+        await expect( page ).toClick( '[data-testid~="USER_DROPDOWN"]' );
 
         // Click on the logout button
-        await expect(page).toClick( 'a[href="/logout"]' );
+        await expect( page ).toClick( 'a[href="/logout"]' );
 
         resolve( true );
       } catch ( error ) {
