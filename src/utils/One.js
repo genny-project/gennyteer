@@ -31,9 +31,8 @@ class One {
 
   async login() {
     const page = await this.page;
-    const login = new Login();
     try {
-      const result = await login.run(page);
+      const result = await Login.run(page);
       expect(result).toBe(true); // eslint-disable-line
     } catch (error) {
       throw new Error(error);
@@ -52,8 +51,9 @@ class One {
   }
 
   async closeBrowser() {
-    const browser = await this.page.browser();
-    browser.close();
+    const page = await this.page;
+    const browser = await page.browser();
+    await browser.close();
   }
 
   /* actions */

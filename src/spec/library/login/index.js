@@ -5,7 +5,7 @@ import { setDefaultOptions } from 'expect-puppeteer';
 setDefaultOptions({ timeout: 25 * SECONDS });
 
 class Login {
-  run(page) {
+  static run(page) {
     return new Promise(async (resolve, reject) => {
       try {
         // Go to project URL
@@ -19,11 +19,11 @@ class Login {
         // Fill in user email and password
         await expect(page).toFill(
           '.input-email input',
-          process.env.AGENT_A_USERNAME
+          process.env.AGENT_A_USERNAME,
         );
         await expect(page).toFill(
           'input[type="password"]',
-          process.env.AGENT_A_PASSWORD
+          process.env.AGENT_A_PASSWORD,
         );
 
         // click the submit button
