@@ -8,9 +8,6 @@ class Login {
   static run(page) {
     return new Promise(async (resolve, reject) => {
       try {
-        // Go to project URL
-        // await page.goto(process.env.GENNY_URL);
-
         // Click the Log in button
         await expect(page).toClick('[data-testid="button"]');
 

@@ -41,9 +41,8 @@ class One {
 
   async logout() {
     const page = await this.page;
-    const logout = new Logout();
     try {
-      const result = await logout.run(page);
+      const result = await Logout.run(page);
       expect(result).toBe(true); // eslint-disable-line
     } catch (error) {
       throw new Error(error);
