@@ -9,13 +9,13 @@ class Login {
     return new Promise( async ( resolve, reject ) => {
       try {
         // Click the Log in button
-        await expect( page ).toClick( '[data-testid="button"]' );
+        //await expect( page ).toClick( '[data-testid="button"]' );
 
-        await page.waitForNavigation({ waitUntil: 'networkidle0' });
+        // await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
         // Fill in user email and password
         await expect( page ).toFill(
-          '.input-email input',
+          'input[name="username"]',
           process.env.AGENT_A_USERNAME,
         );
         await expect( page ).toFill(
@@ -24,7 +24,7 @@ class Login {
         );
 
         // click the submit button
-        await expect( page ).toClick( 'button[type="submit"]' );
+        await expect( page ).toClick( '[data-testid="form-generic-submit"]' );
 
         await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
