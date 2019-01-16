@@ -13,7 +13,7 @@ class One {
     return this.page;
   }
 
-  async beforeAllSignup() {
+  async signUpOnKeycloak() {
     const page = await this.page;
     try {
       const register = new Register();
@@ -26,7 +26,11 @@ class One {
 
   async navigateTo( websiteURL ) {
     const page = await this.page;
-    await page.goto( websiteURL );
+    await Promise.all( [
+      page.goto( websiteURL ),
+      page.waitForNavigation({ waitUntil: 'domcontentloaded' })
+    ] );
+    // await page.waitFor( 5000 );
   }
 
   async login() {
@@ -57,7 +61,7 @@ class One {
 
   /* actions */
   async click( args ) {
-    await expect( this.page ).toClick( args ); 
+    await expect( this.page ).toClick( args );
   }
 
   static async generatePage() {
@@ -65,14 +69,14 @@ class One {
     const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
     browser = await puppeteer.launch({
       args,
-      headless: false,
+      headless: false
     });
 
     const page = await browser.newPage();
 
     await page.setViewport({
       width: PAGE_WIDTH,
-      height: PAGE_HEIGHT,
+      height: PAGE_HEIGHT
     });
 
     return page;

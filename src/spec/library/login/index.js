@@ -15,11 +15,11 @@ class Login {
 
         // Fill in user email and password
         await expect( page ).toFill(
-          '.input-email input',
+          'input[name="username"]',
           process.env.AGENT_A_USERNAME,
         );
         await expect( page ).toFill(
-          'input[type="password"]',
+          'input[name="pasword"]',
           process.env.AGENT_A_PASSWORD,
         );
 
