@@ -1,7 +1,7 @@
 import Login from './login';
 import Logout from './logout';
 import Register from './register';
-import LoginV3 from './LoginV3';
+import LoginV3 from './loginV3';
 
 export {
   Login,

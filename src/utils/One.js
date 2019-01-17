@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-import { Register, Login, Logout } from '../spec/library';
+import { Register, Login, Logout, LoginV3 } from '../spec/library';
 
 const PAGE_WIDTH = 1600;
 const PAGE_HEIGHT = 900;
@@ -37,6 +37,16 @@ class One {
     const page = await this.page;
     try {
       const result = await Login.run( page );
+      expect( result ).toBe( true );
+    } catch ( error ) {
+      throw new Error( error );
+    }
+  }
+
+  async loginV3() {
+    const page = await this.page;
+    try {
+      const result = await LoginV3.run( page );
       expect( result ).toBe( true );
     } catch ( error ) {
       throw new Error( error );
