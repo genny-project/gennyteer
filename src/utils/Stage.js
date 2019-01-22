@@ -4,9 +4,9 @@ import { Register, Login, Logout, LoginV3 } from '../spec/library';
 
 const PAGE_WIDTH = 1600;
 const PAGE_HEIGHT = 900;
-class One {
+class Stage {
   constructor() {
-    this.page = One.generatePage();
+    this.page = Stage.generatePage();
   }
 
   getPage() {
@@ -98,4 +98,4 @@ class One {
   }
 }
 
-export default One;
+export default Stage;
