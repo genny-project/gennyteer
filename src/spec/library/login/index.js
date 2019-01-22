@@ -19,7 +19,7 @@ class Login {
           process.env.AGENT_A_USERNAME,
         );
         await expect( page ).toFill(
-          'input[name="pasword"]',
+          'input[name="password"]',
           process.env.AGENT_A_PASSWORD,
         );
 
