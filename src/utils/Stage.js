@@ -16,11 +16,9 @@ class Stage {
   async signUpOnKeycloak() {
     const page = await this.page;
     try {
-      const register = new Register();
-      const result = await register.run( page );
-      expect( result ).toBe( true );
+      await Register.run( page );
     } catch ( error ) {
-      throw new Error( error );
+      console.log( error );
     }
   }
 
@@ -57,7 +55,7 @@ class Stage {
     const page = await this.page;
     try {
       const result = await Logout.run( page );
-      expect( result ).toBe( true ); 
+      expect( result ).toBe( true );
     } catch ( error ) {
       throw new Error( error );
     }
