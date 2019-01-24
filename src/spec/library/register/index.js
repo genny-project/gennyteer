@@ -5,7 +5,7 @@ import { setDefaultOptions } from 'expect-puppeteer';
 setDefaultOptions({ timeout: 25 * SECONDS });
 
 class Register {
-  static run( page ) {
+  static run( page, email, firstName, lastName, password ) {
     return new Promise( async ( resolve, reject ) => {
       jest.setTimeout( 150 * SECONDS );
 
@@ -23,26 +23,26 @@ class Register {
         // Fill in the details for registration (email, first name, last name, password)
         await expect( page ).toFill(
           'input[name="email"]',
-          process.env.INTERN_A_USERNAME
+          email
         );
 
         await expect( page ).toFill(
           'input[name="firstName"]',
-          process.env.INTERN_A_FIRSTNAME
+          firstName
         );
 
         await expect( page ).toFill(
           'input[name="lastName"]',
-          process.env.INTERN_A_LASTNAME
+          lastName
         );
 
         await expect( page ).toFill(
           'input[name="password"]',
-          process.env.INTERN_A_PASSWORD
+          password
         );
         await expect( page ).toFill(
           'input[name="password-confirm"]',
-          process.env.INTERN_A_PASSWORD
+          password
         );
 
         // Click the submit button

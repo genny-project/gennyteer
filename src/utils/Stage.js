@@ -13,10 +13,16 @@ class Stage {
     return this.page;
   }
 
-  async signUpOnKeycloak() {
+  async signUpOnKeycloak( userInfo ) {
     const page = await this.page;
     try {
-      await Register.run( page );
+      await Register.run(
+        page,
+        userInfo.email,
+        userInfo.firstName,
+        userInfo.lastName,
+        userInfo.password
+      );
     } catch ( error ) {
       console.log( error );
     }
