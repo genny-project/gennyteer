@@ -37,10 +37,10 @@ class Stage {
     // await page.waitFor( 5000 );
   }
 
-  async login() {
+  async login( userInfo ) {
     const page = await this.page;
     try {
-      const result = await Login.run( page );
+      const result = await Login.run( page , userInfo.email, userInfo.password );
       expect( result ).toBe( true );
     } catch ( error ) {
       throw new Error( error );
