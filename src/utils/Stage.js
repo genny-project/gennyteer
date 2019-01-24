@@ -1,12 +1,22 @@
 import puppeteer from 'puppeteer';
 
 import { Register, Login, Logout, LoginV3 } from '../spec/library';
+import Actor from './Actor';
 
 const PAGE_WIDTH = 1600;
 const PAGE_HEIGHT = 900;
 class Stage {
   constructor() {
     this.page = Stage.generatePage();
+    this.generateActor();
+  }
+
+  async generateActor(){
+    this.actor = await new Actor( this.page );
+  }
+
+  async getActor(){
+    return this.actor;
   }
 
   getPage() {

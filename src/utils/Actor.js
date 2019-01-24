@@ -4,25 +4,24 @@ import { setDefaultOptions } from 'expect-puppeteer';
 // Set maximum wait time for any element to 3 minutes
 setDefaultOptions({ timeout: 240 * SECONDS });
 
-
 // jest and their methods are automatically defined
 jest.setTimeout( 100 * SECONDS );
 
 class Actor {
   constructor( page ) {
-    this.page = page;
+    this.__setPage( page );
+  }
+
+  async __setPage( page ) {
+    this.page = await page;
   }
 
   async typeInput( inputType, askId, text, options = {}) {
-    const {
-      waitTime = 5,
-    } = options;
-
-    await this.page.waitFor( waitTime * SECONDS );
+    let selector = `[data-testid="input-${inputType} ${askId}"]`;
+    await this.page.waitForSelector( selector, options );
 
     // Type into an input field on the page
-
-    await expect( this.page ).toFill( `[data-testid="input-${inputType} ${askId}"]`, text );
+    await expect( this.page ).toFill( selector, text );
   }
 
   async typeInputText( askId, text, options = {}) {
@@ -36,28 +35,40 @@ class Actor {
   }
 
   async typeInputAutocomplete( askId, text ) {
+    const selector = `[data-testid="input-autocomplete-item ${askId}"]`;
+
     // Type into the autocmplete input
-    await this.typeInput( askId, text );
+    await this.typeInputText( askId, text );
+
+    // Wait for the element to load before continuing
+    await this.page.waitForSelector( selector );
 
     // Click on the first autocomplete result
-    await expect( this.page ).toClick( `[data-testid="input-autocomplete-item ${askId}"]` );
+    await expect( this.page ).toClick( selector );
   }
 
-  async selectInput( askId, baseEntityCode ) {
-    // Find the dropdown input on the page and select the baseEntityCode from the items
-    await this.page.select( `select[data-testid="input-dropdown ${askId}"]`, baseEntityCode );
+  async selectInput( askId, dropdownValue ) {
+    await expect( this.page ).toClick(
+      `[data-testid="input-dropdown ${askId}"]`
+    );
+
+    await this.page.waitFor( 3 * SECONDS );
+    
+    // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
+    await this.page.select(
+      `select[data-testid="input-dropdown ${askId}"]`,
+      dropdownValue
+    );
   }
 
   async click( testId, options = {}) {
-    const {
-      waitTime = 3,
-      clickIndex = 0,
-    } = options;
+    const { clickIndex = 0 } = options;
+    const selector = `[data-testid="${testId}"]`;
 
-    await this.page.waitFor( waitTime * SECONDS );
+    await this.page.waitForSelector( selector );
 
     // Find the button the page
-    const button = this.page.$$( `[data-testid="${testId}"]` );
+    const button = await this.page.$$( selector );
 
     // Click the element of index `clickIndex`
     await button[clickIndex].click();
