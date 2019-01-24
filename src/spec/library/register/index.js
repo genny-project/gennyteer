@@ -21,29 +21,11 @@ class Register {
         await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
         // Fill in the details for registration (email, first name, last name, password)
-        await expect( page ).toFill(
-          'input[name="email"]',
-          email
-        );
-
-        await expect( page ).toFill(
-          'input[name="firstName"]',
-          firstName
-        );
-
-        await expect( page ).toFill(
-          'input[name="lastName"]',
-          lastName
-        );
-
-        await expect( page ).toFill(
-          'input[name="password"]',
-          password
-        );
-        await expect( page ).toFill(
-          'input[name="password-confirm"]',
-          password
-        );
+        await expect( page ).toFill( 'input[name="email"]', email );
+        await expect( page ).toFill( 'input[name="firstName"]', firstName );
+        await expect( page ).toFill( 'input[name="lastName"]', lastName );
+        await expect( page ).toFill( 'input[name="password"]', password );
+        await expect( page ).toFill( 'input[name="password-confirm"]', password );
 
         // Click the submit button
         await expect( page ).toClick( 'button[type="submit"]' );
