@@ -48,17 +48,32 @@ class Actor {
   }
 
   async selectInput( askId, dropdownValue ) {
-    await expect( this.page ).toClick(
-      `[data-testid="input-dropdown ${askId}"]`
-    );
+    await expect( this.page ).toClick( `[data-testid="input-dropdown ${askId}"]` );
 
-    await this.page.waitFor( 3 * SECONDS );
-    
     // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
     await this.page.select(
       `select[data-testid="input-dropdown ${askId}"]`,
       dropdownValue
     );
+  }
+
+  async selectTags( askId, options = {}) {
+    const { clickIndex = 0 } = options;
+    const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
+
+    // There are no events or elements to wait for to make sure the tags are ready.
+    // TODO: Make it happen
+    console.log( 'Waiting for tags to load' );
+    await this.page.waitFor( 4 * SECONDS );
+
+    // Click the tags dropdown
+    await this.click( `input-text input-tag ${askId}` );
+
+    // Clicking tags option
+    await this.page.waitForSelector( optionSelector );
+    const occupationButton = await this.page.$$( optionSelector );
+    const addOccupation = await occupationButton[clickIndex];
+    await addOccupation.click();
   }
 
   async click( testId, options = {}) {
