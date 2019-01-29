@@ -3,19 +3,25 @@ import puppeteer from 'puppeteer';
 import { Register, Login, Logout, LoginV3 } from '../spec/library';
 import Actor from './Actor';
 
-const PAGE_WIDTH = 1600;
-const PAGE_HEIGHT = 900;
-class Stage {
-  constructor() {
-    this.page = Stage.generatePage();
-    this.generateActor();
+const PAGE_WIDTH = 1920;
+const PAGE_HEIGHT = 1080;
+
+class GennyDesktopBrowser {
+  constructor( page, actor ) {
+    this.page = page;
+    this.actor = actor;
   }
 
-  async generateActor(){
-    this.actor = await new Actor( this.page );
+  static async build( gennyURL ) {
+    // Builder function for initiating new instance of GennyDesktopBrowser
+    const page = await GennyDesktopBrowser.generatePage();
+    const actor = await new Actor( page );
+    const newDesktopBrowser = await new GennyDesktopBrowser( page, actor );
+    await newDesktopBrowser.navigateTo( gennyURL );
+    return newDesktopBrowser;
   }
 
-  async getActor(){
+  async getActor() {
     return this.actor;
   }
 
@@ -50,7 +56,7 @@ class Stage {
   async login( userInfo ) {
     const page = await this.page;
     try {
-      const result = await Login.run( page , userInfo.email, userInfo.password );
+      const result = await Login.run( page, userInfo.email, userInfo.password );
       expect( result ).toBe( true );
     } catch ( error ) {
       throw new Error( error );
@@ -105,11 +111,6 @@ class Stage {
 
     return page;
   }
-
-  async run( cb ) {
-    const page = await this.page;
-    cb( page );
-  }
 }
 
-export default Stage;
+export default GennyDesktopBrowser;

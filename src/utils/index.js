@@ -1,9 +1,9 @@
 import { Screenshot } from './Screenshot';
 import Actor from './Actor';
-import Stage from './Stage';
+import GennyDesktopBrowser from './GennyDesktopBrowser';
 
 export {
   Screenshot,
   Actor,
-  Stage,
+  GennyDesktopBrowser,
 };
