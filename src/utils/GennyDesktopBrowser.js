@@ -1,28 +1,21 @@
 import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
 import { Register, Login, Logout, LoginV3 } from '../spec/library';
-import Actor from './Actor';
 
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1080;
 
 class GennyDesktopBrowser {
-  constructor( page, actor ) {
+  constructor( page ) {
     this.page = page;
-    this.actor = actor;
   }
 
   static async build( gennyURL ) {
     // Builder function for initiating new instance of GennyDesktopBrowser
     const page = await GennyDesktopBrowser.generatePage();
-    const actor = await new Actor( page );
-    const newDesktopBrowser = await new GennyDesktopBrowser( page, actor );
+    const newDesktopBrowser = await new GennyDesktopBrowser( page );
     await newDesktopBrowser.navigateTo( gennyURL );
     return newDesktopBrowser;
-  }
-
-  async getActor() {
-    return this.actor;
   }
 
   getPage() {
