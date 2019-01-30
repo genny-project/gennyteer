@@ -16,6 +16,17 @@ class Actor {
     this.page = await page;
   }
 
+  async typeOnNormalTextBox( selector, text, options = {}) {
+    await this.page.waitForSelector( selector, options );
+    // Type into an input field on the page
+    await expect( this.page ).toFill( selector, text );
+  }
+
+  async clickOnNormalButton( selector, options = {}) {
+    await this.page.waitForSelector( selector, options );
+    await expect( this.page ).toClick( selector );
+  }
+
   async typeInput( inputType, askId, text, options = {}) {
     let selector = `[data-testid="input-${inputType} ${askId}"]`;
     await this.page.waitForSelector( selector, options );

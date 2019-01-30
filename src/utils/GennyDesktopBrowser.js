@@ -50,7 +50,6 @@ class GennyDesktopBrowser {
       page.goto( websiteURL ),
       page.waitForNavigation({ waitUntil: 'domcontentloaded' })
     ] );
-    // await page.waitFor( 5000 );
   }
 
   async login( userInfo ) {
