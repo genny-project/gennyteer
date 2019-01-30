@@ -16,13 +16,13 @@ class Actor {
     this.page = await page;
   }
 
-  async typeOnNormalTextBox( selector, text, options = {}) {
+  async typeCssSelectorTextBox( selector, text, options = {}) {
     await this.page.waitForSelector( selector, options );
     // Type into an input field on the page
     await expect( this.page ).toFill( selector, text );
   }
 
-  async clickOnNormalButton( selector, options = {}) {
+  async clickCssSelectorButton( selector, options = {}) {
     await this.page.waitForSelector( selector, options );
     await expect( this.page ).toClick( selector );
   }
@@ -58,10 +58,12 @@ class Actor {
     await expect( this.page ).toClick( selector );
   }
 
-  async selectInput( askId, dropdownValue ) {
+  async selectInputDropdown( askId, dropdownValue ) {
+    // Click the dropdown
     await expect( this.page ).toClick( `[data-testid="input-dropdown ${askId}"]` );
 
     // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
+    // This is different from just clicking on it. Puppeteer uses the select function.
     await this.page.select(
       `select[data-testid="input-dropdown ${askId}"]`,
       dropdownValue
