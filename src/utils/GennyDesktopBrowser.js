@@ -44,6 +44,11 @@ class GennyDesktopBrowser {
     }
   }
 
+  async sleep( duration ) {
+    const SECONDS = 1000;
+    await this.page.waitFor( duration * SECONDS );
+  }
+
   async navigateTo( websiteURL ) {
     const page = await this.page;
     await Promise.all( [
