@@ -108,7 +108,7 @@ class GennyDesktopBrowser {
     await this.inputTextBoxUsingCSS( selector, text );
   }
 
-  async clickButtonUsingType( typeName ){
+  async clickButtonUsingType( typeName ) {
     const selector = `button[type="${typeName}"]`;
     this.clickButtonUsingCSS( selector );
   }
@@ -210,23 +210,13 @@ class GennyDesktopBrowser {
     await this.click( `button ${testId}`, options );
   }
 
-  async clickGennyDropdown( testId, selectionId, options = {}){
+  async clickGennyDropdown( testId, selectionId, options = {}) {
     // Make a normal click but prefix it with `dropdown`
     await this.click( `dropdown ${testId}`, options );
 
     // Make a normal click but prefix it with `dropdown-item`
     await this.click( `dropdown-item ${selectionId}`, options );
   }
-
-  // async clickDropdown( testId = '', options = {}) {
-  //   // Make a normal click but prefix it with `dropdown`
-  //   await this.click( `dropdown ${testId}`, options );
-  // } 
-
-  // async clickDropdownItem( testId = '', options = {}) {
-  //   // Make a normal click but prefix it with `dropdown-item`
-  //   await this.click( `dropdown-item ${testId}`, options );
-  // }
 }
 
 export default GennyDesktopBrowser;
