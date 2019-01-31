@@ -172,7 +172,7 @@ class GennyDesktopBrowser {
     );
   }
 
-  async selectTags( askId, options = {}) {
+  async selectTag( askId, options = {}) {
     const { clickIndex = 0 } = options;
     const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
 
@@ -186,9 +186,10 @@ class GennyDesktopBrowser {
 
     // Clicking tags option
     await this.page.waitForSelector( optionSelector );
-    const occupationButton = await this.page.$$( optionSelector );
-    const addOccupation = await occupationButton[clickIndex];
-    await addOccupation.click();
+    const tagSelection = await this.page.$$( optionSelector );
+    const specificSelection = await tagSelection[clickIndex];
+    await specificSelection.click();
+    await this.click( `input-text input-tag ${askId}` );
   }
 
   async click( testId, options = {}) {
