@@ -210,12 +210,12 @@ class GennyDesktopBrowser {
     await this.click( `button ${testId}`, options );
   }
 
-  async clickGennyDropdown( testId, selectionId, options = {}) {
+  async clickGennyDropdown( testId, selectionId, dropdownOptions = {}, dropdownItemOptions= {}) {
     // Make a normal click but prefix it with `dropdown`
-    await this.click( `dropdown ${testId}`, options );
+    await this.click( `dropdown ${testId}`, dropdownOptions );
 
     // Make a normal click but prefix it with `dropdown-item`
-    await this.click( `dropdown-item ${selectionId}`, options );
+    await this.click( `dropdown-item ${selectionId}`, dropdownItemOptions );
   }
 }
 
