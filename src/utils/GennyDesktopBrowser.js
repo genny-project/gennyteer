@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
-import { Register, Login, Logout, LoginV3 } from '../spec/library';
+import { Register } from '../spec/library';
 
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1080;
@@ -48,36 +48,6 @@ class GennyDesktopBrowser {
       page.goto( websiteURL ),
       page.waitForNavigation({ waitUntil: 'domcontentloaded' })
     ] );
-  }
-
-  async login( userInfo ) {
-    const page = await this.page;
-    try {
-      const result = await Login.run( page, userInfo.email, userInfo.password );
-      expect( result ).toBe( true );
-    } catch ( error ) {
-      throw new Error( error );
-    }
-  }
-
-  async loginV3() {
-    const page = await this.page;
-    try {
-      const result = await LoginV3.run( page );
-      expect( result ).toBe( true );
-    } catch ( error ) {
-      throw new Error( error );
-    }
-  }
-
-  async logout() {
-    const page = await this.page;
-    try {
-      const result = await Logout.run( page );
-      expect( result ).toBe( true );
-    } catch ( error ) {
-      throw new Error( error );
-    }
   }
 
   async closeBrowser() {
