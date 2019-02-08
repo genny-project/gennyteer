@@ -21,8 +21,8 @@ class Interface {
     return cacheInterface;
   }
 
-  feStore() {
-    const feStore = new FeStoreInterface( 'storeFrom' );
+  feStore( store ) {
+    const feStore = new FeStoreInterface( store );
     return feStore;
   }
 }
