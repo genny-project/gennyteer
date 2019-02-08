@@ -1,13 +1,30 @@
+import FeStoreInterface from './festore.interface';
+import FeDisplayInterface from './fedisplay.interface';
+import DatabaseInterface from './database.interface';
+import CacheInterface from './cache.interface';
+
 class Interface {
   constructor() {}
 
-  database() {}
+  database() {
+    const databaseInterface = new DatabaseInterface();
+    return databaseInterface;
+  }
 
-  feDisplay() {}
+  feDisplay() {
+    const feDisplay = new FeDisplayInterface();
+    return feDisplay;
+  }
 
-  cache() {}
+  cache() {
+    const cacheInterface = new CacheInterface();
+    return cacheInterface;
+  }
 
-  feStore() {}
+  feStore() {
+    const feStore = new FeStoreInterface( 'storeFrom' );
+    return feStore;
+  }
 }
 
 export default new Interface();
