@@ -21,10 +21,10 @@ class Interface {
     return cacheInterface;
   }
 
+  //pretty much done
   feStore( store ) {
-    const feStore = new FeStoreInterface( store );
-    return feStore;
+    return FeStoreInterface( store );
   }
 }
 
-export default new Interface();
+export default Interface;

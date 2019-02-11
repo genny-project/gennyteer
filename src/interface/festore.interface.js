@@ -1,37 +1,33 @@
 import storeJSON from './storeTest.json';
+import deleve from 'dlv';
 class FeStore {
-  constructor( store = storeJSON ) {
-    this.store = store;
-  }
-  static async baseEntityExists( baseEntityParams ) {
-    if (
-      this.store === null ||
-      this.store == null ||
-      this.store === 'undefined'
-    ) {
+  static baseEntityExists({ store = storeJSON, baseEntityCode }) {
+    if ( store == null || store === 'undefined' ) {
       return false;
     } else {
       // check for baseEntitys get baseEntitys
+      console.log({ store });
       const getKeysOfData = Object.keys(
-        storeJSON.keycloak.vertex.baseEntities.data
+        store.keycloak.vertex.baseEntities.data
       );
-      const baseEntityExists = getKeysOfData.forEach( baseEntity => {
-        if ( baseEntity === baseEntityParams ) {
-          return true;
-        }
-      });
-      return baseEntityExists;
+      const x = getKeysOfData.filter( aa => aa === baseEntityCode );
+
+      if ( x[0] === baseEntityCode ) {
+        return true;
+      }
+      return false;
     }
   }
 
-  // TOIMPLEMENT
-  // static async questionExists() {}
-  // static async attributeExists() {}
-  // static async baseEntityIsLinkedToAnotherBaseEntiyAsSource() {}
-  // static async baseEntityIsLinkedToAnotherBaseEntiyAsTarger() {}
-  // static async questionIsLinkedToAnotherQuestion() {}
-  // static async attributeIsLinkedToQuestion() {}
-  // static async attributeIsLinkedToBaseEntity() {}
+  static attributeValueExists({ bsCode, attributeName, valueKey }) {
+    const val = deleve(
+      storeJSON,
+      `keycloak.vertex.baseEntities.attributes.${bsCode}.${attributeName}.${
+        valueKey ? valueKey : 'value'
+      }`
+    );
+    return val;
+  }
 }
 
 export default FeStore;
