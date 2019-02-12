@@ -4,6 +4,11 @@ import { setDefaultOptions } from 'expect-puppeteer';
 // Set maximum wait time for each element to 25 seconds
 setDefaultOptions({ timeout: 25 * SECONDS });
 
+import faker from 'faker';
+
+const randomName = faker.name.findName();
+const randomEmail = faker.internet.email();
+
 class Login {
   static run( page ) {
     return new Promise( async ( resolve, reject ) => {
@@ -14,14 +19,8 @@ class Login {
         await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
         // Fill in user email and password
-        await expect( page ).toFill(
-          '.input-email input',
-          process.env.AGENT_A_USERNAME,
-        );
-        await expect( page ).toFill(
-          'input[type="password"]',
-          process.env.AGENT_A_PASSWORD,
-        );
+        await expect( page ).toFill( '.input-email input', randomName );
+        await expect( page ).toFill( 'input[type="password"]', randomEmail );
 
         // click the submit button
         await expect( page ).toClick( 'button[type="submit"]' );
