@@ -40,7 +40,10 @@ class Actor {
 
   // Fill in a generic text box
   async fillTextBox( questionCode, answerValue ) {
-    this.__fillTextBox( `[data-testid="input-text ${questionCode}"]`, answerValue );
+    this.__fillTextBox(
+      `[data-testid="input-text ${questionCode}"]`,
+      answerValue
+    );
   }
 
   async fillDropdown( questionCode, optionValue ) {

@@ -9,15 +9,16 @@ class GennyTest {
   }
 
   async typeInput( inputType, askId, text, options = {}) {
-    const {
-      waitTime = 5,
-    } = options;
+    const { waitTime = 5 } = options;
 
     await this.page.waitFor( waitTime * SECONDS );
 
     // Type into an input field on the page
 
-    await expect( this.page ).toFill( `[data-testid="input-${inputType} ${askId}"]`, text );
+    await expect( this.page ).toFill(
+      `[data-testid="input-${inputType} ${askId}"]`,
+      text
+    );
   }
 
   async typeInputText( askId, text, options = {}) {
@@ -35,19 +36,21 @@ class GennyTest {
     await this.typeInput( askId, text );
 
     // Click on the first autocomplete result
-    await expect( this.page ).toClick( `[data-testid="input-autocomplete-item ${askId}"]` );
+    await expect( this.page ).toClick(
+      `[data-testid="input-autocomplete-item ${askId}"]`
+    );
   }
 
   async selectInput( askId, baseEntityCode ) {
     // Find the dropdown input on the page and select the baseEntityCode from the items
-    await this.page.select( `select[data-testid="input-dropdown ${askId}"]`, baseEntityCode );
+    await this.page.select(
+      `select[data-testid="input-dropdown ${askId}"]`,
+      baseEntityCode
+    );
   }
 
   async click( testId, options = {}) {
-    const {
-      waitTime = 3,
-      clickIndex = 0,
-    } = options;
+    const { waitTime = 3, clickIndex = 0 } = options;
 
     await this.page.waitFor( waitTime * SECONDS );
 

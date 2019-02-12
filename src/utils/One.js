@@ -1,7 +1,5 @@
 import puppeteer from 'puppeteer';
 
-import { Register, Login, Logout } from '../spec/library';
-
 const PAGE_WIDTH = 1600;
 const PAGE_HEIGHT = 900;
 class One {
@@ -10,41 +8,10 @@ class One {
     return page;
   }
 
-  async beforeAllSignup() {
-    const page = await One.generatePage();
-    try {
-      const register = new Register();
-      const result = await register.run( page );
-      expect( result ).toBe( true );
-    } catch ( error ) {
-      throw new Error( error );
-    }
-  }
-
   async navigateTo( websiteURL ) {
     const page = await One.generatePage();
     await page.goto( websiteURL );
   }
-
-  // async login() {
-  //   const page = await One.generatePage();
-  //   try {
-  //     const result = await Login.run( page );
-  //     expect( result ).toBe( true );
-  //   } catch ( error ) {
-  //     throw new Error( error );
-  //   }
-  // }
-
-  // async logout() {
-  //   const page = await One.generatePage();
-  //   try {
-  //     const result = await Logout.run( page );
-  //     expect( result ).toBe( true );
-  //   } catch ( error ) {
-  //     throw new Error( error );
-  //   }
-  // }
 
   async closeBrowser() {
     const page = await One.generatePage();
@@ -73,11 +40,6 @@ class One {
     });
 
     return page;
-  }
-
-  async run( cb ) {
-    const page = await One.generatePage();
-    cb( page );
   }
 }
 
