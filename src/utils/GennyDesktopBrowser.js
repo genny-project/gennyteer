@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
+import faker from 'faker';
 
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1080;
@@ -15,6 +16,10 @@ class GennyDesktopBrowser {
     const newDesktopBrowser = await new GennyDesktopBrowser( page );
     await newDesktopBrowser.navigateTo( gennyURL );
     return newDesktopBrowser;
+  }
+
+  faker() {
+    return faker;
   }
 
   getPage() {
