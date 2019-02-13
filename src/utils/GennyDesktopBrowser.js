@@ -19,7 +19,7 @@ class GennyDesktopBrowser {
   }
 
   faker() {
-    return faker;
+    return faker();
   }
 
   getPage() {
@@ -184,9 +184,7 @@ class GennyDesktopBrowser {
 
   /* Make a normal click on an item with a testID */
   async clickOnTestId( testId ) {
-    await expect( this.page ).toClick(
-      `[data-testid="${testId}"]`
-    );
+    await expect( this.page ).toClick( `[data-testid="${testId}"]` );
   }
 
   /* Make a normal click on a sidebar dropdown */
@@ -198,11 +196,8 @@ class GennyDesktopBrowser {
 
   /* Make a normal click on an sidebar item */
   async clickSidebarItem( testId ) {
-    await expect( this.page ).toClick(
-      `[data-testid="sidebar-item-${testId}"]`
-    );
+    await expect( this.page ).toClick( `[data-testid="sidebar-item-${testId}"]` );
   }
-
 }
 
 export default GennyDesktopBrowser;
