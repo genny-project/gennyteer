@@ -177,11 +177,27 @@ class GennyDesktopBrowser {
     await this.click( `dropdown-item ${selectionId}`, dropdownItemOptions );
   }
 
-  async clickSidebarItem( testId ) {
+  /* Make a normal click on an item with a testID */
+  async clickOnTestId( testId ) {
+    await expect( this.page ).toClick(
+      `[data-testid="${testId}"]`
+    );
+  }
+
+  /* Make a normal click on a sidebar dropdown */
+  async clickSidebarDropdown( testId ) {
     await expect( this.page ).toClick(
       `[data-testid="sidebar-dropdown ${testId}"]`
     );
   }
+
+  /* Make a normal click on an sidebar item */
+  async clickSidebarItem( testId ) {
+    await expect( this.page ).toClick(
+      `[data-testid="sidebar-item-${testId}"]`
+    );
+  }
+
 }
 
 export default GennyDesktopBrowser;
