@@ -8,6 +8,8 @@ export class Screenshot {
 
   async shoot( page, id ) {
     await mkdirp( `screenshots/${this.name}` );
-    await page.screenshot({path: `screenshots/${this.name}/${this.count++}_${id}.png`});
+    await page.screenshot({
+      path: `screenshots/${this.name}/${this.count++}_${id}.png`
+    });
   }
 }

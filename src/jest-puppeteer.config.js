@@ -1,5 +1,5 @@
 module.exports = {
-    launch: {
-        args: [ '--no-sandbox' ]
-    },
+  launch: {
+    args: ['--no-sandbox']
   }
+};
