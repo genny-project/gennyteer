@@ -8,10 +8,15 @@ class Screenshot {
   }
 
   async shoot() {
-    await mkdirp( `screenshots/${this.name}` );
-    await this.page.screenshot({
-      path: `screenshots/${this.name}/${this.count++}_${this.name}.png`
-    });
+    try {
+      await mkdirp( `screenshots/${this.name}` );
+      await this.page.screenshot({
+        path: `screenshots/${this.name}/${this.count++}_${this.name}.png`
+      });
+    } catch ( err ) {
+      console.log( err );
+      throw new Error( ' Error while creating file' );
+    }
   }
 }
 
