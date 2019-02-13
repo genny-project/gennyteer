@@ -1,6 +1,6 @@
 module.exports = {
   rootDir: 'dist',
-  testMatch: ['<rootDir>/**/tests/**/*.js', '**/?(*.)(spec|test).js'],
+  testMatch: ['<rootDir>/**/tests/**/*.js'],
   preset: 'jest-puppeteer',
   bail: true
 };

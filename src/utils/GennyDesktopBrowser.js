@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
-import { Register } from '../spec/library';
 
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1080;
