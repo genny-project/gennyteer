@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
 import faker from 'faker';
+import ScSchot from './Screenshot';
 
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1080;
@@ -60,6 +61,11 @@ class GennyDesktopBrowser {
     });
 
     return page;
+  }
+
+  async screenshot( fileName ) {
+    const scShot = new ScSchot( this.page, fileName );
+    scShot.shoot( this.page, fileName );
   }
 
   async click( selector ) {
