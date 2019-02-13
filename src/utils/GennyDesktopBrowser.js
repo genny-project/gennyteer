@@ -19,7 +19,7 @@ class GennyDesktopBrowser {
   }
 
   faker() {
-    return faker();
+    return faker;
   }
 
   getPage() {
