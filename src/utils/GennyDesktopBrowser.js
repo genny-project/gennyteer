@@ -62,6 +62,10 @@ class GennyDesktopBrowser {
     return page;
   }
 
+  async click( selector ) {
+    await expect( this.page ).toClick( selector );
+  }
+
   async inputTextUsingID( id, text ) {
     const selector = `#${id}`;
     await this.inputTextBoxUsingCSS( selector, text );
