@@ -68,7 +68,7 @@ class GennyDesktopBrowser {
     scShot.shoot();
   }
 
-  async click( selector ) {
+  async clickOnSelector( selector ) {
     await expect( this.page ).toClick( selector );
   }
 

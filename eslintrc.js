@@ -12,21 +12,25 @@ module.exports = {
     ecmaVersion: 6,
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
-      jsx: true,
+      jsx: true
     },
-    sourceType: 'module',
+    sourceType: 'module'
   },
   globals: {
     describe: true,
     it: true,
     after: true,
-    beforeAll: true,
+    beforeAll: true
   },
   rules: {
     'linebreak-style': ['error', 'unix'],
-    'quotes': ['error', 'single'],
-    'semi': ['error', 'always'],
-    'space-in-parens': ['error', 'always', { 'exceptions': ['{}', '()', 'empty'] }],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+    'space-in-parens': [
+      'error',
+      'always',
+      { exceptions: ['{}', '()', 'empty'] }
+    ],
     'space-before-function-paren': 'off',
     'arrow-body-style': 'off',
     'react/forbid-prop-types': 'off',
@@ -34,7 +38,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': 'off',
     'import/imports-first': 'off',
-    'class-methods-use-this': 'off',
     'arrow-parens': ['error', 'as-needed'],
     'no-underscore-dangle': 'off',
     'no-case-declarations': 'off',
@@ -42,13 +45,13 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'brace-style': 'off',
     'no-plusplus': 'off',
-    'eqeqeq': 'off',
+    eqeqeq: 'off',
     'no-unused-expressions': 'off',
     'no-nested-ternary': 'off',
-    'curly': 'off',
+    curly: 'off',
     'no-return-assign': 'off',
     'no-confusing-arrow': 'off',
     'no-extra-boolean-cast': 'off',
-    'no-console': 'off',
-  },
+    'no-console': 'off'
+  }
 };
