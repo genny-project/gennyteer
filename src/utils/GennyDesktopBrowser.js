@@ -65,7 +65,7 @@ class GennyDesktopBrowser {
 
   async screenshot( fileName ) {
     const scShot = new ScSchot( this.page, fileName );
-    scShot.shoot( this.page, fileName );
+    scShot.shoot();
   }
 
   async click( selector ) {
