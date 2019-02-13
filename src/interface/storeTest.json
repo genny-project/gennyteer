@@ -1,0 +1,12 @@
+{
+  "key": {
+    "vertex": {
+      "baseEntities": {
+        "HELLO": {
+          "link": "LINK_CODE",
+          "val": "Hello Value"
+        }
+      }
+    }
+  }
+}

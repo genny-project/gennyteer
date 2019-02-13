@@ -12,4 +12,3 @@ fi
 
 
   docker build  -t gennyproject/${project}:${version} .
-
