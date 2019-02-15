@@ -1,4 +1,10 @@
-import mkdirp from 'mkdirp-promise';
+// import mkdirp from 'mkdirp-promise';
+import path from 'path';
+const fs = require( 'fs-extra' );
+
+const dir = path.resolve( __dirname, '/tmp' );
+console.log({ dir });
+fs.ensureDirSync( dir );
 
 class Screenshot {
   constructor( page, name ) {
@@ -9,13 +15,12 @@ class Screenshot {
 
   async shoot() {
     try {
-      await mkdirp( `screenshots/${this.name}` );
       await this.page.screenshot({
-        path: `screenshots/${this.name}/${this.count++}_${this.name}.png`
+        path: `./${this.name + Date.now()}.png`
       });
     } catch ( err ) {
       console.log( err );
-      throw new Error( ' Error while creating file' );
+      throw Error( ' Error while creating file' );
     }
   }
 }

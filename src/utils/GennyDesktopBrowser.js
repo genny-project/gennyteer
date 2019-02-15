@@ -20,6 +20,11 @@ class GennyDesktopBrowser {
   }
 
   faker() {
+    const email = faker.internet.email;
+    const newEmail = `test_${email}`;
+    faker.internet.email = function() {
+      return newEmail;
+    };
     return faker;
   }
 
@@ -84,7 +89,8 @@ class GennyDesktopBrowser {
 
   async clickButtonUsingClass( className ) {
     const selector = `.${className}`;
-    await this.clickCssSelectorButton( selector );
+    await this.page.waitForSelector( selector );
+    await this.click( selector );
   }
 
   async inputTextBoxUsingCSS( selector, text, options = {}) {
