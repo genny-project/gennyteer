@@ -90,7 +90,7 @@ class GennyDesktopBrowser {
   async clickButtonUsingClass( className ) {
     const selector = `.${className}`;
     await this.page.waitForSelector( selector );
-    await this.click( selector );
+    await this.page.click( selector );
   }
 
   async inputTextBoxUsingCSS( selector, text, options = {}) {
