@@ -210,6 +210,15 @@ class GennyDesktopBrowser {
     );
   }
 
+  async checkIfSelectorExists( selector ) {
+    await this.page.waitForSelector( selector );
+    if (( await this.page.$( selector )) !== null ) {
+      console.log( 'Selector Exists!' );
+      return true;
+    }
+    throw Error( ' Text not Found' );
+  }
+
   /* Make a normal click on an sidebar item */
   async clickSidebarItem( testId ) {
     await expect( this.page ).toClick( `[data-testid="sidebar-item-${testId}"]` );
