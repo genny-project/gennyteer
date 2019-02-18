@@ -20,12 +20,33 @@ class GennyDesktopBrowser {
   }
 
   faker() {
+    // email Modification
     const originalEmail = faker.internet.email();
     console.log({ originalEmail });
     const newEmail = `test_${originalEmail}`;
     faker.internet.email = function() {
       return newEmail;
     };
+
+    // First Name modification
+    const originalName = faker.name.firstName();
+    const newName = `test_${originalName}`;
+    faker.name.firstName = function() {
+      return newName;
+    };
+
+    // Last name modification
+    const originalLastName = faker.name.lastName();
+    const newLastName = `test_${originalLastName}`;
+    faker.name.lastName = function() {
+      return newLastName;
+    };
+
+    //Phone number modificaiton
+    faker.phoneNumber = function() {
+      return '0423274793';
+    };
+
     return faker;
   }
 
