@@ -29,6 +29,16 @@ class GennyDesktopBrowser {
     return faker;
   }
 
+  async getStore() {
+    await this.page.evaluate(() => {
+      console.log( window.store.getState());
+      if ( window && window.store ) return window.store.getState();
+      throw new Error(
+        'Store object doesnot exists on the window in pupptter please check Alyson v3 is updated to use the store Object'
+      );
+    });
+  }
+
   getPage() {
     return this.page;
   }
