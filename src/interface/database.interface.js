@@ -25,6 +25,23 @@ class DatabaseInterface {
     attributeCode,
     value
   ) {}
+
+  deleteBaseEntity() {
+    // const token = await asyncTokenUtils();
+    // console.log(
+    //       ' ############################################# \n \n \n \n \n \n \n \n \n GETTING TOKEN  ###########################################################',
+    //       token
+    // );
+    // const result = await axios({
+    //   method: 'POST',
+    //   url: siteUrl,
+    //   headers: { Authorization: `Bearer ${token.access_token}` },
+    //   data: searchAttribures
+    // }).catch( err => {
+    //   console.log( err );
+    // });
+    //   return result.data;
+  }
 }
 
 export default DatabaseInterface;

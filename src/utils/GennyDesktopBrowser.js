@@ -20,8 +20,9 @@ class GennyDesktopBrowser {
   }
 
   faker() {
-    const email = faker.internet.email;
-    const newEmail = `test_${email}`;
+    const originalEmail = faker.internet.email();
+    console.log({ originalEmail });
+    const newEmail = `test_${originalEmail}`;
     faker.internet.email = function() {
       return newEmail;
     };

@@ -1,16 +1,17 @@
-import config from './config';
-import Api from './api';
+// import config from './config';
+// import Api from './api';
+import axios from 'axios';
 class Cache {
-  constructor() {}
-  static async checkIfBaseEntityExists( baseEntity ) {
-    const api = new Api();
-    const data = api.call(
-      `${config.databse.baseUrl}/${config.databse.getBaseEntitys}/${baseEntity}`
+  static async checkIfBaseEntityExists() {
+    const resp = await axios.get(
+      'https://app3-internmatch-staging.outcome-hub.com/read/PRJ_INTERNMATCH'
     );
-    if ( data && data.code === baseEntity ) {
-      return true;
-    }
-    return false;
+
+    // console.log( resp.data.value );
+    const jsonify = JSON.parse( resp.data.value );
+    console.log( jsonify );
+
+    return resp;
   }
 }
 
