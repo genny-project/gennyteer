@@ -2,6 +2,7 @@ import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
 import faker from 'faker';
 import ScSchot from './Screenshot';
+import axios from 'axios';
 
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1080;
@@ -45,6 +46,11 @@ class GennyDesktopBrowser {
     //Phone number modificaiton
     faker.phoneNumber = function() {
       return '0423274793';
+    };
+
+    faker.picture = async function() {
+      const picture = await axios.get( 'https://thispersondoesnotexist.com/' );
+      return picture;
     };
 
     return faker;
