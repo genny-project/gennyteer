@@ -67,3 +67,13 @@ await user.clickSidebarDropdown("GRP_CODE_OF_SIDEBAR");
 ```javascript
 await user.clickSidebarItem("GRP_SIDEBAR_ITEM_GRP");
 ```
+
+# Faker Methods
+
+```javascript
+user.faker().name.firstName(); // For generating Name
+user.faker().name.lastName(); // For generating Name
+user.faker().internet.email(); // for Email
+usere.faker().picture(); // to generate Picture
+usere.faker().phoneNumber(); // to generate phone number
+```
