@@ -6,7 +6,7 @@ Automated Browser testing of the Genny Project using Puppeteer.
 
 1. ./build-docker.sh
 
-### Writing a basic Test
+#### Writing a basic Test
 
 ```javascript
 import { GennyDesktopBrowser } from "utils";
@@ -15,13 +15,13 @@ import { GennyDesktopBrowser } from "utils";
 
 # Input Elements
 
-### Fill input text
+#### Fill input text
 
 ```javascript
 await user.typeInputText("testid-text", "example");
 ```
 
-### Fill in Autocomplete
+#### Fill in Autocomplete
 
 ```javascript
 await user.typeInputAutocomplete("testid-text", "address");
@@ -29,13 +29,13 @@ await user.typeInputAutocomplete("testid-text", "address");
 
 ## Select
 
-### Select input dropdown
+#### Select input dropdown
 
 ```javascript
 await user.selectInputDropdown("teest-id-text", "example");
 ```
 
-### Select button using css
+#### Select button using css
 
 ```javascript
 await user.clickButtonUsingCSS('[data-testid="button"]');
@@ -43,26 +43,26 @@ await user.clickButtonUsingCSS('[data-testid="button"]');
 
 ## Click
 
-### Click on something
+#### Click on something
 
 ```javascript
 await user.click("form-generic-submit");
 await user.click("selector");
 ```
 
-### Click on testID
+#### Click on testID
 
 ```javascript
 await user.clickOnTestId("SEL_DETAIL_VIEW");
 ```
 
-### click Sidebar Dropdown
+#### click Sidebar Dropdown
 
 ```javascript
 await user.clickSidebarDropdown("GRP_CODE");
 ```
 
-### Click on sidebar item
+#### Click on sidebar item
 
 ```javscript
     await user.clickSidebarItem("GRP_PRIVACY");
