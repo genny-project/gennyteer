@@ -23,7 +23,6 @@ class GennyDesktopBrowser {
   faker() {
     // email Modification
     const originalEmail = faker.internet.email();
-    console.log({ originalEmail });
     faker.internet.email = function() {
       const newEmail = `test_${originalEmail}`;
       return newEmail;
@@ -217,7 +216,7 @@ class GennyDesktopBrowser {
     // Click the element of index `clickIndex`
     await button[clickIndex].click();
   }
-
+  // click button using testid
   async clickButton( testId = '', options = {}) {
     // Make a normal click but prefix it with `button`
     await this.click( `button ${testId}`, options );
