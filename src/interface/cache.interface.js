@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 class Cache {
-  static async checkIfBaseEntityExists(
+  async checkIfBaseEntityExists(
     baseEntity = 'PER_AGENT3_AT_GMAILCOM',
     attributeName = 'PRI_FIRSTNAME',
     valueKey = 'valueString',

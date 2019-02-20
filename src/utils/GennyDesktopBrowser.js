@@ -24,21 +24,21 @@ class GennyDesktopBrowser {
     // email Modification
     const originalEmail = faker.internet.email();
     faker.internet.email = function() {
-      const newEmail = `test_${originalEmail}`;
+      const newEmail = `test-${originalEmail}`;
       return newEmail;
     };
 
     // First Name modification
     const originalName = faker.name.firstName();
-    const newName = `test_${originalName}`;
     faker.name.firstName = function() {
+      const newName = `test_${originalName}`;
       return newName;
     };
 
     // Last name modification
     const originalLastName = faker.name.lastName();
-    const newLastName = `test_${originalLastName}`;
     faker.name.lastName = function() {
+      const newLastName = `test_${originalLastName}`;
       return newLastName;
     };
 
@@ -55,6 +55,7 @@ class GennyDesktopBrowser {
     return faker;
   }
 
+  // Get the store from frontend
   async getStore() {
     await this.page.evaluate(() => {
       console.log( window.store.getState());
@@ -65,10 +66,12 @@ class GennyDesktopBrowser {
     });
   }
 
+  // Get the page instance
   getPage() {
     return this.page;
   }
 
+  // Sleep
   async sleep( duration ) {
     const SECONDS = 1000;
     await this.page.waitFor( duration * SECONDS );
@@ -82,6 +85,7 @@ class GennyDesktopBrowser {
     ] );
   }
 
+  //close the browser alltogether
   async closeBrowser() {
     const browser = await this.page.browser();
     await browser.close();
@@ -105,6 +109,7 @@ class GennyDesktopBrowser {
     return page;
   }
 
+  //Screenshot this has not been tested yet
   async screenshot( fileName ) {
     const scShot = new ScSchot( this.page, fileName );
     scShot.shoot();
@@ -243,6 +248,11 @@ class GennyDesktopBrowser {
     await this.click( `dropdown-item ${selectionId}`, dropdownItemOptions );
   }
 
+  // Make a generic click that is compitable with all the clicks
+  async genericClick( selector ) {
+    await expect( this.page ).toClick( selector );
+  }
+
   /* Make a normal click on an item with a testID */
   async clickOnTestId( testId ) {
     await expect( this.page ).toClick( `[data-testid="${testId}"]` );
@@ -255,6 +265,7 @@ class GennyDesktopBrowser {
     );
   }
 
+  // Check if the seelector exists or Not
   async checkIfSelectorExists( selector ) {
     await this.page.waitForSelector( selector );
     if (( await this.page.$( selector )) !== null ) {

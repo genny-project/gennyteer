@@ -77,3 +77,33 @@ user.faker().internet.email(); // for Email
 usere.faker().picture(); // to generate Picture
 usere.faker().phoneNumber(); // to generate phone number
 ```
+
+#### Reading data from Database, Cache, Frontend Store and Frontend Display
+
+#### Store
+
+```javascript
+```
+
+#### Cache
+
+```javascript
+const assert = new Interface();
+assert
+  .cache()
+  .checkIfBaseEntityExists(
+    (baseEntity = "PER_AGENT3_AT_GMAILCOM"),
+    (attributeName = "PRI_FIRSTNAME"),
+    (valueKey = "valueString"),
+    (expectedValue = "Agent3")
+  );
+```
+
+###Frontend
+
+```javascript
+```
+
+#### Database
+
+Please skip the database for now, its not tested
