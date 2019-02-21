@@ -2,7 +2,6 @@ import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
 import faker from 'faker';
 import ScSchot from './Screenshot';
-import axios from 'axios';
 
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1080;
@@ -127,6 +126,7 @@ class GennyDesktopBrowser {
   }
 
   async clickOnSelector( selector ) {
+    await this.page.waitForSelector( selector );
     await expect( this.page ).toClick( selector );
   }
 
@@ -232,10 +232,18 @@ class GennyDesktopBrowser {
     // Click the element of index `clickIndex`
     await button[clickIndex].click();
   }
+
   // click button using testid
   async clickButton( testId = '', options = {}) {
     // Make a normal click but prefix it with `button`
     await this.click( `button ${testId}`, options );
+  }
+
+  async clickOnTestIDButton() {
+    const selector = '[data-testid="button"]';
+    await this.page.waitForSelector( selector );
+    const button = await this.page.$$( selector );
+    button.click();
   }
 
   // this is for clicking on the button on the header for example see internmatch header button
@@ -259,8 +267,29 @@ class GennyDesktopBrowser {
     await this.click( `dropdown-item ${selectionId}`, dropdownItemOptions );
   }
 
+  async clickDropDownItem( testID ) {
+    const selector = `[data-testid="dropdown-item ${testID}"]`;
+    await this.page.waitForSelector( selector );
+    await expect( this.page ).toClick( selector );
+  }
+
+  async clickSelectOptionUsingValue( askID, dropdownVal ) {
+    // Wait for selector
+    this.page.waitForSelector( `[data-testid="input-dropdown ${askID}"]` );
+
+    // Click the dropdown
+    await expect( this.page ).toClick( `[data-testid="input-dropdown ${askID}"]` );
+
+    // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
+    // This is different from just clicking on it. Puppeteer uses the select function.
+    await this.page.select(
+      `select[data-testid="input-dropdown ${askID}"]`,
+      dropdownVal
+    );
+  }
   // Make a generic click that is compitable with all the clicks
   async genericClick( selector ) {
+    await this.page.waitForSelector( selector );
     await expect( this.page ).toClick( selector );
   }
 
