@@ -7,6 +7,14 @@ import axios from 'axios';
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1080;
 
+// const checkIfTestPrefixExists = ( originalStr, newStr ) => {
+//   if ( originalStr.startsWith( 'test_' )) {
+//     return originalStr;
+//   } else {
+//     return newStr;
+//   }
+// };
+
 class GennyDesktopBrowser {
   constructor( page ) {
     this.page = page;
@@ -21,36 +29,39 @@ class GennyDesktopBrowser {
   }
 
   faker() {
+    // this.checkIfTestPrefixExists.bind( this );
     // email Modification
-    const originalEmail = faker.internet.email();
-    faker.internet.email = function() {
-      const newEmail = `test-${originalEmail}`;
-      return newEmail;
-    };
 
     // First Name modification
-    const originalName = faker.name.firstName();
-    faker.name.firstName = function() {
-      const newName = `test_${originalName}`;
-      return newName;
-    };
+    // const originalName = faker.name.firstName();
+    // const newName = `test_${originalName}`;
+    // faker.name.firstName = function() {
+    //   checkIfTestPrefixExists( originalName, newName );
+    // };
 
-    // Last name modification
-    const originalLastName = faker.name.lastName();
-    faker.name.lastName = function() {
-      const newLastName = `test_${originalLastName}`;
-      return newLastName;
-    };
+    // const originalEmail = faker.internet.email();
 
-    //Phone number modificaiton
-    faker.phoneNumber = function() {
-      return '0423274793';
-    };
+    // const newEmail = `test_${originalEmail}`;
+    // faker.internet.email = function() {
+    //   checkIfTestPrefixExists( originalEmail, newEmail );
+    // };
 
-    faker.picture = async function() {
-      const picture = await axios.get( 'https://thispersondoesnotexist.com/' );
-      return picture;
-    };
+    // // Last name modification
+    // const originalLastName = faker.name.lastName();
+    // const newLastName = `test_${originalLastName}`;
+    // faker.name.lastName = function() {
+    //   checkIfTestPrefixExists( originalLastName, newLastName );
+    // };
+
+    // //Phone number modificaiton
+    // faker.phoneNumber = function() {
+    //   return '0423274793';
+    // };
+
+    // faker.picture = async function() {
+    //   const picture = await axios.get( 'https://thispersondoesnotexist.com/' );
+    //   return picture;
+    // };
 
     return faker;
   }
@@ -169,7 +180,7 @@ class GennyDesktopBrowser {
 
     // Type into the autocmplete input
     await this.typeInputText( askId, text );
-
+    this.sleep( 10 );
     // Wait for the element to load before continuing
     await this.page.waitForSelector( selector );
 
