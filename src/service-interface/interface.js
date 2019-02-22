@@ -3,7 +3,7 @@ import FeDisplayInterface from './fedisplay.interface';
 import DatabaseInterface from './database.interface';
 import CacheInterface from './cache.interface';
 
-class Interface {
+class ServiceInterface {
   constructor() {}
 
   database() {
@@ -27,4 +27,4 @@ class Interface {
   }
 }
 
-export default Interface;
+export default ServiceInterface;
