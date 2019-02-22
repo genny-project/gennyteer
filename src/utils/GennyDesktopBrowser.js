@@ -283,10 +283,11 @@ class GennyDesktopBrowser {
     // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
     // This is different from just clicking on it. Puppeteer uses the select function.
     await this.page.select(
-      `select[data-testid="input-dropdown ${askID}"]`,
+      `[data-testid="input-dropdown ${askID}"]`,
       dropdownVal
     );
   }
+
   // Make a generic click that is compitable with all the clicks
   async genericClick( selector ) {
     await this.page.waitForSelector( selector );
