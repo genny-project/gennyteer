@@ -29,9 +29,7 @@ class GennyDesktopBrowser {
 
   faker() {
     // this.checkIfTestPrefixExists.bind( this );
-    // email Modification
 
-    // First Name modification
     // const originalName = faker.name.firstName();
     // const newName = `test_${originalName}`;
     // faker.name.firstName = function() {
@@ -132,11 +130,13 @@ class GennyDesktopBrowser {
 
   async inputTextUsingID( id, text ) {
     const selector = `#${id}`;
+    await this.page.waitForSelector( selector );
     await this.inputTextBoxUsingCSS( selector, text );
   }
 
   async clickButtonUsingType( typeName ) {
     const selector = `button[type="${typeName}"]`;
+    await this.page.waitForSelector( selector );
     this.clickButtonUsingCSS( selector );
   }
 
@@ -203,6 +203,7 @@ class GennyDesktopBrowser {
   async selectTag( askId, options = {}) {
     const { clickIndex = 0 } = options;
     const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
+    await this.page.waitForSelector( optionSelector );
 
     // There are no events or elements to wait for to make sure the tags are ready.
     // TODO: Make it happen
@@ -296,14 +297,16 @@ class GennyDesktopBrowser {
 
   /* Make a normal click on an item with a testID */
   async clickOnTestId( testId ) {
-    await expect( this.page ).toClick( `[data-testid="${testId}"]` );
+    const selector = `[data-testid="${testId}"]`;
+    await this.page.waitForSelector( selector );
+
+    await expect( this.page ).toClick( selector );
   }
 
   /* Make a normal click on a sidebar dropdown */
   async clickSidebarDropdown( testId ) {
-    await expect( this.page ).toClick(
-      `[data-testid="sidebar-dropdown ${testId}"]`
-    );
+    const selector = `[data-testid="sidebar-dropdown ${testId}"]`;
+    await expect( this.page ).toClick( selector );
   }
 
   // Check if the seelector exists or Not
@@ -318,7 +321,8 @@ class GennyDesktopBrowser {
 
   /* Make a normal click on an sidebar item */
   async clickSidebarItem( testId ) {
-    await expect( this.page ).toClick( `[data-testid="sidebar-item-${testId}"]` );
+    const selector = `[data-testid="sidebar-item-${testId}"]`;
+    await expect( this.page ).toClick( selector );
   }
 }
 
