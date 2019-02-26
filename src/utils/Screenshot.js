@@ -19,7 +19,7 @@ class Screenshot {
         path: `./${this.name + Date.now()}.png`
       });
     } catch ( err ) {
-      console.log( err );
+      console.error( err );
       throw Error( ' Error while creating file' );
     }
   }

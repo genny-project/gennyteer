@@ -200,6 +200,23 @@ class GennyDesktopBrowser {
     );
   }
 
+  async testMethod( askId, dropdownValue ) {
+    // Click the dropdown
+    // await expect( this.page ).toClick( `[data-testid="input-dropdown ${askId}"]` );
+
+    // // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
+    // // This is different from just clicking on it. Puppeteer uses the select function.
+    // await this.page.select(
+    //   `[data-testid="input-dropdown ${askId}"]`,
+    //   dropdownValue
+    // );
+
+    await this.page.select(
+      'select[data-testid="input-dropdown QUE_SELECT_COMPANY_TYPE"]',
+      'SEL_COMPANY_HOST_COMPANY'
+    );
+  }
+
   async selectTag( askId, options = {}) {
     const { clickIndex = 0 } = options;
     const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
@@ -244,7 +261,7 @@ class GennyDesktopBrowser {
     const selector = '[data-testid="button"]';
     await this.page.waitForSelector( selector );
     const button = await this.page.$$( selector );
-    button.click();
+    button[0].click();
   }
 
   // this is for clicking on the button on the header for example see internmatch header button
@@ -252,7 +269,9 @@ class GennyDesktopBrowser {
     testId = 'ADD_ITEMS_DROPDOWN',
     options = {}
   ) {
-    await this.click( `dropdown ${testId}`, options );
+    const selector = `dropdown ${testId}`;
+    this.page.waitForSelector( selector );
+    await this.click( selector, options );
   }
 
   async clickGennyDropdown(
@@ -263,7 +282,7 @@ class GennyDesktopBrowser {
   ) {
     // Make a normal click but prefix it with `dropdown`
     await this.click( `dropdown ${testId}`, dropdownOptions );
-
+    this.sleep( 2 );
     // Make a normal click but prefix it with `dropdown-item`
     await this.click( `dropdown-item ${selectionId}`, dropdownItemOptions );
   }
@@ -272,21 +291,6 @@ class GennyDesktopBrowser {
     const selector = `[data-testid="dropdown-item ${testID}"]`;
     await this.page.waitForSelector( selector );
     await expect( this.page ).toClick( selector );
-  }
-
-  async clickSelectOptionUsingValue( askID, dropdownVal ) {
-    // Wait for selector
-    this.page.waitForSelector( `[data-testid="input-dropdown ${askID}"]` );
-
-    // Click the dropdown
-    await expect( this.page ).toClick( `[data-testid="input-dropdown ${askID}"]` );
-
-    // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
-    // This is different from just clicking on it. Puppeteer uses the select function.
-    await this.page.select(
-      `[data-testid="input-dropdown ${askID}"]`,
-      dropdownVal
-    );
   }
 
   // Make a generic click that is compitable with all the clicks

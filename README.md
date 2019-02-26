@@ -88,7 +88,7 @@ usere.faker().phoneNumber(); // to generate phone number
 #### Cache
 
 ```javascript
-const assert = new Interface();
+const serviceInterface = new ServiceInterface();
 assert
   .cache()
   .checkIfBaseEntityExists(
@@ -99,7 +99,7 @@ assert
   );
 ```
 
-###Frontend
+### Frontend
 
 ```javascript
 ```

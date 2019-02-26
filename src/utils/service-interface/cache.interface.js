@@ -3,11 +3,11 @@
 import axios from 'axios';
 
 class Cache {
-  async checkIfBaseEntityExists(
-    baseEntity = 'PER_AGENT3_AT_GMAILCOM',
-    attributeName = 'PRI_FIRSTNAME',
-    valueKey = 'valueString',
-    expectedValue = 'Agent3'
+  async checkIfBaseEntityAttributeValueExists(
+    baseEntity,
+    attributeName,
+    valueKey,
+    expectedValue
   ) {
     let resp;
     try {

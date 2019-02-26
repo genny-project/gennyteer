@@ -1,7 +1,7 @@
 // import dotEnv from 'dotenv';
 import path from 'path';
-dotEnv.load();
-dotEnv.config({ path: path.resolve( __dirname, '/.env' ) });
+// dotEnv.load();
+// dotEnv.config({ path: path.resolve( __dirname, '/.env' ) });
 
 const config = {
   databse: {
