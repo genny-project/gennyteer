@@ -4,7 +4,7 @@ import faker from 'faker';
 import ScSchot from './Screenshot';
 
 const PAGE_WIDTH = 1920;
-const PAGE_HEIGHT = 1080;
+const PAGE_HEIGHT = 1380;
 
 // const checkIfTestPrefixExists = ( originalStr, newStr ) => {
 //   if ( originalStr.startsWith( 'test_' )) {
@@ -200,16 +200,13 @@ class GennyDesktopBrowser {
     );
   }
 
-  async testMethod( askId, dropdownValue ) {
-    // Click the dropdown
-    // await expect( this.page ).toClick( `[data-testid="input-dropdown ${askId}"]` );
-
-    // // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
-    // // This is different from just clicking on it. Puppeteer uses the select function.
-    // await this.page.select(
-    //   `[data-testid="input-dropdown ${askId}"]`,
-    //   dropdownValue
-    // );
+  async testMethod( askId = 'QUE_SELECT_COMPANY_TYPE', dropdownValue ) {
+    await this.page.evaluate(() => {
+      const test = document.querySelector(
+        'select[data-testid="input-dropdown QUE_SELECT_COMPANY_TYPE"]'
+      );
+      console.log({ test });
+    });
 
     await this.page.select(
       'select[data-testid="input-dropdown QUE_SELECT_COMPANY_TYPE"]',
@@ -258,10 +255,11 @@ class GennyDesktopBrowser {
   }
 
   async clickOnTestIDButton() {
+    const clickIndex = 0;
     const selector = '[data-testid="button"]';
     await this.page.waitForSelector( selector );
     const button = await this.page.$$( selector );
-    button[0].click();
+    await button[clickIndex].click();
   }
 
   // this is for clicking on the button on the header for example see internmatch header button
