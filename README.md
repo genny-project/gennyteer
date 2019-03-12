@@ -4,7 +4,7 @@ Automated Browser testing of the Genny Project using Puppeteer.
 
 ## How to run the test
 
-1. ./build-docker.sh
+1. `./build-docker.sh`
 
 #### Writing a basic Test
 
