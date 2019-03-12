@@ -89,7 +89,8 @@ usere.faker().phoneNumber(); // to generate phone number
 
 ```javascript
 const serviceInterface = new ServiceInterface();
-assert
+user
+  .services()
   .cache()
   .checkIfBaseEntityExists(
     (baseEntity = "PER_AGENT3_AT_GMAILCOM"),
@@ -99,9 +100,20 @@ assert
   );
 ```
 
+### Display (this checks if the selector exists in the screen)
+
+```javascript
+await user.checkIfSelectorExists(".selectorgoeshere");
+```
+
 ### Frontend
 
 ```javascript
+it("checks if the baseentity attribute value exists in the frontend store", async () => {
+  const serviceInterface = new ServiceInterface();
+  const store = await page.evaluate(() => window.store.getState());
+  await user.services().baseEntityExists("BASE_ENTITY_NAME");
+});
 ```
 
 #### Database
