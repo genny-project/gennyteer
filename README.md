@@ -78,9 +78,9 @@ usere.faker().picture(); // to generate Picture
 usere.faker().phoneNumber(); // to generate phone number
 ```
 
-#### Reading data from Database, Cache, Frontend Store and Frontend Display
-
 # Service based helpers
+
+#### Reading data from Database, Cache, Frontend Store and Frontend Display
 
 #### Store
 
