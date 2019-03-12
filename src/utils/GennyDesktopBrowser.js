@@ -337,7 +337,7 @@ class GennyDesktopBrowser {
 
   /* Make a normal click on an sidebar item */
   async clickSidebarItem( testId ) {
-    const selector = `[data-testid="sidebar-item-${testId}"]`;
+    const selector = `[data-testid="sidebar-item ${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
 }
