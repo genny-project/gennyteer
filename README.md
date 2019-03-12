@@ -105,10 +105,10 @@ user
   .services()
   .cache()
   .checkIfBaseEntityExists(
-    (baseEntity = "PER_AGENT3_AT_GMAILCOM"),
-    (attributeName = "PRI_FIRSTNAME"),
-    (valueKey = "valueString"),
-    (expectedValue = "Agent3")
+    "PER_AGENT3_AT_GMAILCOM",
+    "PRI_FIRSTNAME",
+    "valueString",
+    "Agent3"
   );
 ```
 
