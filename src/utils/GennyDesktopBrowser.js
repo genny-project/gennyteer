@@ -2,17 +2,9 @@ import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
 import faker from 'faker';
 import ScSchot from './Screenshot';
-
+import Services from './service-interface';
 const PAGE_WIDTH = 1920;
-const PAGE_HEIGHT = 1080;
-
-// const checkIfTestPrefixExists = ( originalStr, newStr ) => {
-//   if ( originalStr.startsWith( 'test_' )) {
-//     return originalStr;
-//   } else {
-//     return newStr;
-//   }
-// };
+const PAGE_HEIGHT = 1380;
 
 class GennyDesktopBrowser {
   constructor( page ) {
@@ -28,38 +20,6 @@ class GennyDesktopBrowser {
   }
 
   faker() {
-    // this.checkIfTestPrefixExists.bind( this );
-
-    // const originalName = faker.name.firstName();
-    // const newName = `test_${originalName}`;
-    // faker.name.firstName = function() {
-    //   checkIfTestPrefixExists( originalName, newName );
-    // };
-
-    // const originalEmail = faker.internet.email();
-
-    // const newEmail = `test_${originalEmail}`;
-    // faker.internet.email = function() {
-    //   checkIfTestPrefixExists( originalEmail, newEmail );
-    // };
-
-    // // Last name modification
-    // const originalLastName = faker.name.lastName();
-    // const newLastName = `test_${originalLastName}`;
-    // faker.name.lastName = function() {
-    //   checkIfTestPrefixExists( originalLastName, newLastName );
-    // };
-
-    // //Phone number modificaiton
-    // faker.phoneNumber = function() {
-    //   return '0423274793';
-    // };
-
-    // faker.picture = async function() {
-    //   const picture = await axios.get( 'https://thispersondoesnotexist.com/' );
-    //   return picture;
-    // };
-
     return faker;
   }
 
@@ -200,16 +160,13 @@ class GennyDesktopBrowser {
     );
   }
 
-  async testMethod( askId, dropdownValue ) {
-    // Click the dropdown
-    // await expect( this.page ).toClick( `[data-testid="input-dropdown ${askId}"]` );
-
-    // // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
-    // // This is different from just clicking on it. Puppeteer uses the select function.
-    // await this.page.select(
-    //   `[data-testid="input-dropdown ${askId}"]`,
-    //   dropdownValue
-    // );
+  async testMethod( askId = 'QUE_SELECT_COMPANY_TYPE', dropdownValue ) {
+    await this.page.evaluate(() => {
+      const test = document.querySelector(
+        'select[data-testid="input-dropdown QUE_SELECT_COMPANY_TYPE"]'
+      );
+      console.log({ test });
+    });
 
     await this.page.select(
       'select[data-testid="input-dropdown QUE_SELECT_COMPANY_TYPE"]',
@@ -258,10 +215,11 @@ class GennyDesktopBrowser {
   }
 
   async clickOnTestIDButton() {
+    const clickIndex = 0;
     const selector = '[data-testid="button"]';
     await this.page.waitForSelector( selector );
     const button = await this.page.$$( selector );
-    button[0].click();
+    await button[clickIndex].click();
   }
 
   // this is for clicking on the button on the header for example see internmatch header button
@@ -318,15 +276,19 @@ class GennyDesktopBrowser {
     await this.page.waitForSelector( selector );
     if (( await this.page.$( selector )) !== null ) {
       console.log( 'Selector Exists!' );
-      return true;
+      return Promise.resolve( true );
     }
-    throw Error( ' Text not Found' );
+    return Promise.reject( Error( 'Selector not found' ));
   }
 
   /* Make a normal click on an sidebar item */
   async clickSidebarItem( testId ) {
     const selector = `[data-testid="sidebar-item-${testId}"]`;
     await expect( this.page ).toClick( selector );
+  }
+
+  async services() {
+    return new Services();
   }
 }
 
