@@ -80,9 +80,15 @@ usere.faker().phoneNumber(); // to generate phone number
 
 #### Reading data from Database, Cache, Frontend Store and Frontend Display
 
+# Service based helpers
+
 #### Store
 
 ```javascript
+it("checks if the baseentity attribute value exists in the frontend store", async () => {
+  const serviceInterface = new ServiceInterface();
+  const store = await page.evaluate(() => window.store.getState());
+  await user.services().baseEntityExists("BASE_ENTITY_NAME");
 ```
 
 #### Cache
@@ -106,16 +112,10 @@ user
 await user.checkIfSelectorExists(".selectorgoeshere");
 ```
 
-### Frontend
-
-```javascript
-it("checks if the baseentity attribute value exists in the frontend store", async () => {
-  const serviceInterface = new ServiceInterface();
-  const store = await page.evaluate(() => window.store.getState());
-  await user.services().baseEntityExists("BASE_ENTITY_NAME");
-});
-```
-
 #### Database
 
 Please skip the database for now, its not tested
+
+```
+
+```
