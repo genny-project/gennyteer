@@ -174,6 +174,20 @@ class GennyDesktopBrowser {
     );
   }
 
+  async testMethodaddingintern( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
+    await this.page.evaluate(() => {
+      const test = document.querySelector(
+        'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]'
+      );
+      console.log({ test });
+    });
+
+    await this.page.select(
+      'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]',
+      'SEL_USER_INTERN'
+    );
+  }
+
   async selectTag( askId, options = {}) {
     const { clickIndex = 0 } = options;
     const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
