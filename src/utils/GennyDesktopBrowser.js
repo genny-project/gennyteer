@@ -136,7 +136,7 @@ class GennyDesktopBrowser {
   }
 
   async typeInputAutocomplete( askId, text ) {
-    const selector = `[data-testid="input-autocomplete-item ${askId}"]`;
+    const selector = `[data-testid="input-autocomplete ${askId}"]`;
 
     // Type into the autocmplete input
     await this.typeInputText( askId, text );
@@ -185,6 +185,20 @@ class GennyDesktopBrowser {
     await this.page.select(
       'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]',
       'SEL_USER_INTERN'
+    );
+  }
+
+  async testMethodaddinghostcompanystaff( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
+    await this.page.evaluate(() => {
+      const test = document.querySelector(
+        'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]'
+      );
+      console.log({ test });
+    });
+
+    await this.page.select(
+      'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]',
+      'SEL_USER_HOST_COMPANY_STAFF'
     );
   }
 
