@@ -9,6 +9,7 @@ class DatabaseInterface {
   ) {
     const token = await asyncToken();
     // insert the tokens
+
     const resp = await axios({
       method: 'GET',
       url:
@@ -30,6 +31,21 @@ class DatabaseInterface {
             ` Provided value ${expectedValue} Value doesnot equals to value in database ${value}`
           );
     return returnData;
+  }
+
+  async getBaseEntityFromEmail( email ) {
+    const token = await asyncToken();
+    const resp = await axios({
+      method: 'GET',
+      url: `http://api-internmatch.outcome-hub.com/utils/baseentitycode/${email}`,
+      headers: { Authorization: `Bearer ${token.access_token}` }
+    });
+    const { data } = resp;
+    if ( data ) {
+      return data;
+    } else {
+      Promise.reject( `No BE with passed argument ${email}  found` );
+    }
   }
 
   // Delete Base Entity Using the API
