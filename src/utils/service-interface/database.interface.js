@@ -1,46 +1,40 @@
-import Api from './api';
-import config from './config';
+import axios from 'axios';
+import asyncToken from './asyncTokenUtils';
 class DatabaseInterface {
-  async getBaseEntityData( baseEntity ) {
-    const api = new Api();
-    const data = api.call(
-      `${config.databse.baseUrl}/${config.databse.getBaseEntitys}/${baseEntity}`
-    );
-    if ( data && data.code === baseEntity ) {
-      return data;
-    }
-    return null;
-  }
-
-  static async checkIfBaseEntityExists( baseEntityParams ) {
-    const baseEntity = await this.getBaseEntityData();
-    if ( baseEntity && baseEntity.code == baseEntityParams ) {
-      return true;
-    }
-    return false;
-  }
-
-  static async checkIfBaseEntityAttributeValueEquals(
-    baseEntityParams,
+  async checkIfBaseEntityAttributeValueExists(
+    baseEntity,
     attributeCode,
-    value
-  ) {}
+    expectedValue,
+    valueKey = 'valueString'
+  ) {
+    const token = await asyncToken();
+    // insert the tokens
+    const resp = await axios({
+      method: 'GET',
+      url:
+        'http://api-internmatch.outcome-hub.com/qwanda/baseentitys/PRJ_INTERNMATCH',
+      headers: { Authorization: `Bearer ${token.access_token}` }
+    });
 
+    const { data } = resp;
+
+    const x = data.baseEntityAttributes.find(
+      aa => aa.attributeCode === attributeCode
+    );
+
+    const value = x[valueKey];
+    const returnData =
+      value === expectedValue
+        ? Promise.resolve()
+        : Promise.reject(
+            ` Provided value ${expectedValue} Value doesnot equals to value in database ${value}`
+          );
+    return returnData;
+  }
+
+  // Delete Base Entity Using the API
   deleteBaseEntity() {
-    // const token = await asyncTokenUtils();
-    // console.log(
-    //       ' ############################################# \n \n \n \n \n \n \n \n \n GETTING TOKEN  ###########################################################',
-    //       token
-    // );
-    // const result = await axios({
-    //   method: 'POST',
-    //   url: siteUrl,
-    //   headers: { Authorization: `Bearer ${token.access_token}` },
-    //   data: searchAttribures
-    // }).catch( err => {
-    //   console.log( err );
-    // });
-    //   return result.data;
+    console.log( ' Delete base entity' );
   }
 }
 

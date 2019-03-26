@@ -1,13 +1,11 @@
-// import config from './config';
-// import Api from './api';
 import axios from 'axios';
 
 class Cache {
   async checkIfBaseEntityAttributeValueExists(
     baseEntity,
     attributeName,
-    valueKey,
-    expectedValue
+    expectedValue,
+    valueKey = 'valueString'
   ) {
     let resp;
     try {
@@ -20,8 +18,8 @@ class Cache {
 
     console.log( resp.data );
 
-    const jsonify = JSON.parse( resp.data.value );
-    const a = jsonify.baseEntityAttributes.find(
+    // const jsonify = JSON.parse( resp.data.value );
+    const a = resp.data.value.baseEntityAttributes.find(
       el => el.attributeCode === attributeName
     );
     const value = a[valueKey];
@@ -30,10 +28,34 @@ class Cache {
     console.log({ value });
 
     if ( value === expectedValue ) {
-      return true;
+      return Promise.resolve( true );
     } else {
-      throw new Error( ' expected value doesnot equals the value in the cache' );
+      return Promise.reject(
+        'Expected value doesnot equals the value in the Cache'
+      );
     }
+  }
+
+  async checkForBaseEntityCode( baseEntity ) {
+    let resp;
+    try {
+      resp = await axios.get(
+        `https://app3-internmatch-staging.outcome-hub.com/read/${baseEntity}`
+      );
+    } catch ( err ) {
+      return Promise.reject(
+        ' Error getting data from the cache, Cache Service could be down or baseEntityCode in not valid'
+      );
+    }
+
+    const returnData =
+      resp.data &&
+      resp.data.value &&
+      resp.data.value.baseEntityAttributes[0].baseEntityCode === baseEntity
+        ? Promise.resolve( true )
+        : Promise.reject();
+
+    return returnData;
   }
 }
 
