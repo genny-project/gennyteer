@@ -41,10 +41,11 @@ class DatabaseInterface {
       headers: { Authorization: `Bearer ${token.access_token}` }
     });
     const { data } = resp;
+    console.log({ data });
     if ( data ) {
       return data;
     } else {
-      Promise.reject( `No BE with passed argument ${email}  found` );
+      return null;
     }
   }
 
@@ -56,11 +57,6 @@ class DatabaseInterface {
       headers: { Authorization: `Bearer ${token.access_token}` }
     });
     console.log( resp );
-  }
-
-  // Delete Base Entity Using the API
-  deleteBaseEntity() {
-    console.log( ' Delete base entity' );
   }
 }
 
