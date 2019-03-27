@@ -48,10 +48,21 @@ class DatabaseInterface {
     }
   }
 
+  async deleteBaseEntityUsingCode( code ) {
+    const token = await asyncToken();
+    const resp = await axios({
+      method: 'GET',
+      url: `http://api-internmatch.outcome-hub.com/qwanda/baseentitys/${code}`,
+      headers: { Authorization: `Bearer ${token.access_token}` }
+    });
+    console.log( resp );
+  }
+
   // Delete Base Entity Using the API
   deleteBaseEntity() {
     console.log( ' Delete base entity' );
   }
 }
 
+// abc@test.com
 export default DatabaseInterface;

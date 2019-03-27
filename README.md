@@ -141,3 +141,12 @@ await user
   .database()
   .getBaseEntityFromEmail("email goes here");
 ```
+
+#### Delete baseEntity using code
+
+```javascript
+await user
+  .services()
+  .database()
+  .deleteBaseEntityUsingCode("PER_USER_WHATEVER");
+```
