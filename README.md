@@ -104,7 +104,7 @@ const serviceInterface = new ServiceInterface();
 user
   .services()
   .cache()
-  .checkIfBaseEntityExists(
+  .checkIfBaseEntityAttributeValueExists(
     "PER_AGENT3_AT_GMAILCOM",
     "PRI_FIRSTNAME",
     "valueString",
@@ -122,6 +122,22 @@ await user.checkIfSelectorExists(".selectorgoeshere");
 
 Please skip the database for now, its not tested
 
+```javascript
+await user
+  .services()
+  .database()
+  .checkIfBaseEntityAttributeValueExists(
+    "BE_CODE",
+    "ATTR_CODE",
+    "expectedValue"
+  );
 ```
 
+#### Get baseentity from Email
+
+```javascript
+await user
+  .services()
+  .database()
+  .getBaseEntityFromEmail("email goes here");
 ```
