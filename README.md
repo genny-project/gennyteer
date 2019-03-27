@@ -144,6 +144,8 @@ await user
 
 #### Delete baseEntity using code
 
+#### !!! WARNING please using this method carefully
+
 ```javascript
 await user
   .services()
