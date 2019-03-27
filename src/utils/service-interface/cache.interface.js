@@ -10,7 +10,7 @@ class Cache {
     let resp;
     try {
       resp = await axios.get(
-        `https://app3-internmatch-staging.outcome-hub.com/read/${baseEntity}`
+        `http://bridge.genny.life:8089/read/${baseEntity}`
       );
     } catch ( err ) {
       throw new Error( ' Error getting the data from Cache' );
@@ -40,7 +40,7 @@ class Cache {
     let resp;
     try {
       resp = await axios.get(
-        `https://app3-internmatch-staging.outcome-hub.com/read/${baseEntity}`
+        `http://bridge.genny.life:8089/read/${baseEntity}`
       );
     } catch ( err ) {
       return Promise.reject(

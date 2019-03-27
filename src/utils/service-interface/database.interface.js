@@ -13,22 +13,23 @@ class DatabaseInterface {
     const resp = await axios({
       method: 'GET',
       url:
-        'http://api-internmatch.outcome-hub.com/qwanda/baseentitys/PRJ_INTERNMATCH',
-      headers: { Authorization: `Bearer ${token.access_token}` }
+        `http://bridge.genny.life:8089/read/${baseEntity}`,
     });
 
     const { data } = resp;
 
-    const x = data.baseEntityAttributes.find(
+    const x = data.value.baseEntityAttributes.find(
       aa => aa.attributeCode === attributeCode
     );
 
     const value = x[valueKey];
+    console.log({value});
+    console.log({expectedValue});
     const returnData =
       value === expectedValue
         ? Promise.resolve()
         : Promise.reject(
-            ` Provided value ${expectedValue} Value doesnot equals to value in database ${value}`
+            ` Provided value ${expectedValue} Value does not equals to value in database ${value}`
           );
     return returnData;
   }
@@ -37,8 +38,7 @@ class DatabaseInterface {
     const token = await asyncToken();
     const resp = await axios({
       method: 'GET',
-      url: `http://api-internmatch.outcome-hub.com/utils/baseentitycode/${email}`,
-      headers: { Authorization: `Bearer ${token.access_token}` }
+      url: `http://qwanda-service.genny.life/utils/baseentitycode/${email}`,
     });
     const { data } = resp;
     console.log({ data });
