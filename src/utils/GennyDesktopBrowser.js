@@ -316,7 +316,8 @@ class GennyDesktopBrowser {
   }
 
   async services() {
-    return new Services();
+    const services =  new Services();
+    return services;
   }
 }
 

@@ -7,12 +7,12 @@ class ServiceInterface {
   constructor() {}
 
   database() {
-    const databaseInterface = new DatabaseInterface();
+    const databaseInterface = DatabaseInterface;
     return databaseInterface;
   }
 
   feDisplay() {
-    const feDisplay = new FeDisplayInterface();
+    const feDisplay = FeDisplayInterface();
     return feDisplay;
   }
 
