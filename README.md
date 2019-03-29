@@ -68,6 +68,16 @@ await user.clickSidebarDropdown("GRP_CODE_OF_SIDEBAR");
 await user.clickSidebarItem("GRP_SIDEBAR_ITEM_GRP");
 ```
 
+#### Getting authentication token from the browser
+
+##### Note:
+
+To run this method instance of browser/puppetter should already be open.
+
+```javascript
+user.getTokenFromBrowser();
+```
+
 # Faker Methods
 
 ```javascript
