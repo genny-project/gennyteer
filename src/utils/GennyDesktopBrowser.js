@@ -5,7 +5,6 @@ import ScSchot from './Screenshot';
 import Services from './service-interface';
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1380;
-
 class GennyDesktopBrowser {
   constructor( page ) {
     this.page = page;
@@ -31,6 +30,18 @@ class GennyDesktopBrowser {
       throw new Error(
         'Store object doesnot exists on the window in pupptter please check Alyson v3 is updated to use the store Object'
       );
+    });
+  }
+
+  async getTokenFromBrowser() {
+    await this.page.evaluate(() => {
+      if ( window && window.localStorage ) {
+        const tokenObjectStr = window.localStorage.getItem( 'kcAuth' );
+        const jsoniFytokenObject = JSON.parse( tokenObjectStr );
+        const token = jsoniFytokenObject.accessToken;
+        return token;
+      }
+      throw Error( ' localstorage not found' );
     });
   }
 
@@ -188,7 +199,10 @@ class GennyDesktopBrowser {
     );
   }
 
-  async testMethodaddinghostcompanystaff( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
+  async testMethodaddinghostcompanystaff(
+    askId = 'QUE_SELECT_USER_TYPE',
+    dropdownValue
+  ) {
     await this.page.evaluate(() => {
       const test = document.querySelector(
         'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]'
