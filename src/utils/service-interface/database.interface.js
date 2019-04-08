@@ -50,6 +50,21 @@ const dbService = {
       }
     },
 
+    getBaseEntityFromUniqueCode:  async function( uniquecode ) {
+      const token = await asyncToken();
+      const resp = await axios({
+        method: 'GET',
+        url: `http://qwanda-service.genny.life/qwanda/companycode${uniquecode}`,
+      });
+      const { data } = resp;
+      console.log({ data });
+      if ( data ) {
+        return data;
+      } else {
+        return null;
+      }
+    },
+
     deleteBaseEntityUsingCode:  async function( code ) {
       const token = await asyncToken();
       const resp = await axios({
@@ -58,6 +73,22 @@ const dbService = {
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
       console.log( resp );
+    },
+
+    getBaseEntityFromLinkCodeBaseEntity:  async function(baseEntity,
+      linkCode) {
+      const token = await asyncToken();
+      const resp = await axios({
+        method: 'GET',
+        url: `http://qwanda-service.genny.life/qwanda/baseentitys/${baseEntity}/linkcodes/${linkCode}`,
+      });
+      const { data } = resp;
+      console.log({ data });
+      if ( data ) {
+        return data;
+      } else {
+        return null;
+      }
     }
 
 }
