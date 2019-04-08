@@ -314,6 +314,10 @@ class GennyDesktopBrowser {
     const selector = `[data-testid="sidebar-item ${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
+  async clickSideBarItemV2(testId){
+    const selector = `[data-testid="sidebar-item-${testId}"]`;
+    await expect( this.page ).toClick( selector );
+  }
 
   async services() {
     const services =  new Services();
