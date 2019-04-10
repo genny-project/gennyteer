@@ -188,7 +188,7 @@ class GennyDesktopBrowser {
     );
   }
 
-  async testMethodaddinghostcompanystaff( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
+  async TestMethodAddingHostCompanyStaff( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
     await this.page.evaluate(() => {
       const test = document.querySelector(
         'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]'

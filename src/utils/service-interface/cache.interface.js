@@ -23,9 +23,6 @@ class Cache {
       el => el.attributeCode === attributeName
     );
     const value = a[valueKey];
-    console.log( a );
-    console.log({ valueKey });
-    console.log({ value });
 
     if ( value === expectedValue ) {
       return Promise.resolve( true );

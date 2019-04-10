@@ -24,8 +24,6 @@ const dbService = {
       );
 
       const value = x[valueKey];
-      console.log({value});
-      console.log({expectedValue});
       const returnData =
         value === expectedValue
           ? Promise.resolve()
@@ -54,10 +52,10 @@ const dbService = {
       const token = await asyncToken();
       const resp = await axios({
         method: 'GET',
-        url: `http://qwanda-service.genny.life/qwanda/companycode${uniquecode}`,
+        url: `http://qwanda-service.genny.life/qwanda/companycode/${uniquecode}`,
+        headers: { Authorization: `Bearer ${token.access_token}` }
       });
       const { data } = resp;
-      console.log({ data });
       if ( data ) {
         return data;
       } else {
