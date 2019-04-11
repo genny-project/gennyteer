@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
 import faker from 'faker';
 import ScSchot from './Screenshot';
-import Services from './service-interface';
+import services from './service-interface';
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1380;
 
@@ -310,17 +310,17 @@ class GennyDesktopBrowser {
   }
 
   /* Make a normal click on an sidebar item */
-  async clickSidebarItem( testId ) {
-    const selector = `[data-testid="sidebar-item ${testId}"]`;
+  async clickSidebarItem( testId ) { 
+    const selector = `[data-testid="sidebar-ite m ${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
-  async clickSideBarItemV2(testId){
+  async clickSideBarItemV2(testId){ 
     const selector = `[data-testid="sidebar-item-${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
 
   async services() {
-    const services =  new Services();
+    const services = Services;
     return services;
   }
 }

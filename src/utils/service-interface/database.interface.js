@@ -35,7 +35,7 @@ const dbService = {
       return returnData;
     },
 
-    getBaseEntityFromEmail:  async function( email ) {
+    getBaseEntityFromEmail: async  ( email )  => {
       const token = await asyncToken();
       const resp = await axios({
         method: 'GET',
