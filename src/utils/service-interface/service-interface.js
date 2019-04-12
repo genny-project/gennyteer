@@ -8,6 +8,10 @@ import asyncToken from './asyncTokenUtils';
 
 const serviceInterface = { 
   database: {
+    testMethod: function () {
+      console.log("this is a  db service test method");
+    },
+
     checkIfBaseEntityAttributeValueExists: async function(baseEntity,
       attributeCode,
       expectedValue,
@@ -89,7 +93,6 @@ const serviceInterface = {
           return null;
         }
       }
-
   },
   feDisplay: {
   },

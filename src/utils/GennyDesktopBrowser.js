@@ -6,6 +6,7 @@ import services from './service-interface';
 const PAGE_WIDTH = 1920;
 const PAGE_HEIGHT = 1380;
 
+
 class GennyDesktopBrowser {
   constructor( page ) {
     this.page = page;
@@ -113,6 +114,7 @@ class GennyDesktopBrowser {
   }
 
   async clickButtonUsingCSS( selector, options = {}) {
+    console.log('nischal');
     await this.page.waitForSelector( selector, options );
     await expect( this.page ).toClick( selector );
   }
@@ -314,14 +316,15 @@ class GennyDesktopBrowser {
     const selector = `[data-testid="sidebar-ite m ${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
+
   async clickSideBarItemV2(testId){ 
     const selector = `[data-testid="sidebar-item-${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
 
+  // Services  export 
   async services() {
-    const services = Services;
-    return services;
+    return Services; 
   }
 }
 
