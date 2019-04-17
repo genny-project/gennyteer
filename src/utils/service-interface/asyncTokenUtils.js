@@ -1,33 +1,38 @@
-import axios from 'axios';
-import queryString from 'querystring';
+const axios = require('axios');
+const queryString = require('querystring');
+
 
 /* Get URLS */
-const GET_TOKEN_URL =
-  'https://bouncer.outcome-hub.com/auth/realms/internmatch/protocol/openid-connect/token';
-
-const tokenURL = GET_TOKEN_URL;
+const tokenURL = 'http://keycloak.genny.life:8180/auth/realms/genny/protocol/openid-connect/token';
 
 /* request parameters to be sent */
 const requsetParams = {
   grant_type: 'password',
-  client_id: 'internmatch',
+  client_id: 'genny',
   username: 'service',
   password: 'OhSudsyWhatAPitty@#0&5',
-  client_secret: 'dc7d0960-2e1d-4a78-9eef-77678066dbd3'
+  client_secret: '056b73c1-7078-411d-80ec-87d41c55c3b4'
 };
 
+const config = {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+}
 const getTokenUtils = async () => {
   console.debug( 'Testing for console debug ** reached get token **' );
+
   try {
     const response = await axios.post(
       tokenURL,
-      queryString.stringify( requsetParams )
+      queryString.stringify( requsetParams ),
+      config
     );
-    console.log( response.data );
     return response.data;
   } catch ( err ) {
     console.log( err );
   }
 };
+
 
 export default getTokenUtils;

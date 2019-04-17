@@ -1,9 +1,25 @@
 import axios from 'axios';
 import asyncToken from './asyncTokenUtils';
+import * as constants from '../constants';
 
 
-
+console.log({constants});
 const dbService = {
+
+  getBaseEntityFromEmail:  async function(email) {
+    const token = await asyncToken();
+
+    const resp = await axios({
+      method: 'POST',
+      url: `http://qwanda-service.genny.life/qwanda/baseentitys/search`,
+      headers: { Authorization: `Bearer ${token.access_token}` },
+      data: constants.emailSearchJSON(email)
+    });
+
+    const { data } = resp;
+    console.log("rahul checking here" + {data});
+  },
+
   checkIfBaseEntityAttributeValueExists: async function(baseEntity,
     attributeCode,
     expectedValue,
@@ -33,20 +49,20 @@ const dbService = {
       return returnData;
     },
 
-    getBaseEntityFromEmail:  async function( email ) {
-      const token = await asyncToken();
-      const resp = await axios({
-        method: 'GET',
-        url: `http://qwanda-service.genny.life/utils/baseentitycode/${email}`,
-      });
-      const { data } = resp;
-      console.log({ data });
-      if ( data ) {
-        return data;
-      } else {
-        return null;
-      }
-    },
+    // getBaseEntityFromEmail:  async function( email ) {
+    //   const token = await asyncToken();
+    //   const resp = await axios({
+    //     method: 'GET',
+    //     url: `http://qwanda-service.genny.life/utils/baseentitycode/${email}`,
+    //   });
+    //   const { data } = resp;
+    //   console.log({ data });
+    //   if ( data ) {
+    //     return data;
+    //   } else {
+    //     return null;
+    //   }
+    // },
 
     getBaseEntityFromUniqueCode:  async function( uniquecode ) {
       const token = await asyncToken();
