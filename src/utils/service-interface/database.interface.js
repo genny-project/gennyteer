@@ -1,7 +1,8 @@
 import axios from 'axios';
 import asyncToken from './asyncTokenUtils';
-class DatabaseInterface {
-  async checkIfBaseEntityAttributeValueExists(
+
+const dbService = {
+  checkIfBaseEntityAttributeValueExists: async function(
     baseEntity,
     attributeCode,
     expectedValue,
@@ -12,14 +13,12 @@ class DatabaseInterface {
 
     const resp = await axios({
       method: 'GET',
-      url:
-        'http://api-internmatch.outcome-hub.com/qwanda/baseentitys/PRJ_INTERNMATCH',
-      headers: { Authorization: `Bearer ${token.access_token}` }
+      url: `http://bridge.genny.life:8089/read/${baseEntity}`
     });
 
     const { data } = resp;
 
-    const x = data.baseEntityAttributes.find(
+    const x = data.value.baseEntityAttributes.find(
       aa => aa.attributeCode === attributeCode
     );
 
@@ -28,17 +27,56 @@ class DatabaseInterface {
       value === expectedValue
         ? Promise.resolve()
         : Promise.reject(
-            ` Provided value ${expectedValue} Value doesnot equals to value in database ${value}`
+            ` Provided value ${expectedValue} Value does not equals to value in database ${value}`
           );
     return returnData;
-  }
+  },
 
-  async getBaseEntityFromEmail( email ) {
+  getBaseEntityFromEmail: async function( email ) {
     const token = await asyncToken();
     const resp = await axios({
       method: 'GET',
-      url: `http://api-internmatch.outcome-hub.com/utils/baseentitycode/${email}`,
+      url: `http://qwanda-service.genny.life/utils/baseentitycode/${email}`
+    });
+    const { data } = resp;
+    console.log({ data });
+    if ( data ) {
+      return data;
+    } else {
+      return null;
+    }
+  },
+
+  getBaseEntityFromUniqueCode: async function( uniquecode ) {
+    const token = await asyncToken();
+    const resp = await axios({
+      method: 'GET',
+      url: `http://qwanda-service.genny.life/qwanda/companycode/${uniquecode}`,
       headers: { Authorization: `Bearer ${token.access_token}` }
+    });
+    const { data } = resp;
+    if ( data ) {
+      return data;
+    } else {
+      return null;
+    }
+  },
+
+  deleteBaseEntityUsingCode: async function( code ) {
+    const token = await asyncToken();
+    const resp = await axios({
+      method: 'GET',
+      url: `http://api-internmatch.outcome-hub.com/qwanda/baseentitys/${code}`,
+      headers: { Authorization: `Bearer ${token.access_token}` }
+    });
+    console.log( resp );
+  },
+
+  getBaseEntityFromLinkCodeBaseEntity: async function( baseEntity, linkCode ) {
+    const token = await asyncToken();
+    const resp = await axios({
+      method: 'GET',
+      url: `http://qwanda-service.genny.life/qwanda/baseentitys/${baseEntity}/linkcodes/${linkCode}`
     });
     const { data } = resp;
     console.log({ data });
@@ -48,17 +86,6 @@ class DatabaseInterface {
       return null;
     }
   }
+};
 
-  async deleteBaseEntityUsingCode( code ) {
-    const token = await asyncToken();
-    const resp = await axios({
-      method: 'GET',
-      url: `http://api-internmatch.outcome-hub.com/qwanda/baseentitys/${code}`,
-      headers: { Authorization: `Bearer ${token.access_token}` }
-    });
-    console.log( resp );
-  }
-}
-
-// abc@test.com
-export default DatabaseInterface;
+export default dbService;

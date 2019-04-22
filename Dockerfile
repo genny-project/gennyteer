@@ -22,6 +22,15 @@ RUN npm install
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 
+# ENV files
+ENV PASSWORD=OhSudsyWhatAPitty@#0&5
+ENV CLIENT_SECRET=dc7d0960-2e1d-4a78-9eef-77678066dbd3
+ENV USERNAME=service
+ENV CLIENT_ID=internmatch
+ENV GRANT_TYPE=password
+ENV TOKEN_URL = 'https://bouncer.outcome-hub.com/auth/realms/internmatch/protocol/openid-connect/token'
+
+
 ADD . .
 RUN npm run build
 USER $user

@@ -3,11 +3,21 @@ import { SECONDS } from 'constants';
 import faker from 'faker';
 import ScSchot from './Screenshot';
 import Services from './service-interface';
-const PAGE_WIDTH = 1920;
-const PAGE_HEIGHT = 1380;
+
+// Set width and height for the Browser
+const PAGE_WIDTH = global.PAGE_WIDTH || 1920;
+const PAGE_HEIGHT = global.PAGE_HEIGHT || 1380;
+
 class GennyDesktopBrowser {
   constructor( page ) {
     this.page = page;
+  }
+
+  configProject() {}
+
+  // For testing purposes only
+  async testGlobals() {
+    return global.password;
   }
 
   static async build( gennyURL ) {
@@ -22,7 +32,7 @@ class GennyDesktopBrowser {
     return faker;
   }
 
-  // Get the store from frontend
+  // Get  Store from frontend
   async getStore() {
     await this.page.evaluate(() => {
       console.log( window.store.getState());
@@ -33,6 +43,7 @@ class GennyDesktopBrowser {
     });
   }
 
+  // Grab the token from browser
   async getTokenFromBrowser() {
     await this.page.evaluate(() => {
       if ( window && window.localStorage ) {
@@ -157,6 +168,10 @@ class GennyDesktopBrowser {
 
     // Click on the first autocomplete result
     await expect( this.page ).toClick( selector );
+  }
+
+  async thisIsATest() {
+    console.log( 'this is a test' );
   }
 
   async selectInputDropdown( askId, dropdownValue ) {
@@ -318,7 +333,7 @@ class GennyDesktopBrowser {
     await this.page.waitForSelector( selector );
     if (( await this.page.$( selector )) !== null ) {
       console.log( 'Selector Exists!' );
-      return Promise.resolve( true );
+      return Promise.resolve();
     }
     return Promise.reject( Error( 'Selector not found' ));
   }

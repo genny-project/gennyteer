@@ -22,6 +22,11 @@
     "prettier-eslint": "^8.8.2",
     "prettier-eslint-cli": "^4.7.1"
   },
+  "jest": {
+    "globals": {
+      "globalTest": "global variable injection test"
+    }
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "chalk": "^2.3.0",

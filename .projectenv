@@ -1,0 +1,7 @@
+# Project specific env files
+
+ENV PASSWORD=OhSudsyWhatAPitty@#0&5
+ENV CLIENT_SECRET=dc7d0960-2e1d-4a78-9eef-77678066dbd3
+ENV USERNAME=service
+ENV CLIENT_ID=internmatch
+ENV GRANT_TYPE=password
