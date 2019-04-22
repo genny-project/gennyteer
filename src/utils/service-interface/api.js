@@ -17,7 +17,13 @@ const filterMethods = method => {
   throw Error( ' Request Method not valid' );
 };
 class Api {
-  static async call({ method, url, params, accessToken, stringifyData }) {
+  static async call({
+    method,
+    url,
+    params,
+    accessToken,
+    stringifyData = false
+  }) {
     // ** ** //
     // check if the user passed methods are valid or not
     method = filterMethods( method );
