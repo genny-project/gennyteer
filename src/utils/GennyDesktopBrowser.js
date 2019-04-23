@@ -3,7 +3,7 @@ import { SECONDS } from 'constants';
 import faker from 'faker';
 import ScSchot from './Screenshot';
 import Services from './service-interface';
-
+import tokenUtils from './service-interface/asyncTokenUtils';
 // Set width and height for the Browser
 const PAGE_WIDTH = global.PAGE_WIDTH || 1920;
 const PAGE_HEIGHT = global.PAGE_HEIGHT || 1380;
@@ -344,8 +344,12 @@ class GennyDesktopBrowser {
     await expect( this.page ).toClick( selector );
   }
 
-  async services() {
+  services() {
     return new Services();
+  }
+
+  tokenUtils() {
+    return tokenUtils;
   }
 }
 
