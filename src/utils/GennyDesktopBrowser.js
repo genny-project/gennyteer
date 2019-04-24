@@ -349,7 +349,7 @@ class GennyDesktopBrowser {
   }
 
   tokenUtils() {
-    return tokenUtils;
+    return tokenUtils();
   }
 }
 
