@@ -29,11 +29,47 @@ const emailSearchJSON = email => ({
   realm: 'genny'
 });
 
+const searchBEByAttributesAndValue = ( code, value ) => ({
+  realm: 'genny',
+  name: 'Get All Industry',
+  code: 'SBE_INDUSTRY',
+  baseEntityAttributes: [
+    {
+      baseEntityCode: 'SBE_INDUSTRY',
+      attributeCode: code,
+      attributeName: 'LIKE',
+      valueString: value,
+      weight: 1,
+      inferred: false,
+      privacyFlag: false
+    },
+    {
+      baseEntityCode: 'SBE_INDUSTRY',
+      attributeCode: 'SCH_PAGE_SIZE',
+      attributeName: 'PageSize',
+      valueInteger: 10000,
+      weight: 2,
+      inferred: false,
+      privacyFlag: false
+    },
+    {
+      baseEntityCode: 'SBE_INDUSTRY',
+      attributeCode: 'SCH_PAGE_START',
+      attributeName: 'PageStart',
+      valueInteger: 0,
+      weight: 3,
+      inferred: false,
+      privacyFlag: false
+    }
+  ]
+});
+
 export {
   BASE_URL,
   GET_NEW_JOBS,
   GET_TOKEN_URL,
   FETCH_IMAGE,
   SEARCH_BE,
-  emailSearchJSON
+  emailSearchJSON,
+  searchBEByAttributesAndValue
 };
