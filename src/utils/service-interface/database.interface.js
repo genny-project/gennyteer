@@ -39,7 +39,7 @@ class Database {
     const token = await asyncToken();
     const resp = await axios({
       method: 'GET',
-      url: `http://api-internmatch-staging.outcome-hub.com/utils/baseentitycode/${email}`,
+      url: global.api_utils + `baseentitycode/${email}`,
       headers: requiresToken
         ? { Authorization: `Bearer ${token.access_token}` }
         : {}

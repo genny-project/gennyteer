@@ -1,7 +1,6 @@
-import storeJSON from './storeTest.json';
 import deleve from 'dlv';
 class FeStore {
-  static baseEntityExists({ store = storeJSON, baseEntityCode }) {
+  static baseEntityExists({ store, baseEntityCode }) {
     if ( store == null || store === 'undefined' ) {
       return false;
     } else {
@@ -19,9 +18,9 @@ class FeStore {
     }
   }
 
-  static attributeValueExists({ bsCode, attributeName, valueKey }) {
+  static attributeValueExists({ store, bsCode, attributeName, valueKey }) {
     const val = deleve(
-      storeJSON,
+      store,
       `keycloak.vertex.baseEntities.attributes.${bsCode}.${attributeName}.${
         valueKey ? valueKey : 'value'
       }`

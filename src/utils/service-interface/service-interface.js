@@ -6,13 +6,13 @@ class ServiceInterface {
   constructor() {}
 
   database() {
-    const databaseInterface = DatabaseInterface;
-    return databaseInterface;
+    const db = new DatabaseInterface();
+    return db;
   }
 
   cache() {
-    const cacheInterface = new CacheInterface();
-    return cacheInterface;
+    const cache = new CacheInterface();
+    return cache;
   }
 
   feStore( store ) {
@@ -20,4 +20,5 @@ class ServiceInterface {
   }
 }
 
+// export default ServiceInterface
 export default ServiceInterface;
