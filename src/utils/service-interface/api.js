@@ -55,8 +55,3 @@ class Api {
 }
 
 export default Api;
-
-// Example
-// Api.call({ method: 'GET', URL: 'google.com' }).then( data => {
-//   console.log( data );
-// });

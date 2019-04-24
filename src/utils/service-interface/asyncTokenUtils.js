@@ -13,13 +13,12 @@ const requsetParams = {
 };
 
 const getTokenUtils = async () => {
-  console.debug( 'Testing for console debug ** reached get token **' );
   try {
     const response = await axios.post(
       tokenURL,
       queryString.stringify( requsetParams )
     );
-    console.log( response.data );
+    console.log( '### Token coming from asyncTokenUtils ###', response.data );
     return response.data;
   } catch ( err ) {
     console.log( err );
