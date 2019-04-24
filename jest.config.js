@@ -13,6 +13,7 @@ module.exports = {
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
     client_secret: process.env.CLIENT_SECRET,
-    token_url: process.env.TOKEN_URL
+    token_url: process.env.TOKEN_URL,
+    api_utils: process.env.API_UTILS
   }
 };
