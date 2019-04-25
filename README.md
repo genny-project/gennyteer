@@ -152,6 +152,16 @@ await user
   .getBaseEntityFromEmail("email goes here");
 ```
 
+# getBaseEntity By AttributeAndValue
+
+```javascript
+await user
+  .services()
+  .database()
+  .getBaseEntityByAttributeAndValue("PRI_EMAIL", "luis_romero@gmail.com");
+```
+
+
 #### Delete baseEntity using code
 
 #### !!! WARNING please using this method carefully
