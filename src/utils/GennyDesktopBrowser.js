@@ -100,6 +100,12 @@ class GennyDesktopBrowser {
     this.clickButtonUsingCSS( selector );
   }
 
+  async keycloakLogin( actionButton ) {
+    const selector = `input[type="${actionButton}"]`;
+    await this.page.waitForSelector( selector );
+    this.clickButtonUsingCSS( selector );
+  }
+
   async clickButtonUsingClass( className ) {
     const selector = `.${className}`;
     await this.page.waitForSelector( selector );
@@ -188,7 +194,7 @@ class GennyDesktopBrowser {
     );
   }
 
-  async testMethodaddinghostcompanystaff( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
+  async TestMethodAddingHostCompanyStaff( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
     await this.page.evaluate(() => {
       const test = document.querySelector(
         'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]'
@@ -312,6 +318,10 @@ class GennyDesktopBrowser {
   /* Make a normal click on an sidebar item */
   async clickSidebarItem( testId ) {
     const selector = `[data-testid="sidebar-item ${testId}"]`;
+    await expect( this.page ).toClick( selector );
+  }
+  async clickSideBarItemV2(testId){
+    const selector = `[data-testid="sidebar-item-${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
 
