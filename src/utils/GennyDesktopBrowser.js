@@ -100,6 +100,12 @@ class GennyDesktopBrowser {
     this.clickButtonUsingCSS( selector );
   }
 
+  async keycloakLogin( actionButton ) {
+    const selector = `input[type="${actionButton}"]`;
+    await this.page.waitForSelector( selector );
+    this.clickButtonUsingCSS( selector );
+  }
+
   async clickButtonUsingClass( className ) {
     const selector = `.${className}`;
     await this.page.waitForSelector( selector );
