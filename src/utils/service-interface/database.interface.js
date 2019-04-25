@@ -9,7 +9,6 @@ class Database {
   // input => somethign@gmail.com => PER_SOMETHING_AT_GMAIL_COM
   async getBaseEntityFromEmail( email ) {
     const token = await asyncToken();
-
     try {
       const resp = await axios({
         method: 'POST',
@@ -18,10 +17,8 @@ class Database {
         headers: { Authorization: `Bearer ${token.access_token}` },
         data: emailSearchJSON( email )
       });
-      console.log( resp );
       const { data } = resp;
-      console.log( 'rahul checking here' + { data });
-      return data;
+      return data.items[0].code;
     } catch ( err ) {
       global.log( chalk.red( err ));
     }
@@ -38,10 +35,8 @@ class Database {
         headers: { Authorization: `Bearer ${token.access_token}` },
         data: searchBEByAttributesAndValue( attribute, value )
       });
-      console.log( resp );
       const { data } = resp;
-      console.log( 'rahul checking here' + { data });
-      return data;
+      return data.items[0].code;
     } catch ( err ) {
       console.log( err );
       global.log( chalk.red( err ));
