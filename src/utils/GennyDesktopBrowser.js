@@ -84,7 +84,7 @@ class GennyDesktopBrowser {
   static async generatePage() {
     let browser = null;
     const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
-    const slowMo = global.slowMo ? { slowMo } : {};
+    const slowMo = global.slowMo ? { slowMo: global.slowMo } : {};
     browser = await puppeteer.launch({
       slowMo,
       args,
