@@ -28,9 +28,9 @@ ENV CLIENT_SECRET=dc7d0960-2e1d-4a78-9eef-77678066dbd3
 ENV USERNAME=service
 ENV CLIENT_ID=internmatch
 ENV GRANT_TYPE=password
-ENV TOKEN_URL = 'https://bouncer.outcome-hub.com/auth/realms/internmatch/protocol/openid-connect/token'
-
-
+ENV TOKEN_URL='https://bouncer-staging.outcome-hub.com/auth/realms/internmatch/protocol/openid-connect/token'
+ENV API_UTILS="http://api-internmatch-staging.outcome-hub.com/utils/"
+ENV SLOWMO=500
 ADD . .
 RUN npm run build
 USER $user

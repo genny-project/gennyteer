@@ -43,6 +43,24 @@ class Database {
     }
   }
 
+  async getLinksFromBaseEntity( be ) {
+    const token = await asyncToken();
+    try {
+      const resp = await axios({
+        method: 'POST',
+        url:
+          'https://api-internmatch-staging.outcome-hub.com/qwanda/baseentitys/search',
+        headers: { Authorization: `Bearer ${token.access_token}` },
+        data: searchBEByAttributesAndValue( be )
+      });
+      const { data } = resp;
+      return data.items[0].code;
+    } catch ( err ) {
+      console.log( err );
+      global.log( chalk.red( err ));
+    }
+  }
+
   async checkIfBaseEntityAttributeValueExists({
     baseEntity,
     attributeCode,
@@ -74,6 +92,26 @@ class Database {
             ` Provided value ${expectedValue} Value does not equals to value in database ${value}`
           );
     return returnData;
+  }
+
+  async checkIfBaseEntityExists({ baseEntity, requiresToken = true }) {
+    const token = await asyncToken();
+
+    const resp = await axios({
+      method: 'GET',
+      url: `http://bridge.genny.life:8089/read/${baseEntity}`,
+      headers: requiresToken
+        ? { Authorization: `Bearer ${token.access_token}` }
+        : {}
+    });
+
+    const { data } = resp;
+
+    if ( data ) {
+      Promise.resolve();
+    } else {
+      Promise.reject( ' Base entity doesnot exists' );
+    }
   }
 
   // this is now working

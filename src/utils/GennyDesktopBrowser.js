@@ -13,9 +13,9 @@ class GennyDesktopBrowser {
     this.page = page;
   }
 
+  // this method will be able to configure for all the projects
   configProject() {}
 
-  // For testing purposes only
   async testGlobals() {
     return global.password;
   }
@@ -84,9 +84,11 @@ class GennyDesktopBrowser {
   static async generatePage() {
     let browser = null;
     const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
+    const slowMo = global.slowMo ? { slowMo } : {};
     browser = await puppeteer.launch({
+      slowMo,
       args,
-      headless: false
+      headless: true
     });
 
     const page = await browser.newPage();

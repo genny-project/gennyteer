@@ -15,6 +15,7 @@ module.exports = {
     client_secret: process.env.CLIENT_SECRET,
     token_url: process.env.TOKEN_URL,
     api_utils: process.env.API_UTILS,
-    log: console.log
+    log: console.log,
+    slowMo: process.env.SLOWMO
   }
 };
