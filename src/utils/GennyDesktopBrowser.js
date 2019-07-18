@@ -53,6 +53,13 @@ class GennyDesktopBrowser {
     ] );
   }
 
+  //goback to previous page
+
+  async back(){
+    const page=await this.page;
+    await page.goBack();
+  }
+
   //close the browser alltogether
   async closeBrowser() {
     const browser = await this.page.browser();
@@ -61,10 +68,12 @@ class GennyDesktopBrowser {
 
   static async generatePage() {
     let browser = null;
+    const slowMo = process.env.SLOW_MO ?  process.env.SLOW_MO  : null;
     const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
     browser = await puppeteer.launch({
       args,
-      headless: false
+      headless:false,
+      slowMo:slowMo
     });
 
     const page = await browser.newPage();
@@ -78,9 +87,10 @@ class GennyDesktopBrowser {
   }
 
   //Screenshot this has not been tested yet
-  async screenshot( fileName ) {
-    const scShot = new ScSchot( this.page, fileName );
-    scShot.shoot();
+  async screenshot( fileName,screenshot_path ) {
+    console.log(screenshot_path);
+    const scShot = new ScSchot( this.page, fileName);
+    scShot.shoot(screenshot_path);
   }
 
   async clickOnSelector( selector ) {
