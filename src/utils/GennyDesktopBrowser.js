@@ -53,6 +53,13 @@ class GennyDesktopBrowser {
     ] );
   }
 
+  //goback to previous page
+
+  async back(){
+    const page=await this.page;
+    await page.goBack();
+  }
+
   //close the browser alltogether
   async closeBrowser() {
     const browser = await this.page.browser();
@@ -64,7 +71,8 @@ class GennyDesktopBrowser {
     const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
     browser = await puppeteer.launch({
       args,
-      headless: false
+      headless: false,
+      slowMo:120
     });
 
     const page = await browser.newPage();
