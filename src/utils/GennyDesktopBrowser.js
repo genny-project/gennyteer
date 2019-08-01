@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer';
 import { SECONDS } from 'constants';
 import faker from 'faker';
+import fs from 'fs';
 import ScSchot from './Screenshot';
 import Services from './service-interface';
 const PAGE_WIDTH = 1920;
@@ -83,6 +84,31 @@ class GennyDesktopBrowser {
     scShot.shoot();
   }
 
+
+  //Smita
+  async captureImage( fileName ){
+    let dir =`${process.cwd()}//tmp`;
+    if ( !fs.existsSync( dir )) {
+      fs.mkdirSync( dir );
+    }
+    await this.page.screenshot({path: `${dir}//${Date.now()}${fileName}.png`});
+  }
+
+  //smita
+  async clickButtonUsingSelector( selector ) {
+    
+    await this.page.waitForSelector( selector );
+    await this.page.click( selector );
+  }
+
+
+
+  async uploadFile( filePath ){
+    await this.page.uploadFile( `${process.cwd()}//${filePath}` );
+  }
+
+
+  //smita
   async clickOnSelector( selector ) {
     await this.page.waitForSelector( selector );
     await expect( this.page ).toClick( selector );
