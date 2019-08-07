@@ -116,6 +116,8 @@ class GennyDesktopBrowser {
     await this.page.click( selector );
   }
 
+  
+
   async inputTextBoxUsingCSS( selector, text, options = {}) {
     await this.page.waitForSelector( selector, options );
     // Type into an input field on the page
