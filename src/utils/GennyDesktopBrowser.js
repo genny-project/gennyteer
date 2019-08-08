@@ -84,38 +84,6 @@ class GennyDesktopBrowser {
     scShot.shoot();
   }
 
-
-  //check the screenshot inside docker
-  async captureImage( fileName ){
-    let dir =`${process.cwd()}//tmp`;
-    if ( !fs.existsSync( dir )) {
-      fs.mkdirSync( dir );
-    }
-    await this.page.screenshot({path: `${dir}//${Date.now()}${fileName}.png`});
-  }
-
-  //new click button method
-  async clickButtonUsingSelector( selector ) {
-    
-    await this.page.waitForSelector( selector );
-    await this.page.click( selector );
-  }
-
-  //enter data in textfield
-  async enterTextUsingId( selector,text ){
-    await this.page.waitForSelector( selector );
-    await this.page.type( selector,text );
-
-  }
-  
-
-
-  async uploadFile( filePath ){
-    await this.page.uploadFile( `${process.cwd()}//${filePath}` );
-  }
-
-
-
   async clickOnSelector( selector ) {
     await this.page.waitForSelector( selector );
     await expect( this.page ).toClick( selector );
