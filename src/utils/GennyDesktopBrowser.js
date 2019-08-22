@@ -104,7 +104,7 @@ class GennyDesktopBrowser {
     await this.inputTextBoxUsingCSS( selector, text );
   }
   async inputTextUsingTestID(id,text){
-    const selector=`[data-testid="${id}"]`;
+    const selector=`[data-testid="input-text ${id}"]`;
     await this.page.click(selector);
     await this.page.keyboard.type(text);
     }
@@ -121,7 +121,7 @@ class GennyDesktopBrowser {
     await this.page.click( selector );
   }
 
-  
+
 
   async inputTextBoxUsingCSS( selector, text, options = {}) {
     await this.page.waitForSelector( selector, options );
