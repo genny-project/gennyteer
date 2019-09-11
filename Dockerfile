@@ -15,14 +15,18 @@ RUN mkdir ~/.vnc
 RUN x11vnc -storepasswd genny ~/.vnc/passwd
 
 ENV DISPLAY=:99
+#ENV SLOWMO=:80
+
 
 ADD package.json package.json
 RUN npm install
+
 
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 
 ADD . .
+COPY "*.jpeg" /dist
 RUN npm run build
 USER $user
 CMD xvfb-run --server-args="-screen 0 2880x1800x24" npm run start-xvfb
