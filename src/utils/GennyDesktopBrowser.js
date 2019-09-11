@@ -101,7 +101,7 @@ class GennyDesktopBrowser {
 
   async upload(file,type){
     const input = await this.page.$(`input[type=${type}]`);
-    console.log("-----------------------------"+file);
+    console.log("Uploading File: "+file);
     await input.uploadFile(file);
     await this.page.waitFor(1000);
   }
