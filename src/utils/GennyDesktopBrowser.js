@@ -326,6 +326,34 @@ class GennyDesktopBrowser {
     return Promise.reject( Error( 'Selector not found' ));
   }
 
+  async checkIfTestIDExists( testID ) {
+    const selector = `[data-testid="${testID}"]`;
+    const fs = require('fs')
+    const fileName = 'result.txt';
+    const checkforfile = ( filePath ) => {
+      if ( fs.existsSync( filePath ) ) {
+        console.log('File exists');
+      }
+    }
+    const writefile = ( content ) => {
+      fs.writeFile(fileName, content, (err) => {
+        if (err) throw err;
+      })
+      console.log('Wrote');
+    }
+    await this.page.waitForSelector( selector );
+    checkforfile( fileName );
+    if (( await this.page.$( selector )) !== null ) {
+      console.log( selector + ' Exists!' );
+      let data = "1"
+      writefile( data );
+      return Promise.resolve( true );
+    }
+    let data = "0"
+    writefile( data );
+    return Promise.reject( Error( 'test ID not found' ));
+  }
+
   /* Make a normal click on an sidebar item */
   async clickSidebarItem( testId ) {
     const selector = `[data-testid="sidebar-item ${testId}"]`;
