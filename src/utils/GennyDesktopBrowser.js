@@ -332,14 +332,19 @@ class GennyDesktopBrowser {
     const fileName = 'result.txt';
     const checkforfile = ( filePath ) => {
       if ( fs.existsSync( filePath ) ) {
-        console.log('File exists');
+        console.log(filePath + ' exists');
       }
     }
     const writefile = ( content ) => {
       fs.writeFile(fileName, content, (err) => {
         if (err) throw err;
       })
-      console.log('Wrote');
+    }
+    const readfile = (fileName) => {
+      fs.readFile(fileName, (err, data) => {
+        if (err) throw err;
+        console.log('Content in ' + fileName + ' is ' + data.toString());
+      });
     }
     await this.page.waitForSelector( selector );
     checkforfile( fileName );
@@ -347,10 +352,12 @@ class GennyDesktopBrowser {
       console.log( selector + ' Exists!' );
       let data = "1"
       writefile( data );
+      readfile(fileName);
       return Promise.resolve( true );
     }
     let data = "0"
     writefile( data );
+    readfile(fileName);
     return Promise.reject( Error( 'test ID not found' ));
   }
 
