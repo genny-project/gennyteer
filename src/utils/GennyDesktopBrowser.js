@@ -88,9 +88,9 @@ class GennyDesktopBrowser {
 
   //Screenshot this has not been tested yet
   async screenshot( fileName,screenshot_path ) {
-    console.log(screenshot_path);
-    const scShot = new ScSchot( this.page, fileName);
-    scShot.shoot(screenshot_path);
+    console.log( screenshot_path );
+    const scShot = new ScSchot( this.page, fileName );
+    scShot.shoot( screenshot_path );
   }
 
   async clickOnSelector( selector ) {
@@ -343,7 +343,7 @@ class GennyDesktopBrowser {
     const readfile = (fileName) => {
       fs.readFile(fileName, (err, data) => {
         if (err) throw err;
-        console.log('Content in ' + fileName + ' is ' + data.toString());
+        console.log( 'Content in ' + fileName + ' is ' + data.toString() );
       });
     }
     await this.page.waitForSelector( selector );
@@ -357,7 +357,7 @@ class GennyDesktopBrowser {
     }
     let data = "0"
     writefile( data );
-    readfile(fileName);
+    readfile( fileName );
     return Promise.reject( Error( 'test ID not found' ));
   }
 
