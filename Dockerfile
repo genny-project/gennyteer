@@ -23,6 +23,7 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.d
 RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 
 ADD . .
+ADD run-test.sh /tmp/run-test.sh
 RUN npm run build
 USER $user
-CMD xvfb-run --server-args="-screen 0 2880x1800x24" npm run start-xvfb
+CMD /bin/bash /tmp/run-test.sh
