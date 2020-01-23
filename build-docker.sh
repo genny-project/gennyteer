@@ -11,4 +11,4 @@ fi
 
 
 
-  docker build  -t gennyproject/${project}:${version} .
+docker build --no-cache  -t gennyproject/${project}:${version} .
