@@ -2,5 +2,6 @@ module.exports = {
   rootDir: 'dist',
   testMatch: ['<rootDir>/**/tests/**/*.js'],
   preset: 'jest-puppeteer',
-  bail: true
+  bail: true,
+  testResultsProcessor: 'jest-html-reporter'
 };
