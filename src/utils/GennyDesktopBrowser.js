@@ -44,7 +44,13 @@ class GennyDesktopBrowser {
     const SECONDS = 1000;
     await this.page.waitFor( duration * SECONDS );
   }
-
+  
+  //Refresh page
+  async refresh( ) {
+   //await this.page.reload({ timeout: 60000 ,  waitUntil: ["networkidle0", "domcontentloaded"] });
+    await this.page.reload({ timeout: 90000 } );
+  }
+  
   async navigateTo( websiteURL ) {
     const page = await this.page;
     await Promise.all( [
