@@ -4,10 +4,10 @@ import asyncToken from './asyncTokenUtils';
 
 
 const dbService = {
-  checkIfBaseEntityAttributeValueExists: async function(baseEntity,
+  checkIfBaseEntityAttributeValueExists: async function( baseEntity,
     attributeCode,
     expectedValue,
-    valueKey = 'valueString'){
+    valueKey = 'valueString' ){
       const token = await asyncToken();
       // insert the tokens
 
@@ -48,11 +48,11 @@ const dbService = {
       }
     },
 
-    getBaseEntityFromUniqueCode:  async function( uniquecode ) {
+    getBaseEntityFromUniqueCode:  async function( projectURL, attributeCode,  attributeValue ) {
       const token = await asyncToken();
       const resp = await axios({
         method: 'GET',
-        url: `http://qwanda-service.genny.life/qwanda/companycode/${uniquecode}`,
+        url: `${projectURL}/qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
       const { data } = resp;
@@ -73,8 +73,8 @@ const dbService = {
       console.log( resp );
     },
 
-    getBaseEntityFromLinkCodeBaseEntity:  async function(baseEntity,
-      linkCode) {
+    getBaseEntityFromLinkCodeBaseEntity:  async function( baseEntity,
+      linkCode ) {
       const token = await asyncToken();
       const resp = await axios({
         method: 'GET',
