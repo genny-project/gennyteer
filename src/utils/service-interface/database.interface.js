@@ -1,5 +1,6 @@
 import axios from 'axios';
 import asyncToken from './asyncTokenUtils';
+import delve from 'dlv';
 
 
 
@@ -52,12 +53,32 @@ const dbService = {
       const token = await asyncToken();
       const resp = await axios({
         method: 'GET',
-        url: `${projectURL}/qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
+        url: `${projectURL}qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
       const { data } = resp;
       if ( data ) {
         return data;
+      } else {
+        return null;
+      }
+    },
+
+    getBaseEntityCodeFromUniqueCode:  async function( projectURL, attributeCode,  attributeValue ) {
+      const token = await asyncToken();
+      const resp = await axios({
+        method: 'GET',
+        url: `${projectURL}qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
+        headers: { Authorization: `Bearer ${token.access_token}` }
+      });
+      const { data } = resp;
+      if ( data ) {
+        let baseEntityCode = delve( data, 'items.0.baseEntityAttributes.0.baseEntityCode' );
+        if ( baseEntityCode == 'undefined' || baseEntityCode == null ) {
+          return null;
+        } else {
+          return baseEntityCode;
+        }
       } else {
         return null;
       }
