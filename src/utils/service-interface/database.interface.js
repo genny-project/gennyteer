@@ -18,9 +18,7 @@ const dbService = {
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
 
-      console.log( 'The Response is:: ', resp );
-      
-      const x = resp.baseEntityAttributes.find(
+      const x = resp.data.baseEntityAttributes.find(
         aa => aa.attributeCode === attributeCode
       );
 
