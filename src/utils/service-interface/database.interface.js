@@ -5,26 +5,26 @@ import delve from 'dlv';
 
 
 const dbService = {
-  checkIfBaseEntityAttributeValueExists: async function( baseEntity,
+  checkIfBaseEntityAttributeValueExists: async function( projectURL,
+    baseEntity,
     attributeCode,
-    expectedValue,
-    valueKey = 'valueString' ){
+    expectedValue ) {
       const token = await asyncToken();
       // insert the tokens
 
       const resp = await axios({
         method: 'GET',
-        url:
-          `http://bridge.genny.life:8089/read/${baseEntity}`,
+        url: `${projectURL}qwanda/baseentitys/${baseEntity}`,
+        headers: { Authorization: `Bearer ${token.access_token}` }
       });
 
-      const { data } = resp;
-
-      const x = data.value.baseEntityAttributes.find(
+      console.log( 'The Response is:: ', resp );
+      
+      const x = resp.baseEntityAttributes.find(
         aa => aa.attributeCode === attributeCode
       );
 
-      const value = x[valueKey];
+      const value = delve( x, 'valueString' );
       const returnData =
         value === expectedValue
           ? Promise.resolve()
