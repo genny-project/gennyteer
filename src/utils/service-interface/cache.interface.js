@@ -1,59 +1,33 @@
 import axios from 'axios';
+import asyncToken from './asyncTokenUtils';
+import delve from 'dlv';
 
-class Cache {
-  async checkIfBaseEntityAttributeValueExists(
+const Cache =  {
+  checkIfBaseEntityAttributeValueExists: async function ( projectURL,
     baseEntity,
-    attributeName,
-    expectedValue,
-    valueKey = 'valueString'
-  ) {
-    let resp;
-    try {
-      resp = await axios.get(
-        `http://bridge.genny.life:8089/read/${baseEntity}`
-      );
-    } catch ( err ) {
-      throw new Error( ' Error getting the data from Cache' );
-    }
+    attributeCode,
+    expectedValue ) {
+    const token = await asyncToken();
 
-    console.log( resp.data );
+    const resp = await axios({
+      method: 'GET',
+      url: `${projectURL}service/cache/read/${baseEntity}`,
+      headers: { Authorization: `Bearer ${token.access_token}` }
+    });
 
-    // const jsonify = JSON.parse( resp.data.value );
-    const a = resp.data.value.baseEntityAttributes.find(
-      el => el.attributeCode === attributeName
+    const x = resp.data.baseEntityAttributes.find(
+      aa => aa.attributeCode === attributeCode
     );
-    const value = a[valueKey];
 
-    if ( value === expectedValue ) {
-      return Promise.resolve( true );
-    } else {
-      return Promise.reject(
-        'Expected value doesnot equals the value in the Cache'
-      );
-    }
-  }
-
-  async checkForBaseEntityCode( baseEntity ) {
-    let resp;
-    try {
-      resp = await axios.get(
-        `http://bridge.genny.life:8089/read/${baseEntity}`
-      );
-    } catch ( err ) {
-      return Promise.reject(
-        ' Error getting data from the cache, Cache Service could be down or baseEntityCode in not valid'
-      );
-    }
-
+    const value = delve( x, 'valueString' );
     const returnData =
-      resp.data &&
-      resp.data.value &&
-      resp.data.value.baseEntityAttributes[0].baseEntityCode === baseEntity
-        ? Promise.resolve( true )
-        : Promise.reject();
-
+      value === expectedValue
+        ? Promise.resolve()
+        : Promise.reject(
+            ` Provided value ${expectedValue} Value does not equals to value in database ${value}`
+          );
     return returnData;
   }
-}
+};
 
 export default Cache;

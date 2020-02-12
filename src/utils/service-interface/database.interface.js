@@ -2,10 +2,8 @@ import axios from 'axios';
 import asyncToken from './asyncTokenUtils';
 import delve from 'dlv';
 
-
-
 const dbService = {
-  checkIfBaseEntityAttributeValueExists: async function( projectURL,
+  checkIfBaseEntityAttributeValueExists: async function ( projectURL,
     baseEntity,
     attributeCode,
     expectedValue ) {
@@ -108,6 +106,6 @@ const dbService = {
       }
     }
 
-}
+};
 
 export default dbService;

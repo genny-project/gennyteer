@@ -17,7 +17,7 @@ class ServiceInterface {
   }
 
   cache() {
-    const cacheInterface = new CacheInterface();
+    const cacheInterface = CacheInterface;
     return cacheInterface;
   }
 
