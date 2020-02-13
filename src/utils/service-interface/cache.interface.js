@@ -15,16 +15,19 @@ const Cache =  {
       headers: { Authorization: `Bearer ${token.access_token}` }
     });
 
-    const x = resp.data.baseEntityAttributes.find(
+    const { data } = resp;
+    console.log( 'STARTING RESPONSE JSON #### ', resp );
+    console.log( 'ENDING RESPONSE JSON #### ' );
+    const x = data[1].value.baseEntityAttributes.find(
       aa => aa.attributeCode === attributeCode
     );
 
-    const value = delve( x, 'valueString' );
+    const valueFromResp = delve( x, 'valueString' );
     const returnData =
-      value === expectedValue
+    valueFromResp === expectedValue
         ? Promise.resolve()
         : Promise.reject(
-            ` Provided value ${expectedValue} Value does not equals to value in database ${value}`
+            ` Provided value ${expectedValue} Value does not equals to value in database ${valueFromResp}`
           );
     return returnData;
   }

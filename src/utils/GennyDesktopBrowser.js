@@ -46,9 +46,9 @@ class GennyDesktopBrowser {
   }
 
   //Refresh page
-  async refresh( ) {
+  async refresh() {
    //await this.page.reload({ timeout: 60000 ,  waitUntil: ["networkidle0", "domcontentloaded"] });
-    await this.page.reload({ timeout: 90000 } );
+    await this.page.reload({ timeout: 90000 });
   }
 
   async navigateTo( websiteURL ) {
@@ -109,10 +109,10 @@ class GennyDesktopBrowser {
     await this.page.waitForSelector( selector );
     await this.inputTextBoxUsingCSS( selector, text );
   }
-  async inputTextUsingTestID(id,text){
+  async inputTextUsingTestID( id,text ){
     const selector=`[data-testid="input-text ${id}"]`;
-    await this.page.click(selector);
-    await this.page.keyboard.type(text);
+    await this.page.click( selector );
+    await this.page.keyboard.type( text );
     }
 
   async clickButtonUsingType( typeName ) {
@@ -334,34 +334,34 @@ class GennyDesktopBrowser {
 
   async checkIfTestIDExists( testID ) {
     const selector = `[data-testid="${testID}"]`;
-    const fs = require('fs')
+    const fs = require( 'fs' );
     const fileName = 'result.txt';
-    const checkforfile = ( filePath ) => {
-      if ( fs.existsSync( filePath ) ) {
-        console.log(filePath + ' exists');
+    const checkforfile = filePath => {
+      if ( fs.existsSync( filePath )) {
+        console.log( filePath + ' exists' );
       }
-    }
-    const writefile = ( content ) => {
-      fs.writeFile(fileName, content, (err) => {
-        if (err) throw err;
-      })
-    }
-    const readfile = (fileName) => {
-      fs.readFile(fileName, (err, data) => {
-        if (err) throw err;
-        console.log( 'Content in ' + fileName + ' is ' + data.toString() );
+    };
+    const writefile = content => {
+      fs.writeFile( fileName, content, err => {
+        if ( err ) throw err;
       });
-    }
+    };
+    const readfile = fileName => {
+      fs.readFile( fileName, ( err, data ) => {
+        if ( err ) throw err;
+        console.log( 'Content in ' + fileName + ' is ' + data.toString());
+      });
+    };
     await this.page.waitForSelector( selector );
     checkforfile( fileName );
     if (( await this.page.$( selector )) !== null ) {
       console.log( selector + ' Exists!' );
-      let data = "1"
+      let data = '1';
       writefile( data );
-      readfile(fileName);
+      readfile( fileName );
       return Promise.resolve( true );
     }
-    let data = "0"
+    let data = '0';
     writefile( data );
     readfile( fileName );
     return Promise.reject( Error( 'test ID not found' ));
@@ -372,7 +372,7 @@ class GennyDesktopBrowser {
     const selector = `[data-testid="sidebar-item ${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
-  async clickSideBarItemV2(testId){
+  async clickSideBarItemV2( testId ){
     const selector = `[data-testid="sidebar-item-${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
