@@ -97,23 +97,28 @@ class GennyDesktopBrowser {
     console.log( screenshot_path );
     const scShot = new ScSchot( this.page, fileName );
     scShot.shoot( screenshot_path );
+
   }
 
   async clickOnSelector( selector ) {
     await this.page.waitForSelector( selector );
     await expect( this.page ).toClick( selector );
+
   }
 
   async inputTextUsingID( id, text ) {
     const selector = `#${id}`;
     await this.page.waitForSelector( selector );
     await this.inputTextBoxUsingCSS( selector, text );
+
   }
+
   async inputTextUsingTestID( id,text ){
     const selector=`[data-testid="input-text ${id}"]`;
     await this.page.click( selector );
     await this.page.keyboard.type( text );
-    }
+
+  }
 
   async clickButtonUsingType( typeName ) {
     const selector = `button[type="${typeName}"]`;
@@ -159,7 +164,7 @@ class GennyDesktopBrowser {
   }
 
   async typeInputAutocomplete( askId, text ) {
-    const selector = `[data-testid="input-autocomplete ${askId}"]`;
+    const selector = `[data-testid="input-text ${askId}"]`;
 
     // Type into the autocmplete input
     await this.typeInputText( askId, text );
@@ -168,7 +173,8 @@ class GennyDesktopBrowser {
     await this.page.waitForSelector( selector );
 
     // Click on the first autocomplete result
-    await expect( this.page ).toClick( selector );
+    const selectorItem = `[data-testid="input-autocomplete-item ${askId}"]`;
+    await expect( this.page ).toClick( selectorItem );
   }
 
   async selectInputDropdown( askId, dropdownValue ) {
@@ -230,20 +236,21 @@ class GennyDesktopBrowser {
     const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
     await this.page.waitForSelector( optionSelector );
 
+    console.log( 'Options selector is :: ', optionSelector );
+
     // There are no events or elements to wait for to make sure the tags are ready.
     // TODO: Make it happen
     console.log( 'Waiting for tags to load' );
-    await this.page.waitFor( 4 * SECONDS );
+    await this.page.waitFor( 10 * SECONDS );
 
     // Click the tags dropdown
-    await this.click( `input-text input-tag ${askId}` );
+    await this.click( `[data-testid="input-text input-tag ${askId}"]` );
 
     // Clicking tags option
     await this.page.waitForSelector( optionSelector );
     const tagSelection = await this.page.$$( optionSelector );
     const specificSelection = await tagSelection[clickIndex];
     await specificSelection.click();
-    await this.click( `input-text input-tag ${askId}` );
   }
 
   async click( testId, options = {}) {
