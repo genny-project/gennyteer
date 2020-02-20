@@ -168,7 +168,8 @@ class GennyDesktopBrowser {
 
     // Type into the autocmplete input
     await this.typeInputText( askId, text );
-    this.sleep( 10 );
+    await this.page.waitFor( 5 * SECONDS );
+
     // Wait for the element to load before continuing
     await this.page.waitForSelector( selector );
 
@@ -189,62 +190,17 @@ class GennyDesktopBrowser {
     );
   }
 
-  async testMethod( askId = 'QUE_SELECT_COMPANY_TYPE', dropdownValue ) {
-    await this.page.evaluate(() => {
-      const test = document.querySelector(
-        'select[data-testid="input-dropdown QUE_SELECT_COMPANY_TYPE"]'
-      );
-      console.log({ test });
-    });
-
-    await this.page.select(
-      'select[data-testid="input-dropdown QUE_SELECT_COMPANY_TYPE"]',
-      'SEL_COMPANY_HOST_COMPANY'
-    );
-  }
-
-  async testMethodaddingintern( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
-    await this.page.evaluate(() => {
-      const test = document.querySelector(
-        'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]'
-      );
-      console.log({ test });
-    });
-
-    await this.page.select(
-      'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]',
-      'SEL_USER_INTERN'
-    );
-  }
-
-  async TestMethodAddingHostCompanyStaff( askId = 'QUE_SELECT_USER_TYPE', dropdownValue ) {
-    await this.page.evaluate(() => {
-      const test = document.querySelector(
-        'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]'
-      );
-      console.log({ test });
-    });
-
-    await this.page.select(
-      'select[data-testid="input-dropdown QUE_SELECT_USER_TYPE"]',
-      'SEL_USER_HOST_COMPANY_STAFF'
-    );
-  }
-
-  async selectTag( askId, options = {}) {
+  async selectTag
+  ( askId, options = {}) {
     const { clickIndex = 0 } = options;
     const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
-    await this.page.waitForSelector( optionSelector );
-
-    console.log( 'Options selector is :: ', optionSelector );
 
     // There are no events or elements to wait for to make sure the tags are ready.
     // TODO: Make it happen
-    console.log( 'Waiting for tags to load' );
-    await this.page.waitFor( 10 * SECONDS );
+    await this.page.waitFor( 5 * SECONDS );
 
     // Click the tags dropdown
-    await this.click( `[data-testid="input-text input-tag ${askId}"]` );
+    await this.click( `input-text input-tag ${askId}` );
 
     // Clicking tags option
     await this.page.waitForSelector( optionSelector );

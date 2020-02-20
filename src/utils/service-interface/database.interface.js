@@ -30,6 +30,33 @@ const dbService = {
       return returnData;
     },
 
+    checkForBaseEntityType: async function ( projectURL,
+      baseEntity,
+      attributeCode,
+      expectedValue ) {
+        const token = await asyncToken();
+        // insert the tokens
+
+        const resp = await axios({
+          method: 'GET',
+          url: `${projectURL}qwanda/baseentitys/${baseEntity}`,
+          headers: { Authorization: `Bearer ${token.access_token}` }
+        });
+
+        const x = resp.data.baseEntityAttributes.find(
+          aa => aa.attributeCode === attributeCode
+        );
+
+        const value = delve( x, 'valueBoolean' );
+        const returnData =
+          value === expectedValue
+            ? Promise.resolve()
+            : Promise.reject(
+                ` Provided value ${expectedValue} Value does not equals to value in database ${value}`
+              );
+        return returnData;
+      },
+
     getBaseEntityFromEmail:  async function( email ) {
       const token = await asyncToken();
       const resp = await axios({
