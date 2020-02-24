@@ -25,7 +25,7 @@ const dbService = {
         value === expectedValue
           ? Promise.resolve()
           : Promise.reject(
-              ` Provided value ${expectedValue} Value does not equals to value in database ${value}`
+              `Provided value ${expectedValue} Value does not equals to value in database ${value}`
             );
       return returnData;
     },
@@ -52,7 +52,7 @@ const dbService = {
           value === expectedValue
             ? Promise.resolve()
             : Promise.reject(
-                ` Provided value ${expectedValue} Value does not equals to value in database ${value}`
+                `Provided value ${expectedValue} Value does not equals to value in database ${value}`
               );
         return returnData;
       },

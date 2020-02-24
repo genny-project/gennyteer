@@ -209,6 +209,22 @@ class GennyDesktopBrowser {
     await specificSelection.click();
   }
 
+  async selectSpecificTag
+  ( askId, baseentityCode ) {
+    const optionSelector = `[data-testid="input-tag-option ${askId}:${baseentityCode}"]`;
+
+    // There are no events or elements to wait for to make sure the tags are ready.
+    // TODO: Make it happen
+    await this.page.waitFor( 5 * SECONDS );
+
+    // Click the tags dropdown
+    await this.click( `input-text input-tag ${askId}` );
+
+    // Clicking tags option
+    await this.page.waitForSelector( optionSelector );
+    await this.page.click( optionSelector );
+  }
+
   async click( testId, options = {}) {
     const { clickIndex = 0 } = options;
     const selector = `[data-testid="${testId}"]`;
