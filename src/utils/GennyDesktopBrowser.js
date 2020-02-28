@@ -281,12 +281,6 @@ class GennyDesktopBrowser {
     await expect( this.page ).toClick( selector );
   }
 
-  // Make a generic click that is compitable with all the clicks
-  async genericClick( selector ) {
-    await this.page.waitForSelector( selector );
-    await expect( this.page ).toClick( selector );
-  }
-
   /* Make a normal click on an item with a testID */
   async clickOnTestId( testId ) {
     const selector = `[data-testid="${testId}"]`;
@@ -351,9 +345,21 @@ class GennyDesktopBrowser {
     const selector = `[data-testid="sidebar-item ${testId}"]`;
     await expect( this.page ).toClick( selector );
   }
+
   async clickSideBarItemV2( testId ){
     const selector = `[data-testid="sidebar-item-${testId}"]`;
     await expect( this.page ).toClick( selector );
+  }
+
+  async datePicker( id ){
+    const selector=`[data-testid="input-date-picker ${id}"]`;
+    await this.page.click( selector );
+
+    await this.page.waitFor( 2 * SECONDS );
+
+    // Click the the exact day
+    await this.click( `input-date-picker-option input-date-picker-day ${id}` );
+    // await this.page.keyboard.type( text );
   }
 
   async services() {
