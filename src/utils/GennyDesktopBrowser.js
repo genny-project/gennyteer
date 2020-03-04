@@ -29,7 +29,7 @@ class GennyDesktopBrowser {
       console.log( window.store.getState());
       if ( window && window.store ) return window.store.getState();
       throw new Error(
-        'Store object doesnot exists on the window in pupptter please check Alyson v3 is updated to use the store Object'
+        'Store object does not exists on the window in pupptter please check Alyson v3 is updated to use the store Object'
       );
     });
   }
