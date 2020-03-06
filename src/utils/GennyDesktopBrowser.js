@@ -194,7 +194,10 @@ class GennyDesktopBrowser {
   ( askId, options = {}) {
     const { clickIndex = 0 } = options;
     const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
-
+    const regexOptionSelector = optionSelector.match( /data-testid="input-tag-option.*$/g );
+    console.log( 'The returned regex value is:: ', regexOptionSelector );
+    const arrayValueOptionSelector = `[${regexOptionSelector[0]}`;
+    console.log( 'The returned array from the regex value is:: ', arrayValueOptionSelector );
     // There are no events or elements to wait for to make sure the tags are ready.
     // TODO: Make it happen
     await this.page.waitFor( 5 * SECONDS );
@@ -204,7 +207,7 @@ class GennyDesktopBrowser {
 
     // Clicking tags option
     await this.page.waitForSelector( optionSelector );
-    const tagSelection = await this.page.$$( optionSelector );
+    const tagSelection = await this.page.$$( arrayValueOptionSelector );
     const specificSelection = await tagSelection[clickIndex];
     await specificSelection.click();
   }
