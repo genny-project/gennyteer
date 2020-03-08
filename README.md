@@ -1,6 +1,6 @@
 # Gennyteer
 
-Automated Browser testing of the Genny Project using Puppeteer.
+Automated browser testing stack of the Genny Project using Jest and Puppeteer. UAT, E2E and Regression tests. 
 
 ## How to run the test
 
@@ -140,15 +140,4 @@ await user
   .services()
   .database()
   .getBaseEntityFromEmail("email goes here");
-```
-
-#### Delete baseEntity using code
-
-#### !!! WARNING please using this method carefully
-
-```javascript
-await user
-  .services()
-  .database()
-  .deleteBaseEntityUsingCode("PER_USER_WHATEVER");
 ```
