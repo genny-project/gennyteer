@@ -198,8 +198,7 @@ class GennyDesktopBrowser {
     console.log( 'The returned regex value is:: ', regexOptionSelector );
     const arrayValueOptionSelector = `[${regexOptionSelector[0]}`;
     console.log( 'The returned array from the regex value is:: ', arrayValueOptionSelector );
-    // There are no events or elements to wait for to make sure the tags are ready.
-    // TODO: Make it happen
+
     await this.page.waitFor( 5 * SECONDS );
 
     // Click the tags dropdown
@@ -226,6 +225,15 @@ class GennyDesktopBrowser {
     // Clicking tags option
     await this.page.waitForSelector( optionSelector );
     await this.page.click( optionSelector );
+  }
+
+  async clickGroupClickableWrapper
+  ( askId, baseentityCode ) {
+    const selector = `[data-testid="group-clickable-wrapper ${askId}:${baseentityCode}"]`;
+
+    await this.page.waitForSelector( selector );
+
+    await this.page.click( selector );
   }
 
   async click( testId, options = {}) {
@@ -301,6 +309,17 @@ class GennyDesktopBrowser {
   // Check if the seelector exists or Not
   async checkIfSelectorExists( selector ) {
     await this.page.waitForSelector( selector );
+    if (( await this.page.$( selector )) !== null ) {
+      console.log( 'Selector Exists!' );
+      return Promise.resolve( true );
+    }
+    return Promise.reject( Error( 'Selector not found' ));
+  }
+
+  async checkIfGroupClickableWrapper
+  ( askId, baseentityCode ) {
+    const selector = `[data-testid="group-clickable-wrapper ${askId}:${baseentityCode}"]`;
+
     if (( await this.page.$( selector )) !== null ) {
       console.log( 'Selector Exists!' );
       return Promise.resolve( true );
