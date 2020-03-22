@@ -195,9 +195,7 @@ class GennyDesktopBrowser {
     const { clickIndex = 0 } = options;
     const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
     const regexOptionSelector = optionSelector.match( /data-testid="input-tag-option.*$/g );
-    console.log( 'The returned regex value is:: ', regexOptionSelector );
     const arrayValueOptionSelector = `[${regexOptionSelector[0]}`;
-    console.log( 'The returned array from the regex value is:: ', arrayValueOptionSelector );
 
     await this.page.waitFor( 5 * SECONDS );
 
@@ -316,7 +314,22 @@ class GennyDesktopBrowser {
     return Promise.reject( Error( 'Selector not found' ));
   }
 
-  async checkIfGroupClickableWrapper
+  async checkIfGroupClickableWrapperWithoutBeExists
+  ( askId ) {
+    const selector = `[data-testid="group-clickable-wrapper ${askId}"]`;
+    const regexSelector = selector.match( /data-testid="group-clickable-wrapper.*$/g );
+    console.log( 'The returned regex value is:: ', regexSelector );
+    const arrayValueregexSelector = `[${regexSelector[0]}`;
+    console.log( 'The returned array from the regex value is:: ', arrayValueregexSelector );
+
+    if (( await this.page.$( arrayValueregexSelector )) !== null ) {
+      console.log( 'Selector Exists!' );
+      return Promise.resolve( true );
+    }
+    return Promise.reject( Error( 'Selector not found' ));
+  }
+
+  async checkIfGroupClickableWrapperExists
   ( askId, baseentityCode ) {
     const selector = `[data-testid="group-clickable-wrapper ${askId}:${baseentityCode}"]`;
 
