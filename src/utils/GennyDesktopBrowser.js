@@ -211,14 +211,14 @@ class GennyDesktopBrowser {
 
   async selectSpecificTag
   ( askId, baseentityCode ) {
-    const optionSelector = `[data-testid="input-tag-option ${askId}:${baseentityCode}"]`;
+    const optionSelector = `[data-testid="input-item ${askId}:${baseentityCode}"]`;
 
     // There are no events or elements to wait for to make sure the tags are ready.
     // TODO: Make it happen
     await this.page.waitFor( 5 * SECONDS );
 
     // Click the tags dropdown
-    await this.click( `input-text input-tag ${askId}` );
+    await this.click( `input-field ${askId}` );
 
     // Clicking tags option
     await this.page.waitForSelector( optionSelector );
@@ -314,20 +314,18 @@ class GennyDesktopBrowser {
     return Promise.reject( Error( 'Selector not found' ));
   }
 
-  async checkIfGroupClickableWrapperWithoutBeExists
-  ( askId ) {
-    const selector = `[data-testid="group-clickable-wrapper ${askId}"]`;
-    const regexSelector = selector.match( /data-testid="group-clickable-wrapper.*$/g );
-    console.log( 'The returned regex value is:: ', regexSelector );
-    const arrayValueregexSelector = `[${regexSelector[0]}`;
-    console.log( 'The returned array from the regex value is:: ', arrayValueregexSelector );
+  // async checkIfGroupClickableWrapperWithoutBeExists
+  // ( askId ) {
+  //   const selector = `[data-testid="group-clickable-wrapper ${askId}"]`;
+  //   const regexSelector = selector.match( /data-testid="group-clickable-wrapper.*$/g );
+  //   const arrayValueregexSelector = `[${regexSelector[0]}`;
 
-    if (( await this.page.$( arrayValueregexSelector )) !== null ) {
-      console.log( 'Selector Exists!' );
-      return Promise.resolve( true );
-    }
-    return Promise.reject( Error( 'Selector not found' ));
-  }
+  //   if (( await this.page.$( arrayValueregexSelector )) !== null ) {
+  //     console.log( 'Selector Exists!',  arrayValueregexSelector );
+  //     return Promise.resolve( true );
+  //   }
+  //   return Promise.reject( Error( 'Selector not found', arrayValueregexSelector ));
+  // }
 
   async checkIfGroupClickableWrapperExists
   ( askId, baseentityCode ) {
