@@ -304,6 +304,16 @@ class GennyDesktopBrowser {
     await expect( this.page ).toClick( selector );
   }
 
+  async clickGroupClickableWrapperExists( askId, baseentityCode ) {
+    const selector = `[data-testid="group-clickable-wrapper ${askId}:${baseentityCode}"]`;
+    await expect( this.page ).toClick( selector );
+  }
+
+  async clickGroupTableRowExists( baseentityCode ) {
+    const selector = `[data-testid="QUE_${baseentityCode}:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
+    await expect( this.page ).toClick( selector );
+  }
+
   // Check if the seelector exists or Not
   async checkIfSelectorExists( selector ) {
     await this.page.waitForSelector( selector );
@@ -330,6 +340,17 @@ class GennyDesktopBrowser {
   async checkIfGroupClickableWrapperExists
   ( askId, baseentityCode ) {
     const selector = `[data-testid="group-clickable-wrapper ${askId}:${baseentityCode}"]`;
+
+    if (( await this.page.$( selector )) !== null ) {
+      console.log( 'Selector Exists!' );
+      return Promise.resolve( true );
+    }
+    return Promise.reject( Error( 'Selector not found' ));
+  }
+
+  async checkIfGroupTableRowExists
+  ( baseentityCode ) {
+    const selector = `[data-testid="QUE_${baseentityCode}:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
 
     if (( await this.page.$( selector )) !== null ) {
       console.log( 'Selector Exists!' );
@@ -372,6 +393,7 @@ class GennyDesktopBrowser {
     readfile( fileName );
     return Promise.reject( Error( 'test ID not found' ));
   }
+
 
   /* Make a normal click on an sidebar item */
   async clickSidebarItem( testId ) {
