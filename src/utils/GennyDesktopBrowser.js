@@ -310,7 +310,7 @@ class GennyDesktopBrowser {
   }
 
   async clickGroupTableRowExists( baseentityCode ) {
-    const selector = `[data-testid="QUE_${baseentityCode}:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
+    const selector = `[data-testid="QUE_${baseentityCode}_GRP:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
     await expect( this.page ).toClick( selector );
   }
 
@@ -350,7 +350,7 @@ class GennyDesktopBrowser {
 
   async checkIfGroupTableRowExists
   ( baseentityCode ) {
-    const selector = `[data-testid="QUE_${baseentityCode}:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
+    const selector = `[data-testid="QUE_${baseentityCode}_GRP:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
 
     if (( await this.page.$( selector )) !== null ) {
       console.log( 'Selector Exists!' );
