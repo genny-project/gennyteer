@@ -309,8 +309,8 @@ class GennyDesktopBrowser {
     await expect( this.page ).toClick( selector );
   }
 
-  async clickGroupTableRowExists( baseentityCode ) {
-    const selector = `[data-testid="QUE_${baseentityCode}_GRP:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
+  async clickIfApplyGroupTableRowExists( baseentityCode ) {
+    const selector = `[data-testid="QUE_${baseentityCode}_GRP:QUE_PRI_EVENT_APPLY_${baseentityCode}"]`;
     await expect( this.page ).toClick( selector );
   }
 
@@ -348,7 +348,7 @@ class GennyDesktopBrowser {
     return Promise.reject( Error( 'Selector not found' ));
   }
 
-  async checkIfGroupTableRowExists
+  async checkIfViewGroupTableRowExists
   ( baseentityCode ) {
     const selector = `[data-testid="QUE_${baseentityCode}_GRP:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
 
