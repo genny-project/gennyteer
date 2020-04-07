@@ -359,6 +359,18 @@ class GennyDesktopBrowser {
     return Promise.reject( Error( 'Selector not found' ));
   }
 
+  async clickCardUpperRightSelector
+  ( baseentityCode ) {
+    const selector = `[data-testid="group-clickable-wrapper QUE_CARD_CONTENT_GRP:QUE_CARD_RIGHT_GRP:${baseentityCode}"]`;
+    await expect( this.page ).toClick( selector );
+    
+    if (( await this.page.$( selector )) !== null ) {
+      console.log( 'Selector Exists!' );
+      return Promise.resolve( true );
+    }
+    return Promise.reject( Error( 'Selector not found' ));
+  }
+
   async checkIfTestIDExists( testID ) {
     const selector = `[data-testid="${testID}"]`;
     const fs = require( 'fs' );
