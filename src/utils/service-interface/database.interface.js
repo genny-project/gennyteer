@@ -12,7 +12,7 @@ const dbService = {
 
       const resp = await axios({
         method: 'GET',
-        url: `${projectURL}qwanda/baseentitys/${baseEntity}`,
+        url: `${projectURL}/qwanda/baseentitys/${baseEntity}`,
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
 
@@ -39,7 +39,7 @@ const dbService = {
 
         const resp = await axios({
           method: 'GET',
-          url: `${projectURL}qwanda/baseentitys/${baseEntity}`,
+          url: `${projectURL}/qwanda/baseentitys/${baseEntity}`,
           headers: { Authorization: `Bearer ${token.access_token}` }
         });
 
@@ -72,11 +72,31 @@ const dbService = {
       }
     },
 
+    getBaseEntityTargetCodeFromSourceCode:  async function( projectURL, sourceCode,  linkCode ) {
+      const token = await asyncToken();
+      const resp = await axios({
+        method: 'GET',
+        url: `${projectURL}/qwanda/baseentitys/${sourceCode}/linkcodes/${linkCode}`,
+        headers: { Authorization: `Bearer ${token.access_token}` }
+      });
+      const { data } = resp;
+      if ( data ) {
+        let baseEntityCode = delve( data, 'items.0.code' );
+        if ( baseEntityCode == 'undefined' || baseEntityCode == null ) {
+          return null;
+        } else {
+          return baseEntityCode;
+        }
+      } else {
+        return null;
+      }
+    },
+
     getBaseEntityFromUniqueCode:  async function( projectURL, attributeCode,  attributeValue ) {
       const token = await asyncToken();
       const resp = await axios({
         method: 'GET',
-        url: `${projectURL}qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
+        url: `${projectURL}/qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
       const { data } = resp;
@@ -91,7 +111,7 @@ const dbService = {
       const token = await asyncToken();
       const resp = await axios({
         method: 'GET',
-        url: `${projectURL}qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
+        url: `${projectURL}/qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
       const { data } = resp;
@@ -105,34 +125,7 @@ const dbService = {
       } else {
         return null;
       }
-    },
-
-    deleteBaseEntityUsingCode:  async function( code ) {
-      const token = await asyncToken();
-      const resp = await axios({
-        method: 'GET',
-        url: `http://api-internmatch.outcome-hub.com/qwanda/baseentitys/${code}`,
-        headers: { Authorization: `Bearer ${token.access_token}` }
-      });
-      console.log( resp );
-    },
-
-    getBaseEntityFromLinkCodeBaseEntity:  async function( baseEntity,
-      linkCode ) {
-      const token = await asyncToken();
-      const resp = await axios({
-        method: 'GET',
-        url: `http://qwanda-service.genny.life/qwanda/baseentitys/${baseEntity}/linkcodes/${linkCode}`,
-      });
-      const { data } = resp;
-      console.log({ data });
-      if ( data ) {
-        return data;
-      } else {
-        return null;
-      }
     }
-
 };
 
 export default dbService;
