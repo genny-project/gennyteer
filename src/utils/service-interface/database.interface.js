@@ -3,6 +3,7 @@ import asyncToken from './asyncTokenUtils';
 import delve from 'dlv';
 
 const dbService = {
+  
   checkIfBaseEntityAttributeValueExists: async function ( projectURL,
     baseEntity,
     attributeCode,
