@@ -11,9 +11,9 @@ class GennyDesktopBrowser {
     this.page = page;
   }
 
-  static async build( gennyURL ) {
+  static async build( gennyURL,slowMo ) {
     // Builder function for initiating new instance of GennyDesktopBrowser
-    const page = await GennyDesktopBrowser.generatePage();
+    const page = await GennyDesktopBrowser.generatePage(slowMo);
     const newDesktopBrowser = await new GennyDesktopBrowser( page );
     await newDesktopBrowser.navigateTo( gennyURL );
     return newDesktopBrowser;
@@ -53,6 +53,7 @@ class GennyDesktopBrowser {
     ] );
   }
 
+  
   //goback to previous page
 
   async back(){
@@ -66,9 +67,9 @@ class GennyDesktopBrowser {
     await browser.close();
   }
 
-  static async generatePage() {
+  static async generatePage(slowMo) {
     let browser = null;
-    const slowMo = process.env.SLOW_MO ?  process.env.SLOW_MO  : null;
+    //const slowMo = process.env.SLOWMO ?  process.env.SLOWMO  : null;
     const args = ['--no-sandbox', `--window-size=${PAGE_WIDTH},${PAGE_HEIGHT}`];
     browser = await puppeteer.launch({
       args,
@@ -98,6 +99,12 @@ class GennyDesktopBrowser {
     await expect( this.page ).toClick( selector );
   }
 
+  async upload(file,type){
+    const input = await this.page.$(`input[type=${type}]`);
+    console.log("Uploading File: "+file);
+    await input.uploadFile(file);
+    await this.page.waitFor(1000);
+  }
   async inputTextUsingID( id, text ) {
     const selector = `#${id}`;
     await this.page.waitForSelector( selector );
@@ -305,7 +312,7 @@ class GennyDesktopBrowser {
   /* Make a normal click on an item with a testID */
   async clickOnTestId( testId ) {
     const selector = `[data-testid="${testId}"]`;
-    await this.page.waitForSelector( selector );
+    //await this.page.waitForSelector( selector );
 
     await expect( this.page ).toClick( selector );
   }
