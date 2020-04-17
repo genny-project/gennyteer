@@ -3,7 +3,7 @@ import asyncToken from './asyncTokenUtils';
 import delve from 'dlv';
 
 const dbService = {
-  
+
   checkIfBaseEntityAttributeValueExists: async function ( projectURL,
     baseEntity,
     attributeCode,
@@ -72,7 +72,7 @@ const dbService = {
         return null;
       }
     },
-
+    
     getBaseEntityTargetCodeFromSourceCode:  async function( projectURL, sourceCode,  linkCode ) {
       const token = await asyncToken();
       const resp = await axios({
