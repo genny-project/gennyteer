@@ -429,6 +429,12 @@ class GennyDesktopBrowser {
     // await this.page.keyboard.type( text );
   }
 
+  async getInnerSelection(id){
+    const selector = `#${id} a`;
+    await this.page.waitForSelector( selector );
+    await this.page.click( selector );
+  }
+
   async services() {
     const services =  new Services();
     return services;
