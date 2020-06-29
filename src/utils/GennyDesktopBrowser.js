@@ -225,9 +225,8 @@ class GennyDesktopBrowser {
     await this.page.click( optionSelector );
   }
 
-  async clickGroupClickableWrapper
-  ( askId, baseentityCode ) {
-    const selector = `[data-testid="group-clickable-wrapper ${askId}:${baseentityCode}"]`;
+  async clickGroupClickableWrapper ( askId ) {
+    const selector = `[id="${askId}"]`;
 
     await this.page.waitForSelector( selector );
 
@@ -338,8 +337,8 @@ class GennyDesktopBrowser {
   // }
 
   async checkIfGroupClickableWrapperExists
-  ( askId, baseentityCode ) {
-    const selector = `[data-testid="group-clickable-wrapper ${askId}:${baseentityCode}"]`;
+  ( askId ) {
+    const selector = `[id="${askId}"]`;
 
     if (( await this.page.$( selector )) !== null ) {
       console.log( 'Selector Exists!' );
@@ -363,7 +362,7 @@ class GennyDesktopBrowser {
   ( baseentityCode ) {
     const selector = `[data-testid="group-clickable-wrapper QUE_CARD_CONTENT_GRP:QUE_CARD_RIGHT_GRP:${baseentityCode}"]`;
     await expect( this.page ).toClick( selector );
-    
+
     if (( await this.page.$( selector )) !== null ) {
       console.log( 'Selector Exists!' );
       return Promise.resolve( true );
@@ -372,7 +371,7 @@ class GennyDesktopBrowser {
   }
 
   async checkIfTestIDExists( testID ) {
-    const selector = `[data-testid="${testID}"]`;
+    const selector = `[id="${testID}"]`;
     const fs = require( 'fs' );
     const fileName = 'result.txt';
     const checkforfile = filePath => {
