@@ -226,7 +226,7 @@ class GennyDesktopBrowser {
   }
 
   async clickGroupClickableWrapper ( askId ) {
-    const selector = `[id="${askId}"]`;
+    const selector = `[test-id="${askId}"]`;
 
     await this.page.waitForSelector( selector );
 
