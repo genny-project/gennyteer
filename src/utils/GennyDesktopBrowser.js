@@ -338,7 +338,7 @@ class GennyDesktopBrowser {
 
   async checkIfGroupClickableWrapperExists
   ( askId ) {
-    const selector = `[id="${askId}"]`;
+    const selector = `[test-id="${askId}"]`;
 
     if (( await this.page.$( selector )) !== null ) {
       console.log( 'Selector Exists!' );
@@ -371,7 +371,7 @@ class GennyDesktopBrowser {
   }
 
   async checkIfTestIDExists( testID ) {
-    const selector = `[id="${testID}"]`;
+    const selector = `[test-id="${testID}"]`;
     const fs = require( 'fs' );
     const fileName = 'result.txt';
     const checkforfile = filePath => {
