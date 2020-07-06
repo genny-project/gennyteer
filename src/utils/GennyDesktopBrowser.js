@@ -114,25 +114,11 @@ class GennyDesktopBrowser {
   }
 
   async inputTextUsingTestID( id,text ){
-    const selector=`[data-testid="input-text ${id}"]`;
+    const selector=`[test-id="${id}"]`;
     await this.page.click( selector );
     await this.page.keyboard.type( text );
 
   }
-
-  async clickButtonUsingType( typeName ) {
-    const selector = `button[type="${typeName}"]`;
-    await this.page.waitForSelector( selector );
-    this.clickButtonUsingCSS( selector );
-  }
-
-  async clickButtonUsingClass( className ) {
-    const selector = `.${className}`;
-    await this.page.waitForSelector( selector );
-    await this.page.click( selector );
-  }
-
-
 
   async inputTextBoxUsingCSS( selector, text, options = {}) {
     await this.page.waitForSelector( selector, options );
@@ -235,7 +221,7 @@ class GennyDesktopBrowser {
 
   async click( testId, options = {}) {
     const { clickIndex = 0 } = options;
-    const selector = `[data-testid="${testId}"]`;
+    const selector = `[test-id="${testId}"]`;
 
     await this.page.waitForSelector( selector );
 
