@@ -131,17 +131,17 @@ class GennyDesktopBrowser {
     await expect( this.page ).toClick( selector );
   }
 
-  async typeInput( inputType, askId, text, options = {}) {
-    let selector = `[data-testid="input-${inputType} ${askId}"]`;
-    await this.page.waitForSelector( selector, options );
+  async typeInput( askId, text ) {
+    let selector = `[test-id="${askId}"]`;
+    await this.page.waitForSelector( selector );
 
     // Type into an input field on the page
     await expect( this.page ).toFill( selector, text );
   }
 
-  async typeInputText( askId, text, options = {}) {
+  async typeInputText( askId, text ) {
     // Type into an text input on the page
-    await this.typeInput( 'text', askId, text, options );
+    await this.typeInput( askId, text );
   }
 
   async typeInputEmail( askId, text, options = {}) {
@@ -149,8 +149,8 @@ class GennyDesktopBrowser {
     await this.typeInput( 'email', askId, text, options );
   }
 
-  async typeInputAutocomplete( askId, text ) {
-    const selector = `[data-testid="input-text ${askId}"]`;
+  async typeInputAutocomplete( askId, text, selectorId ) {
+    const selector = `[test-id="${askId}"]`;
 
     // Type into the autocmplete input
     await this.typeInputText( askId, text );
@@ -160,7 +160,7 @@ class GennyDesktopBrowser {
     await this.page.waitForSelector( selector );
 
     // Click on the first autocomplete result
-    const selectorItem = `[data-testid="input-autocomplete-item ${askId}"]`;
+    const selectorItem = `[test-id="${selectorId}"]`;
     await expect( this.page ).toClick( selectorItem );
   }
 
@@ -197,14 +197,14 @@ class GennyDesktopBrowser {
 
   async selectSpecificTag
   ( askId, baseentityCode ) {
-    const optionSelector = `[data-testid="input-item ${askId}:${baseentityCode}"]`;
+    const optionSelector = `[test-id="${baseentityCode}"]`;
 
     // There are no events or elements to wait for to make sure the tags are ready.
     // TODO: Make it happen
     await this.page.waitFor( 5 * SECONDS );
 
     // Click the tags dropdown
-    await this.click( `input-field ${askId}` );
+    await this.page.click( `[test-id="${askId}"]` );
 
     // Clicking tags option
     await this.page.waitForSelector( optionSelector );
@@ -277,7 +277,7 @@ class GennyDesktopBrowser {
 
   /* Make a normal click on an item with a testID */
   async clickOnTestId( testId ) {
-    const selector = `[data-testid="${testId}"]`;
+    const selector = `[test-id="${testId}"]`;
     await this.page.waitForSelector( selector );
 
     await expect( this.page ).toClick( selector );
