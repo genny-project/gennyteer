@@ -238,14 +238,6 @@ class GennyDesktopBrowser {
     await this.click( `button ${testId}`, options );
   }
 
-  async clickOnTestIDButton() {
-    const clickIndex = 0;
-    const selector = '[data-testid="button"]';
-    await this.page.waitForSelector( selector );
-    const button = await this.page.$$( selector );
-    await button[clickIndex].click();
-  }
-
   // this is for clicking on the button on the header for example see internmatch header button
   async clickDropDownButtonUsingTestId(
     testId = 'ADD_ITEMS_DROPDOWN',
