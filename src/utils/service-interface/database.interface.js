@@ -100,7 +100,6 @@ const dbService = {
         url: `${projectURL}/qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
-      console.log( 'The access token is', token.access_token );
       const { data } = resp;
       if ( data ) {
         return data;
@@ -116,6 +115,7 @@ const dbService = {
         url: `${projectURL}/qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
+      console.log( 'The access token is', token.access_token );
       const { data } = resp;
       if ( data ) {
         let baseEntityCode = delve( data, 'items.0.baseEntityAttributes.0.baseEntityCode' );
