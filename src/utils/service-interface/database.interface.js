@@ -110,14 +110,11 @@ const dbService = {
 
     getBaseEntityCodeFromUniqueCode:  async function( projectURL, attributeCode,  attributeValue ) {
       const token = await asyncToken();
-      console.log( 'The token is', token.token );
-      console.log( '#1 The access_token is', token.access_token );
       const resp = await axios({
         method: 'GET',
         url: `${projectURL}/qwanda/attributeCode/${attributeCode}/attributeValue/${attributeValue}`,
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
-      console.log( '#2 The access_token is', token.access_token );
       const { data } = resp;
       if ( data ) {
         let baseEntityCode = delve( data, 'items.0.baseEntityAttributes.0.baseEntityCode' );

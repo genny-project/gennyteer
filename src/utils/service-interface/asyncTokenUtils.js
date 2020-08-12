@@ -11,13 +11,13 @@ const requsetParams = {
   password: 'WelcomeToTheHub121!',
 };
 const getTokenUtils = async () => {
-  console.debug( 'Testing for console debug ** reached get token **' );
+  // console.debug( 'Testing for console debug ** reached get token **' );
   try {
     const response = await axios.post(
       tokenURL,
       queryString.stringify( requsetParams )
     );
-    console.log( 'The response is:: ', response.data );
+    // console.log( 'The response is:: ', response.data );
     return response.data;
   } catch ( err ) {
     console.log( err );
