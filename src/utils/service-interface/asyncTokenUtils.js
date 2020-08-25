@@ -8,7 +8,7 @@ const requsetParams = {
   grant_type: 'password',
   client_id: 'alyson',
   username: 'user1',
-  password: 'WelcomeToTheHub121!',
+  password: 'rY2bbG7PeB09RXwPg',
 };
 const getTokenUtils = async () => {
   // console.debug( 'Testing for console debug ** reached get token **' );
