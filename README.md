@@ -5,7 +5,7 @@ Automated browser testing stack of the Genny Project using Jest and Puppeteer. U
 ## Stephs to run the test
 
 1. Clone this project.
-2. `cd` into project docker build it with `./build-docker.sh`
+2. `cd` into the project docker build it with `./build-docker.sh`
 3. Mount test files into the docker container and run the testing suites.
 
 #### Writing a basic Test
