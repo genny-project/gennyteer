@@ -5,14 +5,61 @@ Automated browser testing stack of the Genny Project using Jest and Puppeteer. U
 ## Stephs to run the test
 
 1. Clone this project.
-2. `cd` into the project docker build it with `./build-docker.sh`
+2. `cd` into the project and docker build it with `./build-docker.sh`
 3. Mount test files into the docker container and run the testing suites.
 
 #### Writing a basic Test
 
 ```javascript
+// The following script is an example of how a testing suite is written
+// While Gennyteer is project agnostic this example will login into internmatch and add a hostcompany
+
+// import GennyDesktopBrowser class into the test script file
 import { GennyDesktopBrowser } from "utils";
-// do something
+
+// Set a Jest timeout for the whole testing suite
+jest.setTimeout( 60 * 1000000 );
+
+describe( 'EXAMPLE GENNYTEET TEST 00001', () => {
+
+  it( 'TEST CASE EGT0001 - It Should login as agent and test tree view', async () => {
+    const agent = await GennyDesktopBrowser.build( process.env.PASSED_GENNY_URL );
+
+    // Login as agent by entering login details into keycloak
+
+    // await user.click('button');
+    await agent.inputTextUsingID( 'username', process.env.AGENT_A_USERNAME );
+    await agent.inputTextUsingID( 'password', process.env.AGENT_A_PASSWORD );
+    await agent.clickOnSelector( '#kc-login' );
+
+    // wait 60 seconds as system is slow sometimes
+    await agent.sleep( 60 );
+
+    await agent.checkIfGroupClickableWrapperExists( 'QUE_DASHBOARD_VIEW' );
+    await agent.sleep( 10 );
+    await agent.checkIfGroupClickableWrapperExists( 'QUE_TAB_BUCKET_VIEW' );
+    await agent.sleep( 5 );
+    await agent.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_CONTACTS_GRP' );
+    await agent.sleep( 5 );
+    await agent.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_INTERNSHIPS_GRP' );
+    await agent.sleep( 5 );
+    await agent.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_HOST_COMPANIES_GRP' );
+    await agent.sleep( 5 );
+    await agent.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_EDU_PROVIDERS_GRP' );
+    await agent.sleep( 5 );
+
+    await agent.checkIfGroupClickableWrapperExists( 'QUE_ADD_ITEMS_GRP' );
+    await agent.sleep( 5 );
+    await agent.clickGroupClickableWrapper( 'QUE_ADD_ITEMS_GRP' );
+    await agent.sleep( 2 );
+    await agent.checkIfGroupClickableWrapperExists( 'QUE_HOST_CPY_MENU' );
+    await agent.sleep( 5 );
+
+    await agent.closeBrowser();
+  });
+
+});
+
 ```
 
 # Input Elements
