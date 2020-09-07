@@ -1,10 +1,12 @@
 # Gennyteer
 
-Automated browser testing stack of the Genny Project using Jest and Puppeteer. UAT, E2E and Regression tests. 
+Automated browser testing stack of the Genny Project using Jest and Puppeteer. UAT, E2E and Regression tests.
 
-## How to run the test
+## Stephs to run the test
 
-1. `./build-docker.sh`
+1. Clone this project.
+2. `cd` into project docker build it with `./build-docker.sh`
+3. Mount test files into the docker container and run the testing suites.
 
 #### Writing a basic Test
 
