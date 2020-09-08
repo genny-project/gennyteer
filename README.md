@@ -23,39 +23,39 @@ jest.setTimeout( 60 * 1000000 );
 describe( 'EXAMPLE GENNYTEET TEST 00001', () => {
 
   it( 'TEST CASE EGT0001 - It Should login as agent and test tree view', async () => {
-    const agent = await GennyDesktopBrowser.build( process.env.PASSED_GENNY_URL );
+    const user = await GennyDesktopBrowser.build( process.env.PASSED_GENNY_URL );
 
-    // Login as agent by entering login details into keycloak
+    // Login as user by entering login details into keycloak
 
     // await user.click('button');
-    await agent.inputTextUsingID( 'username', process.env.AGENT_A_USERNAME );
-    await agent.inputTextUsingID( 'password', process.env.AGENT_A_PASSWORD );
-    await agent.clickOnSelector( '#kc-login' );
+    await user.inputTextUsingID( 'username', process.env.USER_A_USERNAME );
+    await user.inputTextUsingID( 'password', process.env.USER_A_PASSWORD );
+    await user.clickOnSelector( '#kc-login' );
 
     // wait 60 seconds as system is slow sometimes
-    await agent.sleep( 60 );
+    await user.sleep( 60 );
 
-    await agent.checkIfGroupClickableWrapperExists( 'QUE_DASHBOARD_VIEW' );
-    await agent.sleep( 10 );
-    await agent.checkIfGroupClickableWrapperExists( 'QUE_TAB_BUCKET_VIEW' );
-    await agent.sleep( 5 );
-    await agent.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_CONTACTS_GRP' );
-    await agent.sleep( 5 );
-    await agent.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_INTERNSHIPS_GRP' );
-    await agent.sleep( 5 );
-    await agent.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_HOST_COMPANIES_GRP' );
-    await agent.sleep( 5 );
-    await agent.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_EDU_PROVIDERS_GRP' );
-    await agent.sleep( 5 );
+    await user.checkIfGroupClickableWrapperExists( 'QUE_DASHBOARD_VIEW' );
+    await user.sleep( 10 );
+    await user.checkIfGroupClickableWrapperExists( 'QUE_TAB_BUCKET_VIEW' );
+    await user.sleep( 5 );
+    await user.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_CONTACTS_GRP' );
+    await user.sleep( 5 );
+    await user.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_INTERNSHIPS_GRP' );
+    await user.sleep( 5 );
+    await user.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_HOST_COMPANIES_GRP' );
+    await user.sleep( 5 );
+    await user.checkIfGroupClickableWrapperExists( 'QUE_TREE_ITEM_EDU_PROVIDERS_GRP' );
+    await user.sleep( 5 );
 
-    await agent.checkIfGroupClickableWrapperExists( 'QUE_ADD_ITEMS_GRP' );
-    await agent.sleep( 5 );
-    await agent.clickGroupClickableWrapper( 'QUE_ADD_ITEMS_GRP' );
-    await agent.sleep( 2 );
-    await agent.checkIfGroupClickableWrapperExists( 'QUE_HOST_CPY_MENU' );
-    await agent.sleep( 5 );
+    await user.checkIfGroupClickableWrapperExists( 'QUE_ADD_ITEMS_GRP' );
+    await user.sleep( 5 );
+    await user.clickGroupClickableWrapper( 'QUE_ADD_ITEMS_GRP' );
+    await user.sleep( 2 );
+    await user.checkIfGroupClickableWrapperExists( 'QUE_HOST_CPY_MENU' );
+    await user.sleep( 5 );
 
-    await agent.closeBrowser();
+    await user.closeBrowser();
   });
 
 });
