@@ -62,18 +62,18 @@ describe( 'EXAMPLE GENNYTEET TEST 00001', () => {
 
 ```
 
-# Input Elements
+# Commonly Used Action Methods
 
 #### Fill input text
 
 ```javascript
-await user.typeInputText("testid-text", "example");
+await user.inputTextUsingTestID("testid-text", "input-value");
 ```
 
 #### Fill in Autocomplete
 
 ```javascript
-await user.typeInputAutocomplete("testid-text", "address");
+await user.typeInputAutocomplete("testid-text", "input-value", "input-value-element");
 ```
 
 ## Select
@@ -81,7 +81,7 @@ await user.typeInputAutocomplete("testid-text", "address");
 #### Select input dropdown
 
 ```javascript
-await user.selectInputDropdown("teest-id-text", "example");
+await user.selectSpecificTag("teest-id-text", "example");
 ```
 
 #### Select button using css
