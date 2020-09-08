@@ -99,18 +99,6 @@ await user.click('button');
 await user.clickOnTestId("QUE_XXXXXXXXX");
 ```
 
-#### click Sidebar Dropdown
-
-```javascript
-await user.clickSidebarDropdown("GRP_CODE_OF_SIDEBAR");
-```
-
-#### Click on sidebar item
-
-```javascript
-await user.clickSidebarItem("GRP_SIDEBAR_ITEM_GRP");
-```
-
 # Faker Methods
 
 ```javascript
