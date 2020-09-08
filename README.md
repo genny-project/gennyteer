@@ -140,7 +140,7 @@ user
 ### Display (this checks if the selector exists)
 
 ```javascript
-await user.checkIfGroupClickableWrapperExists("tes-is");
+await user.checkIfGroupClickableWrapperExists("tes-id");
 ```
 
 #### Database
