@@ -125,7 +125,7 @@ usere.faker().phoneNumber(); // to generate phone number
 
 #### Reading data from Database, Cache, Frontend Store and Frontend Display
 
-#### Store
+#### FrontEnd Store (Deprecated)
 
 ```javascript
 it("checks if the baseentity attribute value exists in the frontend store", async () => {
@@ -133,12 +133,6 @@ it("checks if the baseentity attribute value exists in the frontend store", asyn
   const store = await page.evaluate(() => window.store.getState());
   await user.services().baseEntityExists("BASE_ENTITY_NAME");
 ```
-
-Ideally the above store check should be done while interacting with the page, because baseentitys is not received from the backend unless you are interacting with the baseentity itself.
-
-Example: There won't be a list of contacts baseentitys in the store - where you are viewing internships table/page.
-
-Note: base entitys are requested from the backend only when you want to interact with the particular base entity
 
 #### Cache
 
@@ -158,12 +152,10 @@ user
 ### Display (this checks if the selector exists)
 
 ```javascript
-await user.checkIfGroupClickableWrapperExists(".selectorgoeshere");
+await user.checkIfGroupClickableWrapperExists("tes-is");
 ```
 
 #### Database
-
-Please skip the database for now, its not tested
 
 ```javascript
 await user
