@@ -64,7 +64,7 @@ describe( 'EXAMPLE GENNYTEET TEST 00001', () => {
 
 # Commonly Used Action Methods
 
-#### Fill input text
+#### Fill Input Text
 
 ```javascript
 await user.inputTextUsingTestID("testid-text", "input-value");
@@ -78,31 +78,25 @@ await user.typeInputAutocomplete("testid-text", "input-value", "input-value-elem
 
 ## Select
 
-#### Select input dropdown
+#### Select Specific Input Dropdown Element
 
 ```javascript
 await user.selectSpecificTag("teest-id-text", "example");
 ```
 
-#### Select button using css
-
-```javascript
-await user.clickButtonUsingCSS('[data-testid="button"]');
-```
-
 ## Click
 
-#### Click on something
+#### Click on an Element
 
 ```javascript
-await user.click("form-generic-submit");
-await user.click("selector");
+await user.clickGroupClickableWrapper("form-generic-submit");
+await user.click('button');
 ```
 
 #### Click on testID
 
 ```javascript
-await user.clickOnTestId("SEL_SOMETHING_FROM_TEST_ID");
+await user.clickOnTestId("QUE_XXXXXXXXX");
 ```
 
 #### click Sidebar Dropdown
@@ -161,10 +155,10 @@ user
   );
 ```
 
-### Display (this checks if the selector exists in the screen)
+### Display (this checks if the selector exists)
 
 ```javascript
-await user.checkIfSelectorExists(".selectorgoeshere");
+await user.checkIfGroupClickableWrapperExists(".selectorgoeshere");
 ```
 
 #### Database
