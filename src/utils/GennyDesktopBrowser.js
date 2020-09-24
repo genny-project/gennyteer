@@ -97,27 +97,11 @@ class GennyDesktopBrowser {
     console.log( screenshot_path );
     const scShot = new ScSchot( this.page, fileName );
     scShot.shoot( screenshot_path );
-
   }
 
   async clickOnSelector( selector ) {
     await this.page.waitForSelector( selector );
     await expect( this.page ).toClick( selector );
-
-  }
-
-  async inputTextUsingID( id, text ) {
-    const selector = `#${id}`;
-    await this.page.waitForSelector( selector );
-    await this.inputTextBoxUsingCSS( selector, text );
-
-  }
-
-  async inputTextUsingTestID( id,text ){
-    const selector=`[test-id="${id}"]`;
-    await this.page.click( selector );
-    await this.page.keyboard.type( text );
-
   }
 
   async inputTextBoxUsingCSS( selector, text, options = {}) {
@@ -126,9 +110,16 @@ class GennyDesktopBrowser {
     await expect( this.page ).toFill( selector, text );
   }
 
-  async clickButtonUsingCSS( selector, options = {}) {
-    await this.page.waitForSelector( selector, options );
-    await expect( this.page ).toClick( selector );
+  async inputTextUsingID( id, text ) {
+    const selector = `#${id}`;
+    await this.page.waitForSelector( selector );
+    await this.inputTextBoxUsingCSS( selector, text );
+  }
+
+  async inputTextUsingTestID( id,text ) {
+    const selector=`[test-id="${id}"]`;
+    await this.page.click( selector );
+    await this.page.keyboard.type( text );
   }
 
   async typeInput( askId, text ) {
@@ -142,11 +133,6 @@ class GennyDesktopBrowser {
   async typeInputText( askId, text ) {
     // Type into an text input on the page
     await this.typeInput( askId, text );
-  }
-
-  async typeInputEmail( askId, text, options = {}) {
-    // Type into an email input on the page
-    await this.typeInput( 'email', askId, text, options );
   }
 
   async typeInputAutocomplete( askId, text, selectorId ) {
@@ -164,36 +150,24 @@ class GennyDesktopBrowser {
     await expect( this.page ).toClick( selectorItem );
   }
 
-  async selectInputDropdown( askId, dropdownValue ) {
-    // Click the dropdown
-    await expect( this.page ).toClick( `[data-testid="input-dropdown ${askId}"]` );
+  // async selectTag
+  // ( askId, options = {}) {
+  //   const { clickIndex = 0 } = options;
+  //   const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
+  //   const regexOptionSelector = optionSelector.match( /data-testid="input-tag-option.*$/g );
+  //   const arrayValueOptionSelector = `[${regexOptionSelector[0]}`;
 
-    // Find the dropdown input on the page and select the dropdown value (usually baseentity code) from the items
-    // This is different from just clicking on it. Puppeteer uses the select function.
-    await this.page.select(
-      `select[data-testid="input-dropdown ${askId}"]`,
-      dropdownValue
-    );
-  }
+  //   await this.page.waitFor( 5 * SECONDS );
 
-  async selectTag
-  ( askId, options = {}) {
-    const { clickIndex = 0 } = options;
-    const optionSelector = `[data-testid="input-tag-option ${askId}"]`;
-    const regexOptionSelector = optionSelector.match( /data-testid="input-tag-option.*$/g );
-    const arrayValueOptionSelector = `[${regexOptionSelector[0]}`;
+  //   // Click the tags dropdown
+  //   await this.click( `input-text input-tag ${askId}` );
 
-    await this.page.waitFor( 5 * SECONDS );
-
-    // Click the tags dropdown
-    await this.click( `input-text input-tag ${askId}` );
-
-    // Clicking tags option
-    await this.page.waitForSelector( optionSelector );
-    const tagSelection = await this.page.$$( arrayValueOptionSelector );
-    const specificSelection = await tagSelection[clickIndex];
-    await specificSelection.click();
-  }
+  //   // Clicking tags option
+  //   await this.page.waitForSelector( optionSelector );
+  //   const tagSelection = await this.page.$$( arrayValueOptionSelector );
+  //   const specificSelection = await tagSelection[clickIndex];
+  //   await specificSelection.click();
+  // }
 
   async selectSpecificTag
   ( askId, baseentityCode ) {
@@ -232,73 +206,12 @@ class GennyDesktopBrowser {
     await button[clickIndex].click();
   }
 
-  // click button using testid
-  async clickButton( testId = '', options = {}) {
-    // Make a normal click but prefix it with `button`
-    await this.click( `button ${testId}`, options );
-  }
-
-  // this is for clicking on the button on the header for example see internmatch header button
-  async clickDropDownButtonUsingTestId(
-    testId = 'ADD_ITEMS_DROPDOWN',
-    options = {}
-  ) {
-    const selector = `dropdown ${testId}`;
-    this.page.waitForSelector( selector );
-    await this.click( selector, options );
-  }
-
-  async clickGennyDropdown(
-    testId,
-    selectionId,
-    dropdownOptions = {},
-    dropdownItemOptions = {}
-  ) {
-    // Make a normal click but prefix it with `dropdown`
-    await this.click( `dropdown ${testId}`, dropdownOptions );
-    this.sleep( 2 );
-    // Make a normal click but prefix it with `dropdown-item`
-    await this.click( `dropdown-item ${selectionId}`, dropdownItemOptions );
-  }
-
-  async clickDropDownItem( testID ) {
-    const selector = `[data-testid="dropdown-item ${testID}"]`;
-    await this.page.waitForSelector( selector );
-    await expect( this.page ).toClick( selector );
-  }
-
   /* Make a normal click on an item with a testID */
   async clickOnTestId( testId ) {
     const selector = `[test-id="${testId}"]`;
     await this.page.waitForSelector( selector );
 
     await expect( this.page ).toClick( selector );
-  }
-
-  /* Make a normal click on a sidebar dropdown */
-  async clickSidebarDropdown( testId ) {
-    const selector = `[data-testid="sidebar-dropdown ${testId}"]`;
-    await expect( this.page ).toClick( selector );
-  }
-
-  async clickGroupClickableWrapperExists( askId, baseentityCode ) {
-    const selector = `[data-testid="group-clickable-wrapper ${askId}:${baseentityCode}"]`;
-    await expect( this.page ).toClick( selector );
-  }
-
-  async clickIfApplyGroupTableRowExists( baseentityCode ) {
-    const selector = `[data-testid="QUE_${baseentityCode}_GRP:QUE_PRI_EVENT_APPLY_${baseentityCode}"]`;
-    await expect( this.page ).toClick( selector );
-  }
-
-  // Check if the seelector exists or Not
-  async checkIfSelectorExists( selector ) {
-    await this.page.waitForSelector( selector );
-    if (( await this.page.$( selector )) !== null ) {
-      console.log( 'Selector Exists!' );
-      return Promise.resolve( true );
-    }
-    return Promise.reject( Error( 'Selector not found' ));
   }
 
   // async checkIfGroupClickableWrapperWithoutBeExists
@@ -325,27 +238,27 @@ class GennyDesktopBrowser {
     return Promise.reject( Error( 'Selector not found' ));
   }
 
-  async checkIfViewGroupTableRowExists
-  ( baseentityCode ) {
-    const selector = `[data-testid="QUE_${baseentityCode}_GRP:QUE_PRI_EVENT_VIEW_${baseentityCode}"]`;
+  async checkIfGroupClickableWrapperExistsAndClickID
+  ( askId ) {
+    const selector = `[test-id="${askId}"]`;
+    let visible = true;
 
-    if (( await this.page.$( selector )) !== null ) {
-      console.log( 'Selector Exists!' );
-      return Promise.resolve( true );
+    await this.page
+      .waitForSelector(selector, { visible: true,  timeout: 200 })
+      .catch(() => {
+        visible = false;
+    });
+
+    console.log('Visible value is ', visible);
+
+    if (visible) {
+            console.log( 'Selector Exists!' );
+            return Promise.resolve( 'exists' );
+    } else {
+      console.log( 'Selector Does Not Exists!' );
+      return Promise.resolve( 'does not exist' );
     }
-    return Promise.reject( Error( 'Selector not found' ));
-  }
-
-  async clickCardUpperRightSelector
-  ( baseentityCode ) {
-    const selector = `[data-testid="group-clickable-wrapper QUE_CARD_CONTENT_GRP:QUE_CARD_RIGHT_GRP:${baseentityCode}"]`;
-    await expect( this.page ).toClick( selector );
-
-    if (( await this.page.$( selector )) !== null ) {
-      console.log( 'Selector Exists!' );
-      return Promise.resolve( true );
-    }
-    return Promise.reject( Error( 'Selector not found' ));
+    // return Promise.reject( Error( 'Selector not found' ));
   }
 
   async checkIfTestIDExists( testID ) {
@@ -381,29 +294,6 @@ class GennyDesktopBrowser {
     writefile( data );
     readfile( fileName );
     return Promise.reject( Error( 'test ID not found' ));
-  }
-
-
-  /* Make a normal click on an sidebar item */
-  async clickSidebarItem( testId ) {
-    const selector = `[data-testid="sidebar-item ${testId}"]`;
-    await expect( this.page ).toClick( selector );
-  }
-
-  async clickSideBarItemV2( testId ){
-    const selector = `[data-testid="sidebar-item-${testId}"]`;
-    await expect( this.page ).toClick( selector );
-  }
-
-  async datePicker( id ){
-    const selector=`[data-testid="input-date-picker ${id}"]`;
-    await this.page.click( selector );
-
-    await this.page.waitFor( 2 * SECONDS );
-
-    // Click the the exact day
-    await this.click( `input-date-picker-option input-date-picker-day ${id}` );
-    // await this.page.keyboard.type( text );
   }
 
   async services() {
