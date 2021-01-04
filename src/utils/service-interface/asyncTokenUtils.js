@@ -7,7 +7,7 @@ const tokenURL = GET_TOKEN_URL;
 const requsetParams = {
   grant_type: 'password',
   client_id: 'alyson',
-  username: 'user1',
+  username: 'user1@gmail.com',
   password: 'rY2bbG7PeB09RXwPg',
 };
 const getTokenUtils = async () => {
