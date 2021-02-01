@@ -215,7 +215,7 @@ class GennyDesktopBrowser {
     //await this.page.button.click();
     await expect( this.page ).toClick( selector );
   }
-
+  
   async clickOnID(testId) {
     const selector = `[id="${testId}"]-actions`;
     await this.page.waitForSelector( selector );
