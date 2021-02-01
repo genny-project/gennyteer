@@ -169,6 +169,8 @@ class GennyDesktopBrowser {
   //   await specificSelection.click();
   // }
 
+  
+
   async selectSpecificTag
   ( askId, baseentityCode ) {
     const optionSelector = `[test-id="${baseentityCode}"]`;
@@ -206,6 +208,22 @@ class GennyDesktopBrowser {
     await button[clickIndex].click();
   }
 
+  async clickOnDiv(testId) {
+    const selector = `[class="${testId}"]`;
+    await this.page.waitForSelector( selector );
+    //const button = await this.page.$$( selector );
+    //await this.page.button.click();
+    await expect( this.page ).toClick( selector );
+  }
+  
+  async clickOnID(testId) {
+    const selector = `[id="${testId}"]-actions`;
+    await this.page.waitForSelector( selector );
+    //const button = await this.page.$$( selector );
+    //await this.page.button.click();
+    await expect( this.page ).toClick( selector );
+  }
+
   /* Make a normal click on an item with a testID */
   async clickOnTestId( testId ) {
     const selector = `[test-id="${testId}"]`;
@@ -214,6 +232,26 @@ class GennyDesktopBrowser {
     await expect( this.page ).toClick( selector );
   }
 
+  async getInnerSelection(id){
+    const selector = `#${id}-actions`;
+    await this.page.waitForSelector( selector );
+    await this.page.click( selector );
+  }
+
+  async clickOnButtonId( testId ) {
+    const selector = `[button id="${testId}"-actions]`;
+    await this.page.waitForSelector( selector );
+
+    await expect( this.page ).toClick( selector );
+  }
+  
+  async ClickEvent(baseentityCode){
+    const optionSelector = `[button id="${baseentityCode}"-actions]`;
+    await page.evaluate(() => document.querySelector(optionSelector).scrollIntoView());
+      await page.click(optionSelector);
+  }
+
+  //------
   // async checkIfGroupClickableWrapperWithoutBeExists
   // ( askId ) {
   //   const selector = `[data-testid="group-clickable-wrapper ${askId}"]`;
@@ -301,5 +339,7 @@ class GennyDesktopBrowser {
     return services;
   }
 }
+
+
 
 export default GennyDesktopBrowser;
