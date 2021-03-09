@@ -7,7 +7,7 @@ const tokenURL = GET_TOKEN_URL;
 const requsetParams = {
   grant_type: 'password',
   client_id: 'alyson',
-  username: 'user1@gmail.com',
+  username: 'testuser@gada.io',
   password: 'rY2bbG7PeB09RXwPg',
 };
 const getTokenUtils = async () => {
