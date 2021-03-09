@@ -1,13 +1,13 @@
 import axios from 'axios';
 import queryString from 'querystring';
-/* Get URLS */
+/* Get URLS */ 
 const GET_TOKEN_URL = 'https://keycloak.gada.io/auth/realms/internmatch/protocol/openid-connect/token';
 const tokenURL = GET_TOKEN_URL;
 /* request parameters to be sent */
 const requsetParams = {
   grant_type: 'password',
   client_id: 'alyson',
-  username: 'user1@gmail.com',
+  username: 'testuser@gada.io',
   password: 'rY2bbG7PeB09RXwPg',
 };
 const getTokenUtils = async () => {
